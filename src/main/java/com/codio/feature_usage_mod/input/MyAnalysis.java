@@ -1,4 +1,4 @@
-package com.yourorganization.maven_sample;
+package com.codio.feature_usage_mod.input;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
