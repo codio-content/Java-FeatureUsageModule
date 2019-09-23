@@ -1,4 +1,9 @@
 package com.codio.feature_usage_mod.controller.features;
 
-public class Arrays {
+import com.codio.feature_usage_mod.controller.IFeatures;
+
+public class Arrays implements IFeatures {
+
+  public Arrays() {
+  }
 }
