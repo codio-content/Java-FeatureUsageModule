@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod;
 
+import com.github.javaparser.JavaParser;
 
 /**
  * This class contains the main method to run the program
