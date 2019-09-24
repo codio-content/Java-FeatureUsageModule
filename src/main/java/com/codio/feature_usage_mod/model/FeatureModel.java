@@ -7,7 +7,7 @@ package com.codio.feature_usage_mod.model;
  *
  */
 
-public class FeatureModel implements ICommandDesignModel{
+public class FeatureModel implements IModel {
 
   //TODO: Make a feature set with all important constructs. (Hash Table preferably - key:value pair)
 
