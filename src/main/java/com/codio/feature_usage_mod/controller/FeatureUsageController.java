@@ -5,7 +5,7 @@ package com.codio.feature_usage_mod.controller;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-import com.codio.feature_usage_mod.controller.features.Arrays;
+import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
 import com.codio.feature_usage_mod.model.ICommandDesignModel;
 import com.codio.feature_usage_mod.view.IView;
 
