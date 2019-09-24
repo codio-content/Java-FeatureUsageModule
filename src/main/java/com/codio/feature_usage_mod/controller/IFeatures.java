@@ -4,5 +4,4 @@ import com.codio.feature_usage_mod.model.ICommandDesignModel;
 
 public interface IFeatures {
 
-  void execute(ICommandDesignModel model);
 }

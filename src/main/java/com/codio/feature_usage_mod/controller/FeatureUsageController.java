@@ -5,6 +5,7 @@ package com.codio.feature_usage_mod.controller;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
 import com.codio.feature_usage_mod.model.ICommandDesignModel;
 import com.codio.feature_usage_mod.view.IView;
 
@@ -30,6 +31,68 @@ public class FeatureUsageController implements IController, Consumer<String> {
       String in = s.next();
 
       switch (in) {
+        case "arrays":
+          cmd = new Arrays();
+          break;
+        case "classes":
+          break;
+        case "composition":
+          break;
+        case "constructors":
+          break;
+        case "datatypes":
+          break;
+        case "dowhile":
+          break;
+        case "fileio":
+          break;
+        case "for":
+          break;
+        case "foreach":
+          break;
+        case "functions":
+          break;
+        case "hastables":
+          break;
+        case "if":
+          break;
+        case "infiniteloops":
+          break;
+        case "inheritance":
+          break;
+        case "libraryusage":
+          break;
+        case "lists":
+          break;
+        case "maps":
+          break;
+        case "methods":
+          break;
+        case "methodoverloading":
+          break;
+        case "methodoverriding":
+          break;
+        case "objects":
+          break;
+        case "recursion":
+          break;
+        case "stacks":
+          break;
+        case "standardio":
+          break;
+        case "streamreaders":
+          break;
+        case "switch":
+          break;
+        case "trees":
+          break;
+        case "variables":
+          break;
+        case "vectors":
+          break;
+        case "while":
+          break;
+
 
         //TODO: Write the cases possible for the feature set
 
