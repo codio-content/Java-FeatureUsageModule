@@ -1,5 +1,7 @@
 package com.codio.feature_usage_mod.controller;
 
+import java.io.FileNotFoundException;
+
 /**
  * The controller interface for the FeatureChecker program.
  * The functions here have been designed to give
@@ -10,17 +12,17 @@ package com.codio.feature_usage_mod.controller;
 
 public interface IController {
 
-  /**
-   * Process a given string command and return status or error as a string
-   * @param command the command given, including any parameters (e.g. "move 3")
-   *                i.e. ("command parameter")
-   * @return status or error message
-   */
-  String processCommand(String command);
+//  /**
+//   * Process a given string command and return status or error as a string
+//   * @param command the command given, including any parameters (e.g. "move 3")
+//   *                i.e. ("command parameter")
+//   * @return status or error message
+//   */
+//  String processCommand(String command);
 
   /**
    * Start the program, i.e. give control to the controller
    */
-  void go();
+  void start();
 
 }

@@ -2,121 +2,141 @@ package com.codio.feature_usage_mod.controller;
 
 //import statements
 
-import java.util.Scanner;
-import java.util.function.Consumer;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
-import com.codio.feature_usage_mod.model.ICommandDesignModel;
+import com.codio.feature_usage_mod.model.IModel;
 import com.codio.feature_usage_mod.view.IView;
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.CompilationUnit;
 
-public class FeatureUsageController implements IController, Consumer<String> {
+public class FeatureUsageController implements IController {
 
   /*TODO: After making the Feature set, Make a Commands directory with all these Features as an independent
           Java file with corresponding code to be executed in the switch case*/
 
-  private ICommandDesignModel model;
+  private IModel model;
   private IView view;
+  private String FILE_PATH;
 
-  public FeatureUsageController(ICommandDesignModel model, IView view) {
+
+  public FeatureUsageController(IModel model, IView view, String file_path)
+          throws FileNotFoundException {
     this.model = model;
     this.view = view;
+    this.FILE_PATH = file_path;
   }
 
+  CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
+
   @Override
-  public String processCommand(String command) {
-    Scanner s = new Scanner(command);
-    IFeatures cmd = null;
+  public void start() {
 
-    while (s.hasNext()) {
-      String in = s.next();
+    StringBuffer sb = new StringBuffer();
+    sb.append("Welcome to Symonn's Feature Usage Module.\n"
+            + "What do you want to check in your students' code ?\n"
+            + "1. constructs"
+            + "2. data structures"
+            + "3. techniques");
+    appendToAppendableAndDisplay(sb);
 
-      switch (in) {
-        case "arrays":
-          cmd = new Arrays();
-          break;
-        case "classes":
-          break;
-        case "composition":
-          break;
-        case "constructors":
-          break;
-        case "datatypes":
-          break;
-        case "dowhile":
-          break;
-        case "fileio":
-          break;
-        case "for":
-          break;
-        case "foreach":
-          break;
-        case "functions":
-          break;
-        case "hastables":
-          break;
-        case "if":
-          break;
-        case "infiniteloops":
-          break;
-        case "inheritance":
-          break;
-        case "libraryusage":
-          break;
-        case "lists":
-          break;
-        case "maps":
-          break;
-        case "methods":
-          break;
-        case "methodoverloading":
-          break;
-        case "methodoverriding":
-          break;
-        case "objects":
-          break;
-        case "recursion":
-          break;
-        case "stacks":
-          break;
-        case "standardio":
-          break;
-        case "streamreaders":
-          break;
-        case "switch":
-          break;
-        case "trees":
-          break;
-        case "variables":
-          break;
-        case "vectors":
-          break;
-        case "while":
-          break;
+    String category = view.getNextInput();
 
-
-        //TODO: Write the cases possible for the feature set
-
-      }
+    switch (category) {
+      case "constructs":
+        constructsSwitchCase();
+        break;
+      case "data structures":
+        datastructuresSwitchCase();
+        break;
+      case "techniques":
+        techniquesSwitchCase();
+        break;
+      default:
+        sb.append("Incorrect option. Please choose again.").append("\n");
+        appendToAppendableAndDisplay(sb);
     }
-
-    return null;
+    start();
   }
 
-
-  @Override
-  public void go() {
+  private void techniquesSwitchCase() {
 
   }
 
-  @Override
-  public void accept(String s) {
-    String command = s;
-    String status = "";
+  private void datastructuresSwitchCase() {
 
+  }
+
+  private void constructsSwitchCase() {
+    StringBuffer sb = new StringBuffer();
+    sb.append("Please enter one of the following options in lowercase:\n"
+            + "1. Classes\n"
+            + "2. Constructors\n"
+            + "3. DataTypes\n"
+            + "4. DoWhile\n"
+            + "5. For\n"
+            + "6. ForEach\n"
+            + "7. FunctionReturnTypes\n"
+            + "8. IfConditionals\n"
+            + "9. Methods\n"
+            + "10. Objects\n"
+            + "11. Strings\n"
+            + "12. Switch\n"
+            + "13. Variables\n"
+            + "14. While\n");
+    appendToAppendableAndDisplay(sb);
+    String option = view.getNextInput();
+    if (option == null) {
+      return;
+    }
+    switch (option) {
+      case "classes":
+        break;
+      case "constructors":
+        break;
+      case "datatypes":
+        break;
+      case "dowhile":
+        break;
+      case "for":
+        break;
+      case "foreach":
+        break;
+      case "functionreturntypes":
+        break;
+      case "ifconditionals":
+        break;
+      case "methods":
+        break;
+      case "objects":
+        break;
+      case "strings":
+        break;
+      case "switch":
+        break;
+      case "variables":
+        break;
+      case "while":
+        break;
+    }
+  }
+
+  IFeatures cmd = null;
+
+
+  /**
+   * Appends output buffer to appendable and displays to user.
+   *
+   * @param message message to be displayed
+   */
+  private void appendToAppendableAndDisplay(StringBuffer message) {
+    Appendable out = new StringBuffer();
     try {
-      status = processCommand(command);
-    } catch (Exception ex) {
-      //TODO: View function to throw error message on console
+      out.append(message);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    view.show(out);
   }
 }

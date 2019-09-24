@@ -6,5 +6,5 @@ package com.codio.feature_usage_mod.model;
  *
  */
 
-public interface ICommandDesignModel {
+public interface IModel {
 }
