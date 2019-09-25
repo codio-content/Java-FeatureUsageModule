@@ -1,11 +1,10 @@
 package com.codio.feature_usage_mod.controller;
 
-//import statements
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.model.IModel;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.StaticJavaParser;
@@ -18,17 +17,15 @@ public class FeatureUsageController implements IController {
 
   private IModel model;
   private IView view;
-  private String FILE_PATH;
+  private CompilationUnit cu;
 
 
-  public FeatureUsageController(IModel model, IView view, String file_path)
+  public FeatureUsageController(IModel model, IView view, CompilationUnit cu)
           throws FileNotFoundException {
     this.model = model;
     this.view = view;
-    this.FILE_PATH = file_path;
+    this.cu = cu;
   }
-
-  CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
 
   @Override
   public void start() {
@@ -36,8 +33,8 @@ public class FeatureUsageController implements IController {
     StringBuffer sb = new StringBuffer();
     sb.append("Welcome to Symonn's Feature Usage Module.\n"
             + "What do you want to check in your students' code ?\n"
-            + "1. constructs"
-            + "2. data structures"
+            + "1. constructs\n"
+            + "2. data structures\n"
             + "3. techniques");
     appendToAppendableAndDisplay(sb);
 
@@ -86,12 +83,14 @@ public class FeatureUsageController implements IController {
             + "13. Variables\n"
             + "14. While\n");
     appendToAppendableAndDisplay(sb);
+
     String option = view.getNextInput();
     if (option == null) {
       return;
     }
     switch (option) {
       case "classes":
+      new Classes().visit(cu, null);
         break;
       case "constructors":
         break;
@@ -120,9 +119,8 @@ public class FeatureUsageController implements IController {
       case "while":
         break;
     }
-  }
 
-  IFeatures cmd = null;
+  }
 
 
   /**
