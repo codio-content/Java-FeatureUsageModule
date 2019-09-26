@@ -1,13 +1,9 @@
 package com.codio.feature_usage_mod.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
-import com.codio.feature_usage_mod.model.IModel;
 import com.codio.feature_usage_mod.view.IView;
-import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 
 public class FeatureUsageController implements IController {
@@ -15,14 +11,11 @@ public class FeatureUsageController implements IController {
   /*TODO: After making the Feature set, Make a Commands directory with all these Features as an independent
           Java file with corresponding code to be executed in the switch case*/
 
-  private IModel model;
   private IView view;
   private CompilationUnit cu;
 
 
-  public FeatureUsageController(IModel model, IView view, CompilationUnit cu)
-          throws FileNotFoundException {
-    this.model = model;
+  public FeatureUsageController( IView view, CompilationUnit cu) {
     this.view = view;
     this.cu = cu;
   }
@@ -35,7 +28,8 @@ public class FeatureUsageController implements IController {
             + "What do you want to check in your students' code ?\n"
             + "1. constructs\n"
             + "2. data structures\n"
-            + "3. techniques");
+            + "3. techniques\n"
+            + "4. exit\n");
     appendToAppendableAndDisplay(sb);
 
     String category = view.getNextInput();
@@ -50,6 +44,8 @@ public class FeatureUsageController implements IController {
       case "techniques":
         techniquesSwitchCase();
         break;
+      case "exit":
+        return;
       default:
         sb.append("Incorrect option. Please choose again.").append("\n");
         appendToAppendableAndDisplay(sb);
@@ -66,6 +62,7 @@ public class FeatureUsageController implements IController {
   }
 
   private void constructsSwitchCase() {
+    String message = "";
     StringBuffer sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
             + "1. Classes\n"
@@ -90,7 +87,7 @@ public class FeatureUsageController implements IController {
     }
     switch (option) {
       case "classes":
-      new Classes().visit(cu, null);
+      message = new Classes().visit(cu, null) + "\n";
         break;
       case "constructors":
         break;
@@ -119,6 +116,7 @@ public class FeatureUsageController implements IController {
       case "while":
         break;
     }
+   appendToAppendableAndDisplay(new StringBuffer().append(message));
 
   }
 

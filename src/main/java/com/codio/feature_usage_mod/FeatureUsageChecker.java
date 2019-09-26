@@ -29,7 +29,7 @@ public class FeatureUsageChecker {
     IModel model = new FeatureModel();
     IView view = new FeatureUsageView(in);
     //String file_path = "src/main/java/org/javaparser/examples/StudentCode.java";
-    IController controller = new FeatureUsageController(model, view, cu);
+    IController controller = new FeatureUsageController(view, cu);
     controller.start();
 
   }

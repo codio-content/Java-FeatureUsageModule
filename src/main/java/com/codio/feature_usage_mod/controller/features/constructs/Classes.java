@@ -1,20 +1,17 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
-public class Classes extends VoidVisitorAdapter<Void> {
+public class Classes extends GenericVisitorAdapter<String, Void> {
 
   public Classes() {
   }
 
   @Override
-  public void visit(ClassOrInterfaceDeclaration cd, Void arg) {
+  public String visit(ClassOrInterfaceDeclaration cd, Void arg) {
     super.visit(cd, arg);
-    System.out.println("Class Name Printed: " + cd.getName());
+    return "Class Name used: " + cd.getName();
   }
 
-
 }
-/*
- */
