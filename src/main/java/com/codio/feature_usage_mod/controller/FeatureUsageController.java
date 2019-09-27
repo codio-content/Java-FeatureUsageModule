@@ -3,6 +3,7 @@ package com.codio.feature_usage_mod.controller;
 import java.io.IOException;
 
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
+import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -90,7 +91,11 @@ public class FeatureUsageController implements IController {
       message = new Classes().visit(cu, null) + "\n";
         break;
       case "constructors":
-        break;
+      message = new Constructors().visit(cu, null) + "\n";
+      if(message.equals("null\n")) {
+        message = "No constructors in code";
+      }
+      break;
       case "datatypes":
         break;
       case "dowhile":
