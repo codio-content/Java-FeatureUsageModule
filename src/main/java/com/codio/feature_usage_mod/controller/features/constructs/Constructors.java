@@ -15,8 +15,8 @@ public class Constructors extends GenericVisitorAdapter<String, Void> {
     List<String> constructorNames = new ArrayList<>();
     StringBuilder returnMessage = new StringBuilder();
     super.visit(cd, arg);
-    constructorNames.add(cd.getDeclarationAsString());
-    constructorNames.forEach(n -> returnMessage.append("Method Name Collected: ")
+    constructorNames.add(cd.getNameAsString());
+    constructorNames.forEach(n -> returnMessage.append("Constructor Name Collected: ")
             .append(n)
             .append("\n"));
 

@@ -10,6 +10,18 @@ public class ReversePolishNotation {
 
   private double memory = 0;
 
+  ReversePolishNotation(String arg) {
+
+  }
+
+  public ReversePolishNotation(int arg) {
+
+  }
+
+  private ReversePolishNotation(double arg) {
+
+  }
+
   /**
    * 18 * Takes reverse polish notation style string and returns the resulting calculat\ 19 ion. 20
    * * 21 * @param input mathematical expression in the reverse Polish notation format 22 * @return
