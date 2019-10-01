@@ -10,6 +10,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
+import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -143,6 +144,8 @@ public class FeatureUsageController implements IController {
       case "variables":
         break;
       case "while":
+        message = new While().visit(cu, null);
+        message = checkForNullPointerException(message);
         break;
     }
    appendToAppendableAndDisplay(new StringBuffer().append(message));
