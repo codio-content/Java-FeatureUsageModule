@@ -128,14 +128,29 @@ public class FeatureUsageController implements IController {
 
       case "functionreturntypes":
         break;
+
       case "ifconditionals":
         break;
+
       case "methods":
+        List<String> methodsList = new ArrayList<>();
+        buffer = new StringBuffer();
+        new Constructors().visit(cu, methodsList);
+        if(methodsList.size() == 0) {
+          message = "No methods in code";
+        }
+        else {
+          methodsList.forEach(n -> buffer.append("Method name: ").append(n).append("\n"));
+          message = buffer.toString();
+        }
         break;
+
       case "objects":
         break;
+
       case "strings":
         break;
+
       case "switch":
         message = new Switch().visit(cu, null);
         message = checkForNullPointerException(message);
@@ -143,6 +158,7 @@ public class FeatureUsageController implements IController {
 
       case "variables":
         break;
+
       case "while":
         message = new While().visit(cu, null);
         message = checkForNullPointerException(message);
