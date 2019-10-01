@@ -13,6 +13,10 @@ public class StudentCode {
     x = 10;
     System.out.println(x);
 
+    for(int i = 0; i < 10; i++) {
+      x = x + 10;
+    }
+
 //    do {
 //      x = x - 1;
 //    }while(x > 5);

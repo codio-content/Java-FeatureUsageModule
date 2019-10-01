@@ -7,6 +7,7 @@ import java.util.List;
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
 import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
+import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -117,7 +118,16 @@ public class FeatureUsageController implements IController {
         break;
 
       case "for":
+        message = new For().visit(cu, null);
+        try {
+          if (message.equals("true")) {
+            message = "Yes";
+          }
+        }catch (NullPointerException ne) {
+          message = "No";
+        }
         break;
+
       case "foreach":
         break;
       case "functionreturntypes":

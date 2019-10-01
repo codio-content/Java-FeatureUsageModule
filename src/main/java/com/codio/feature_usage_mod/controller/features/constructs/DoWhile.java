@@ -2,7 +2,6 @@ package com.codio.feature_usage_mod.controller.features.constructs;
 
 import com.github.javaparser.ast.stmt.DoStmt;
 import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class DoWhile extends GenericVisitorAdapter<String, Void> {
 
