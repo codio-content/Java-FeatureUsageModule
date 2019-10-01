@@ -1,6 +1,8 @@
 package com.codio.feature_usage_mod.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
@@ -65,6 +67,7 @@ public class FeatureUsageController implements IController {
 
   private void constructsSwitchCase() {
     String message = "";
+    StringBuffer buffer;
     StringBuffer sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
             + "1. Classes\n"
@@ -89,14 +92,20 @@ public class FeatureUsageController implements IController {
     }
     switch (option) {
       case "classes":
-      message = new Classes().visit(cu, null) + "\n";
+        message = new Classes().visit(cu, null) + "\n";
         break;
       case "constructors":
-      message = new Constructors().visit(cu, null) + "\n";
-      if(message.equals("null\n")) {
-        message = "No constructors in code";
-      }
-      break;
+        List<String> constructorList = new ArrayList<>();
+        buffer = new StringBuffer();
+        new Constructors().visit(cu, constructorList);
+        if(constructorList.size() == 0) {
+          message = "No constructors in code";
+        }
+        else {
+          constructorList.forEach(n -> buffer.append("Constructor name: ").append(n).append("\n"));
+          message = buffer.toString();
+        }
+        break;
       case "datatypes":
         break;
       case "dowhile":
