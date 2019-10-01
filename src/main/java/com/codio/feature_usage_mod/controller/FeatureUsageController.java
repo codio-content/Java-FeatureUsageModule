@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
+import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -57,14 +58,6 @@ public class FeatureUsageController implements IController {
     start();
   }
 
-  private void techniquesSwitchCase() {
-
-  }
-
-  private void datastructuresSwitchCase() {
-
-  }
-
   private void constructsSwitchCase() {
     String message = "";
     StringBuffer buffer;
@@ -94,6 +87,7 @@ public class FeatureUsageController implements IController {
       case "classes":
         message = new Classes().visit(cu, null) + "\n";
         break;
+
       case "constructors":
         List<String> constructorList = new ArrayList<>();
         buffer = new StringBuffer();
@@ -106,10 +100,22 @@ public class FeatureUsageController implements IController {
           message = buffer.toString();
         }
         break;
+
       case "datatypes":
+
         break;
+
       case "dowhile":
+        message = new DoWhile().visit(cu, null);
+        try {
+          if (message.equals("true")) {
+            message = "Yes";
+          }
+        }catch (NullPointerException ne) {
+          message = "No";
+        }
         break;
+
       case "for":
         break;
       case "foreach":
@@ -135,6 +141,14 @@ public class FeatureUsageController implements IController {
 
   }
 
+
+  private void techniquesSwitchCase() {
+
+  }
+
+  private void datastructuresSwitchCase() {
+
+  }
 
   /**
    * Appends output buffer to appendable and displays to user.

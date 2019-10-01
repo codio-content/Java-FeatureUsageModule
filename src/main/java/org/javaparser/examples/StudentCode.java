@@ -12,6 +12,11 @@ public class StudentCode {
     int x;
     x = 10;
     System.out.println(x);
+
+//    do {
+//      x = x - 1;
+//    }while(x > 5);
+
   }
 
 }
