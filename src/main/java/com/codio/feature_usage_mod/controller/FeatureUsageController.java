@@ -9,6 +9,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
 import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
+import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -135,7 +136,10 @@ public class FeatureUsageController implements IController {
       case "strings":
         break;
       case "switch":
+        message = new Switch().visit(cu, null);
+        message = checkForNullPointerException(message);
         break;
+
       case "variables":
         break;
       case "while":
