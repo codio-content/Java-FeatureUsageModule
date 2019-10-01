@@ -8,6 +8,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
 import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
+import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -108,28 +109,21 @@ public class FeatureUsageController implements IController {
 
       case "dowhile":
         message = new DoWhile().visit(cu, null);
-        try {
-          if (message.equals("true")) {
-            message = "Yes";
-          }
-        }catch (NullPointerException ne) {
-          message = "No";
-        }
+        message = checkForNullPointerException(message);
         break;
 
       case "for":
         message = new For().visit(cu, null);
-        try {
-          if (message.equals("true")) {
-            message = "Yes";
-          }
-        }catch (NullPointerException ne) {
-          message = "No";
-        }
+        message = checkForNullPointerException(message);
+
         break;
 
       case "foreach":
+        message = new ForEach().visit(cu, null);
+        message = checkForNullPointerException(message);
+
         break;
+
       case "functionreturntypes":
         break;
       case "ifconditionals":
@@ -173,5 +167,17 @@ public class FeatureUsageController implements IController {
       e.printStackTrace();
     }
     view.show(out);
+  }
+
+  private String checkForNullPointerException(String message) {
+
+    try {
+      if (message.equals("true")) {
+        message = "Yes";
+      }
+    }catch (NullPointerException ne) {
+      message = "No";
+    }
+    return message;
   }
 }
