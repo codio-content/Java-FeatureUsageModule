@@ -10,6 +10,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
+import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
@@ -150,6 +151,10 @@ public class FeatureUsageController implements IController {
         break;
 
       case "objects":
+        message = new Objects().visit(cu, null);
+        if(message == null){
+          message = "No Object creation expressions in code in code";
+        }
         break;
 
       case "strings":
