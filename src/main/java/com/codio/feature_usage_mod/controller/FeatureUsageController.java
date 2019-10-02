@@ -107,7 +107,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "datatypes":
-
+        //primitive, etc. (int, char, double, ...)
         break;
 
       case "dowhile":
@@ -128,23 +128,27 @@ public class FeatureUsageController implements IController {
         break;
 
       case "functionreturntypes":
+        //check for return type of a particular method
         break;
 
       case "ifconditionals":
-        List<String> ifConditionals = new ArrayList<>();
-        new IfConditionals().visit(cu, ifConditionals);
-        if(ifConditionals.size() == 0) {
-          message = "No if-else statements in code";
-        }
-        else if (ifConditionals.size() == 1) {
-          message = "If statement with no else";
-        }
-        else if (ifConditionals.size() == 2) {
-          message = "If statement with else block";
-        }
-        else {
-          message = "Nested if-else";
-        }
+//        List<String> ifConditionals = new ArrayList<>();
+//        new IfConditionals().visit(cu, ifConditionals);
+//        if(ifConditionals.get(0).equals("false")) {
+//          message = "No if-else statements in code";
+//        }
+//        else if (ifConditionals.get(0).equals("true") && ifConditionals.get(1).equals("false")
+//                && ifConditionals.get(2).equals("false"))  {
+//          message = "If statement with no else";
+//        }
+//        else if (ifConditionals.get(1).equals("true")) {
+//          message = "If statement with else block";
+//        }
+//        else {
+//          message = "Nested if-else";
+//        }
+        System.out.println(new IfConditionals().process(cu));
+
         break;
 
       case "methods":
@@ -172,6 +176,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "variables":
+        //local, global, private, public, instance
         break;
 
       case "while":
