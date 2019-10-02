@@ -10,6 +10,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
+import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.view.IView;
@@ -132,23 +133,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "ifconditionals":
-//        List<String> ifConditionals = new ArrayList<>();
-//        new IfConditionals().visit(cu, ifConditionals);
-//        if(ifConditionals.get(0).equals("false")) {
-//          message = "No if-else statements in code";
-//        }
-//        else if (ifConditionals.get(0).equals("true") && ifConditionals.get(1).equals("false")
-//                && ifConditionals.get(2).equals("false"))  {
-//          message = "If statement with no else";
-//        }
-//        else if (ifConditionals.get(1).equals("true")) {
-//          message = "If statement with else block";
-//        }
-//        else {
-//          message = "Nested if-else";
-//        }
-        System.out.println(new IfConditionals().process(cu));
-
+        message = new IfConditionals().process(cu);
         break;
 
       case "methods":
@@ -168,6 +153,10 @@ public class FeatureUsageController implements IController {
         break;
 
       case "strings":
+        message = new Strings().visit(cu, null);
+        if(message == null){
+          message = "No String literals in code";
+        }
         break;
 
       case "switch":
