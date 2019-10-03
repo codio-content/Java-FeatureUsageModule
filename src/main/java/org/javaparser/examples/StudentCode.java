@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.TreeMap;
 
 public class StudentCode {
@@ -18,13 +20,13 @@ public class StudentCode {
 
   public static void main(String args) {
     //String cute = "";
-    int x = 10;
-    String[] c = new String[5];
-    System.out.println(x);
-
-    for(int i = 0; i < 10; i++) {
-      x = x + 10;
-    }
+//    int x = 10;
+//    String[] c = new String[5];
+//    System.out.println(x);
+//
+//    for(int i = 0; i < 10; i++) {
+//      x = x + 10;
+//    }
 
     Hashtable<String, String> web = new Hashtable<>();
     web.put("Alpha", "Beta");
@@ -38,6 +40,9 @@ public class StudentCode {
     Map<Integer, Integer> map = new HashMap<>();
 
     Map<String, Integer> maps = new TreeMap<>();
+
+    Queue<Float> queue = new PriorityQueue<>();
+
 //    do {
 //      x = x - 1;
 //    }while(x > 5);

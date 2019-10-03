@@ -5,7 +5,7 @@ import com.github.javaparser.ast.expr.ObjectCreationExpr;
 
 import java.util.List;
 
-abstract class AbstractDataStructures {
+abstract class AbstractObjectCreation {
 
 
   public String process(CompilationUnit cu, String dataStructure) {

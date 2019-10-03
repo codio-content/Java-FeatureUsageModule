@@ -19,6 +19,7 @@ import com.codio.feature_usage_mod.controller.features.datastructures.HashMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashTables;
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
+import com.codio.feature_usage_mod.controller.features.datastructures.PriorityQueues;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
@@ -200,7 +201,7 @@ public class FeatureUsageController implements IController {
             + "4. LinkedLists\n"
             + "5. ArrayLists\n"
             + "6. Maps\n"
-            + "7. Queues\n"
+            + "7. PriorityQueues\n"
             + "8. Stacks\n"
             + "9. Methods\n"
             + "10. Trees\n"
@@ -238,7 +239,10 @@ public class FeatureUsageController implements IController {
       case "treemaps":
         message = new TreeMaps().process(cu, "TreeMap");
         break;
-
+      case "priorityqueues":
+        message = new PriorityQueues().processVar(cu, "Queue");
+        System.out.println(message);
+        break;
     }
   }
 
