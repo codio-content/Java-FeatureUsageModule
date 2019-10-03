@@ -15,7 +15,11 @@ import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
+import com.codio.feature_usage_mod.controller.features.datastructures.HashMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashTables;
+import com.codio.feature_usage_mod.controller.features.datastructures.LinkedLists;
+import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
+import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -194,7 +198,7 @@ public class FeatureUsageController implements IController {
             + "2. Graphs\n"
             + "3. HashTables\n"
             + "4. LinkedLists\n"
-            + "5. Lists\n"
+            + "5. ArrayLists\n"
             + "6. Maps\n"
             + "7. Queues\n"
             + "8. Stacks\n"
@@ -214,12 +218,27 @@ public class FeatureUsageController implements IController {
     switch (option) {
       case "arrays":
         message = new Arrays().process(cu);
-//      System.out.println(message);
+//        System.out.println(message);
         break;
       case "hashtables":
-        message = new HashTables().process(cu);
-        System.out.println(message);
+        message = new HashTables().process(cu, "Hashtable");
+//        System.out.println(message);
         break;
+      case "linkedlists":
+        message = new LinkedLists().process(cu, "LinkedList");
+//        System.out.println(message);
+        break;
+      case "lists":
+        message = new ArrayLists().process(cu, "ArrayList");
+//        System.out.println(message);
+        break;
+      case "hashmaps":
+        message = new HashMaps().process(cu, "HashMap");
+        break;
+      case "treemaps":
+        message = new TreeMaps().process(cu, "TreeMap");
+        break;
+
     }
   }
 

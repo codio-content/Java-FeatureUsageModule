@@ -1,6 +1,12 @@
 package org.javaparser.examples;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class StudentCode {
 
@@ -22,6 +28,16 @@ public class StudentCode {
 
     Hashtable<String, String> web = new Hashtable<>();
     web.put("Alpha", "Beta");
+
+    LinkedList<Integer> linkedList = new LinkedList<>();
+    linkedList.add(5);
+
+    List<Double> list = new ArrayList<>();
+    list.add(7.0);
+
+    Map<Integer, Integer> map = new HashMap<>();
+
+    Map<String, Integer> maps = new TreeMap<>();
 //    do {
 //      x = x - 1;
 //    }while(x > 5);
