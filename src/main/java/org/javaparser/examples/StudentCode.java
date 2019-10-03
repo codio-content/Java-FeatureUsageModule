@@ -1,5 +1,7 @@
 package org.javaparser.examples;
 
+import java.util.Hashtable;
+
 public class StudentCode {
 
   public StudentCode(){}
@@ -18,6 +20,8 @@ public class StudentCode {
       x = x + 10;
     }
 
+    Hashtable<String, String> web = new Hashtable<>();
+    web.put("Alpha", "Beta");
 //    do {
 //      x = x - 1;
 //    }while(x > 5);

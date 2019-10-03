@@ -15,6 +15,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
+import com.codio.feature_usage_mod.controller.features.datastructures.HashTables;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -213,6 +214,10 @@ public class FeatureUsageController implements IController {
     switch (option) {
       case "arrays":
         message = new Arrays().process(cu);
+//      System.out.println(message);
+        break;
+      case "hashtables":
+        message = new HashTables().process(cu);
         System.out.println(message);
         break;
     }

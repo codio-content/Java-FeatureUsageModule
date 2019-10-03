@@ -6,7 +6,7 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 import java.util.List;
 
-public class Arrays extends GenericVisitorAdapter<String, Void> {
+public class Arrays{
 
   public Arrays() {
 
@@ -25,19 +25,4 @@ public class Arrays extends GenericVisitorAdapter<String, Void> {
       return "No Arrays in code";
     }
   }
-
-//  @Override
-//  public String visit(ArrayCreationExpr arrayCreationExpr, Void arg) {
-//    super.visit(arrayCreationExpr, arg);
-//    List<ArrayCreationExpr> arrays = arrayCreationExpr.findAll(ArrayCreationExpr.class);
-//    if(arrays.size() == 0) {
-//      return "No Arrays in code";
-//    }
-//    if (arrays.get(0).isArrayCreationExpr()) {
-//      return "Array Creation expression found";
-//    }
-//    else {
-//      return "No Arrays in code";
-//    }
-//  }
 }
