@@ -14,6 +14,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
+import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashTables;
@@ -32,7 +33,6 @@ public class FeatureUsageController implements IController {
 
   private IView view;
   private CompilationUnit cu;
-
 
   public FeatureUsageController( IView view, CompilationUnit cu) {
     this.view = view;
@@ -59,7 +59,7 @@ public class FeatureUsageController implements IController {
         constructsSwitchCase();
         break;
       case "ds":
-        datastructuresSwitchCase();
+        dataStructuresSwitchCase();
         break;
       case "techniques":
         techniquesSwitchCase();
@@ -190,7 +190,7 @@ public class FeatureUsageController implements IController {
 
   }
 
-  private void datastructuresSwitchCase() {
+  private void dataStructuresSwitchCase() {
 
     String message = "";
     StringBuffer buffer;
@@ -221,28 +221,31 @@ public class FeatureUsageController implements IController {
     sb = new StringBuffer();
     sb.append("Do you want to check for polymorphism?\n"
             + "Y/N?");
+    appendToAppendableAndDisplay(sb);
 
-    String polymorphism = view.getNextInput();
+    String choice = view.getNextInput();
 
-    if (polymorphism == null) {
+    if (choice == null) {
+      return;
+    }
+    if (!(choice.equalsIgnoreCase("Y") || choice.equalsIgnoreCase("N"))) {
       return;
     }
 
     switch (option) {
       case "arraydeque":
+        message = new ArrayDeques().process(cu, "ArrayDeque", choice);
         break;
       case "arraylists":
-        message = new ArrayLists().process(cu, "ArrayList");
-//        System.out.println(message);
+        message = new ArrayLists().process(cu, "ArrayList", choice);
         break;
       case "arrays":
         message = new Arrays().process(cu);
-//        System.out.println(message);
         break;
       case "graphs":
         break;
       case "hashmaps":
-        message = new HashMaps().process(cu, "HashMap");
+        message = new HashMaps().process(cu, "HashMap", choice);
         break;
       case "hashset":
         break;
@@ -259,7 +262,7 @@ public class FeatureUsageController implements IController {
 //        System.out.println(message);
         break;
       case "priorityqueues":
-        message = new PriorityQueues().processVar(cu, "Queue");
+        message = new PriorityQueues().process(cu, "Queue");
         System.out.println(message);
         break;
       case "stacks":
@@ -275,6 +278,8 @@ public class FeatureUsageController implements IController {
         break;
 
     }
+    appendToAppendableAndDisplay(new StringBuffer().append(message).append("\n"));
+
   }
 
   private void techniquesSwitchCase() {
