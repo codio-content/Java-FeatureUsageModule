@@ -17,11 +17,17 @@ import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashMaps;
+import com.codio.feature_usage_mod.controller.features.datastructures.HashSets;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashTables;
+import com.codio.feature_usage_mod.controller.features.datastructures.LinkedHashMaps;
+import com.codio.feature_usage_mod.controller.features.datastructures.LinkedHashSets;
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.PriorityQueues;
+import com.codio.feature_usage_mod.controller.features.datastructures.Stacks;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
+import com.codio.feature_usage_mod.controller.features.datastructures.TreeSets;
+import com.codio.feature_usage_mod.controller.features.datastructures.Vectors;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -197,20 +203,22 @@ public class FeatureUsageController implements IController {
     StringBuffer sb;
     sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
-            + "1. Arrays\n"
-            + "2. Graphs\n"
-            + "3. HashTables\n"
-            + "4. LinkedLists\n"
-            + "5. ArrayLists\n"
-            + "6. Maps\n"
-            + "7. PriorityQueues\n"
-            + "8. Stacks\n"
-            + "9. Methods\n"
-            + "10. Trees\n"
-            + "11. Vectors\n"
-            + "12. Switch\n"
-            + "13. Variables\n"
-            + "14. While\n");
+            + "1. ArrayDeques\n"
+            + "2. ArrayLists\n"
+            + "3. Arrays\n"
+            + "4. Graphs\n"
+            + "5. HashMaps\n"
+            + "6. HashSets\n"
+            + "7. HashTables\n"
+            + "8. LinkedHashMaps\n"
+            + "9. LinkedHashSets\n"
+            + "10. LinkedLists\n"
+            + "11. PriorityQueues\n"
+            + "12. Stacks\n"
+            + "13. TreeMaps\n"
+            + "14. Trees\n"
+            + "15. TreeSets\n"
+            + "16. Vectors\n");
     appendToAppendableAndDisplay(sb);
 
     String option = view.getNextInput();
@@ -243,38 +251,43 @@ public class FeatureUsageController implements IController {
         message = new Arrays().process(cu);
         break;
       case "graphs":
+        //TODO: Think about it as Java doesn't have a Graph Class
         break;
       case "hashmaps":
         message = new HashMaps().process(cu, "HashMap", choice);
         break;
       case "hashset":
+        message = new HashSets().process(cu, "HashSet", choice);
         break;
       case "hashtables":
         message = new HashTables().process(cu, "Hashtable");
-//        System.out.println(message);
         break;
       case "linkedhashmap":
+        message = new LinkedHashMaps().process(cu, "LinkedHashMap", choice);
         break;
       case "linkedhashset":
+        message = new LinkedHashSets().process(cu, "LinkedHashSet", choice);
         break;
       case "linkedlists":
-        message = new LinkedLists().process(cu, "LinkedList");
-//        System.out.println(message);
+        message = new LinkedLists().process(cu, "LinkedList", choice);
         break;
       case "priorityqueues":
-        message = new PriorityQueues().process(cu, "Queue");
-        System.out.println(message);
+        message = new PriorityQueues().process(cu, "PriorityQueue");
         break;
       case "stacks":
+        message = new Stacks().process(cu, "Stack", choice);
         break;
       case "treemaps":
         message = new TreeMaps().process(cu, "TreeMap");
         break;
       case "trees":
+        //TODO: Think about it as Java Library doesn't have a Tree Class
         break;
       case "treeset":
+        message = new TreeSets().process(cu, "TreeSet", choice);
         break;
       case "vectors":
+        message = new Vectors().process(cu, "Vector", choice);
         break;
 
     }

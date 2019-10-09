@@ -11,7 +11,5 @@ public class Graphs {
   // cyclic, completeness, connected, types of edges, # of edges, bi-directional edges, # of nodes,
   // directed/undirected, weighted/unweighted, degrees
 
-  public Graphs(){}
-
 
 }
