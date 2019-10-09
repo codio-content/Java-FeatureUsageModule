@@ -1,6 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.datastructures;
 
-public class TreeMaps extends AbstractObjectCreation {
+public class TreeMaps extends AbstractObjectCreationChecker {
 
   public TreeMaps(){}
 }

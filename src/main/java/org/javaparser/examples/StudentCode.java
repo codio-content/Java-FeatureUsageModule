@@ -6,7 +6,6 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.TreeMap;
 
@@ -28,6 +27,9 @@ public class StudentCode {
 //      x = x + 10;
 //    }
 
+    List<Integer> list1 = new ArrayList<>();
+    ArrayList<Integer> list2 = new ArrayList<>();
+
     Hashtable<String, String> web = new Hashtable<>();
     web.put("Alpha", "Beta");
 
@@ -41,7 +43,9 @@ public class StudentCode {
 
     Map<String, Integer> maps = new TreeMap<>();
 
-    Queue<Float> queue = new PriorityQueue<>();
+    Queue<Integer> queue = new LinkedList<>();
+
+    LinkedList<Integer> ll = new LinkedList<>();
 
 //    do {
 //      x = x - 1;

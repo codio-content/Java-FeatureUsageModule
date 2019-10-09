@@ -6,7 +6,7 @@ import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 
 import java.util.List;
 
-abstract class AbstractVariableDeclaration {
+abstract class AbstractPolymorphismChecker {
 
   public String processVar(CompilationUnit cu, String dataStructure) {
     List<VariableDeclarationExpr> varDecExprs = cu.findAll(VariableDeclarationExpr.class);

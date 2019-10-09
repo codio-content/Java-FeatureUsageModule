@@ -48,7 +48,8 @@ public class FeatureUsageController implements IController {
             + "1. constructs\n"
             + "2. data structures\n"
             + "3. techniques\n"
-            + "4. exit\n");
+            + "4. full report\n"
+            + "5. exit\n");
     appendToAppendableAndDisplay(sb);
 
     String category = view.getNextInput();
@@ -193,7 +194,8 @@ public class FeatureUsageController implements IController {
 
     String message = "";
     StringBuffer buffer;
-    StringBuffer sb = new StringBuffer();
+    StringBuffer sb;
+    sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
             + "1. Arrays\n"
             + "2. Graphs\n"
@@ -216,33 +218,62 @@ public class FeatureUsageController implements IController {
       return;
     }
 
+    sb = new StringBuffer();
+    sb.append("Do you want to check for polymorphism?\n"
+            + "Y/N?");
+
+    String polymorphism = view.getNextInput();
+
+    if (polymorphism == null) {
+      return;
+    }
+
     switch (option) {
+      case "arraydeque":
+        break;
+      case "arraylists":
+        message = new ArrayLists().process(cu, "ArrayList");
+//        System.out.println(message);
+        break;
       case "arrays":
         message = new Arrays().process(cu);
 //        System.out.println(message);
+        break;
+      case "graphs":
+        break;
+      case "hashmaps":
+        message = new HashMaps().process(cu, "HashMap");
+        break;
+      case "hashset":
         break;
       case "hashtables":
         message = new HashTables().process(cu, "Hashtable");
 //        System.out.println(message);
         break;
+      case "linkedhashmap":
+        break;
+      case "linkedhashset":
+        break;
       case "linkedlists":
         message = new LinkedLists().process(cu, "LinkedList");
 //        System.out.println(message);
-        break;
-      case "lists":
-        message = new ArrayLists().process(cu, "ArrayList");
-//        System.out.println(message);
-        break;
-      case "hashmaps":
-        message = new HashMaps().process(cu, "HashMap");
-        break;
-      case "treemaps":
-        message = new TreeMaps().process(cu, "TreeMap");
         break;
       case "priorityqueues":
         message = new PriorityQueues().processVar(cu, "Queue");
         System.out.println(message);
         break;
+      case "stacks":
+        break;
+      case "treemaps":
+        message = new TreeMaps().process(cu, "TreeMap");
+        break;
+      case "trees":
+        break;
+      case "treeset":
+        break;
+      case "vectors":
+        break;
+
     }
   }
 
