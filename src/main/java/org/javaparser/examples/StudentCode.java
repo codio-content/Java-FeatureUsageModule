@@ -1,6 +1,9 @@
 package org.javaparser.examples;
 
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -9,13 +12,39 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
 
-public class StudentCode {
+public class StudentCode extends VoidVisitorAdapter {
 
   public StudentCode(){}
 
   StudentCode(String arg){}
 
   private StudentCode(double arg) {}
+
+  void check(){
+
+  }
+
+  String dontCheck() {
+    return "";
+  }
+  protected int dayumSon(){
+    return 666;
+  }
+  private void checkForRecursion(String message, int count) {
+  }
+
+  private void checkForRecursion(String message){
+    int x = 1;
+    int y = 200;
+    for(int i = 0; i < 100; i ++) {
+      x = x + 1;
+      y = y - 1;
+    }
+    if (x<y) {
+      message = message + "i";
+      checkForRecursion(message);
+    }
+  }
 
   public static void main(String args) {
     //String cute = "";

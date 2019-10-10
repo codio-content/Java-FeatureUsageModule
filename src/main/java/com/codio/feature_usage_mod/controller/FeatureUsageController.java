@@ -3,6 +3,7 @@ package com.codio.feature_usage_mod.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
@@ -28,6 +29,10 @@ import com.codio.feature_usage_mod.controller.features.datastructures.Stacks;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeSets;
 import com.codio.feature_usage_mod.controller.features.datastructures.Vectors;
+import com.codio.feature_usage_mod.controller.features.techniques.Inheritance;
+import com.codio.feature_usage_mod.controller.features.techniques.LibraryUsage;
+import com.codio.feature_usage_mod.controller.features.techniques.MethodOverloading;
+import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -199,7 +204,6 @@ public class FeatureUsageController implements IController {
   private void dataStructuresSwitchCase() {
 
     String message = "";
-    StringBuffer buffer;
     StringBuffer sb;
     sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
@@ -296,6 +300,71 @@ public class FeatureUsageController implements IController {
   }
 
   private void techniquesSwitchCase() {
+    String message = "";
+    StringBuffer sb;
+    sb = new StringBuffer();
+    sb.append("Please enter one of the following options in lowercase:\n"
+            + "1. Composition\n"
+            + "2. FileIO\n"
+            + "3. InfiniteLoops\n"
+            + "4. Inheritance\n"
+            + "5. LibraryUsage\n"
+            + "6. MethodOverloading\n"
+            + "7. MethodOverriding\n"
+            + "8. Recursion\n"
+            + "9. StdIO\n"
+            + "10. StreamReaders\n");
+    appendToAppendableAndDisplay(sb);
+
+    String option = view.getNextInput();
+    if (option == null) {
+      return;
+    }
+
+    switch (option) {
+
+      case "composition":
+        break;
+      case "fileio":
+        //TODO: Friday
+        break;
+      case "infiniteloops":
+        //TODO: Friday
+        break;
+      case "inheritance":
+        message = new Inheritance().process(cu);
+        break;
+      case "libraryusage":
+        sb = new StringBuffer();
+        sb.append("Enter the required library (import statement) to be verified in Student Code");
+        appendToAppendableAndDisplay(sb);
+        String libraryName = view.getNextInput();
+        message = new LibraryUsage().process(cu, libraryName);
+        break;
+
+      case "methodoverloading":
+        Stack<String> methodCalls = new Stack<>();
+        MethodOverloading mo = new MethodOverloading();
+        mo.visit(cu, methodCalls);
+        message = mo.process(methodCalls);
+        break;
+
+      case "methodoverriding":
+        break;
+      case "recursion":
+        message = new Recursion().process(cu);
+        break;
+      case "stdio":
+        //TODO: Friday
+        break;
+      case "streamreaders":
+        //TODO: Friday
+        break;
+      default:
+
+
+    }
+    appendToAppendableAndDisplay(new StringBuffer().append(message).append("\n"));
 
   }
 
