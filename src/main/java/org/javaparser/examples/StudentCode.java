@@ -1,9 +1,9 @@
 package org.javaparser.examples;
 
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+
+import com.codio.feature_usage_mod.support.Office;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
 
-public class StudentCode extends VoidVisitorAdapter {
+public class StudentCode extends Office {
 
   public StudentCode(){}
 
@@ -22,6 +22,10 @@ public class StudentCode extends VoidVisitorAdapter {
 
   void check(){
 
+  }
+
+  public String checkWebsite(String arg, int num) {
+    return super.checkWebsite(arg, num);
   }
 
   String dontCheck() {

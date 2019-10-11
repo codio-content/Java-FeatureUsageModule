@@ -32,6 +32,7 @@ import com.codio.feature_usage_mod.controller.features.datastructures.Vectors;
 import com.codio.feature_usage_mod.controller.features.techniques.Inheritance;
 import com.codio.feature_usage_mod.controller.features.techniques.LibraryUsage;
 import com.codio.feature_usage_mod.controller.features.techniques.MethodOverloading;
+import com.codio.feature_usage_mod.controller.features.techniques.MethodOverriding;
 import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
@@ -350,6 +351,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "methodoverriding":
+        new MethodOverriding().process(cu);
         break;
       case "recursion":
         message = new Recursion().process(cu);
