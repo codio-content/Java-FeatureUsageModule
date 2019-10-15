@@ -53,7 +53,7 @@ public class StudentCode extends Office {
 
   public static void main(String args) {
     //String cute = "";
-//    int x = 10;
+    int x = 10;
 //    String[] c = new String[5];
 //    System.out.println(x);
 //
@@ -81,9 +81,9 @@ public class StudentCode extends Office {
 
     LinkedList<Integer> ll = new LinkedList<>();
 
-//    do {
-//      x = x - 1;
-//    }while(x > 5);
+    do {
+      x = x - 1;
+    }while(x >5 );
 
 //    if(x > 5) {
 //      System.out.println("a");

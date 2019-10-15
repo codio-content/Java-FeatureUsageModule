@@ -44,7 +44,6 @@ public class MethodOverriding {
     }
 
     if (annotations.size() == 0 || overriddenMethod.equals("")) {
-      //TODO: No override annotation case
       try {
         return checkForMethodOverriding(cu, classDec, classBody);
       }

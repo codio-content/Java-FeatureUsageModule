@@ -11,6 +11,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
+import com.codio.feature_usage_mod.controller.features.constructs.Methods;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
@@ -29,6 +30,7 @@ import com.codio.feature_usage_mod.controller.features.datastructures.Stacks;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeSets;
 import com.codio.feature_usage_mod.controller.features.datastructures.Vectors;
+import com.codio.feature_usage_mod.controller.features.techniques.InfiniteLoops;
 import com.codio.feature_usage_mod.controller.features.techniques.Inheritance;
 import com.codio.feature_usage_mod.controller.features.techniques.LibraryUsage;
 import com.codio.feature_usage_mod.controller.features.techniques.MethodOverloading;
@@ -36,6 +38,8 @@ import com.codio.feature_usage_mod.controller.features.techniques.MethodOverridi
 import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
+
+import javax.crypto.Mac;
 
 
 public class FeatureUsageController implements IController {
@@ -160,7 +164,7 @@ public class FeatureUsageController implements IController {
       case "methods":
         List<String> methodsList = new ArrayList<>();
         buffer = new StringBuffer();
-        new Constructors().visit(cu, methodsList);
+        new Methods().visit(cu, methodsList);
         if(methodsList.size() == 0) {
           message = "No methods in code";
         }
@@ -330,7 +334,7 @@ public class FeatureUsageController implements IController {
         //TODO: Friday
         break;
       case "infiniteloops":
-        //TODO: Friday
+        message = new InfiniteLoops().process(cu);
         break;
       case "inheritance":
         message = new Inheritance().process(cu);
