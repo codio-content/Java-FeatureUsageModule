@@ -1,12 +1,10 @@
 package com.codio.feature_usage_mod.controller.features.techniques;
 
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.DoStmt;
 import com.github.javaparser.ast.stmt.ForStmt;
 import com.github.javaparser.ast.stmt.WhileStmt;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class InfiniteLoops {
@@ -28,60 +26,21 @@ public class InfiniteLoops {
     else {
       for (DoStmt loop: doWhileLoops) {
         String[] loopBody = loop.toString().split("\n");
-
         String condition = loop.getCondition().toString();
-        String iterator = "";
-        boolean dwFlag = false;
-        if (condition.contains(">") || condition.contains(">=")) {
 
-
-          iterator = condition.replaceAll("[>= 0-9]*","").trim();
-          for (String element: loopBody) {
-            element = element.replace("\r", "");
-            if (element.contains(iterator + "--")
-                    || element.contains("--" + iterator)
-                    || element.matches(iterator + "[ -= 0-9]*")
-                    || element.matches("[ ]*" + iterator + "[ ]*" + "=" + "[ ]*"
-                        + iterator + "[ ]*" + "-" + "[ ]*" + "[0-9]*" + "[ ]*" + ";")) {
-                sb.append("Do While Loop present, No infinite loops");
-                dwFlag = true;
-                break;
-            }
-          }
-          if (!dwFlag) {
-            sb.append("Infinite Loop Possible");
-          }
-
-        }
-        else if (condition.contains("<") || condition.contains("<=")) {
-
-          iterator = condition.replaceAll("[<= 0-9]*","").trim();
-          for (String element: loopBody) {
-            element = element.replace("\r", "");
-            if (element.contains(iterator + "++")
-                    || element.contains("++" + iterator)
-                    || element.matches(iterator + "[ += 0-9]*")
-                    || element.matches("[ ]*" + iterator + "[ ]*" + "=" + "[ ]*"
-                    + iterator + "[ ]*" + "+" + "[ ]*" + "[0-9]*" + "[ ]*" + ";")) {
-              sb.append("Do While Loop present, No infinite loops");
-              dwFlag = true;
-              break;
-            }
-          }
-          if (!dwFlag) {
-            sb.append("Infinite Loop Possible");
-          }
-        }
-
-        else {
-        }
-
+        sb.append(checkOperatorInWhileCondition(loopBody, condition));
       }
     }
     if (whileLoops.size() == 0) {
       sb.append("No While Loops in Code.\n");
     }
     else {
+      for (WhileStmt loop: whileLoops) {
+          String[] loopBody = loop.toString().split("\n");
+          String condition = loop.getCondition().toString();
+
+          sb.append(checkOperatorInWhileCondition(loopBody, condition));
+      }
     }
     if (forLoops.size() == 0) {
       sb.append("No For Loops in Code.\n");
@@ -90,5 +49,86 @@ public class InfiniteLoops {
     }
 
     return sb.toString();
+  }
+
+  private String checkOperatorInWhileCondition(String[] loopBody, String condition) {
+    if (condition.contains(">")) {
+      return setCheckerForIteratorUpdate(loopBody, condition, ">");
+    }
+    else if (condition.contains(">=")) {
+      return setCheckerForIteratorUpdate(loopBody, condition, ">=");
+    }
+    else if (condition.contains("<")) {
+      return setCheckerForIteratorUpdate(loopBody, condition, "<");
+//      System.out.println(sb.toString());
+    }
+
+    else if(condition.contains("<=")) {
+      return setCheckerForIteratorUpdate(loopBody, condition, "<=");
+    }
+
+    else {
+      return setCheckerForIteratorUpdate(loopBody, condition, "==");
+    }
+
+
+
+  }
+
+
+  private String setCheckerForIteratorUpdate(String[] loopBody, String condition, String operator) {
+
+    String op;
+
+    if (operator.contains(">")) {
+      op = "-";
+      return checkForInfiniteLoops(loopBody, condition, operator, op);
+    }
+    else if (operator.contains("<")) {
+      op = "+";
+      return checkForInfiniteLoops(loopBody, condition, operator, op);
+    }
+    else {
+      op = "-";
+      String message = checkForInfiniteLoops(loopBody, condition, operator, op);
+      if (message.contains("No infinite loops")) {
+        return message;
+      }
+      else {
+        op = "+";
+        return checkForInfiniteLoops(loopBody, condition, operator, op);
+      }
+    }
+
+
+  }
+
+  private String checkForInfiniteLoops(String[] loopBody, String condition, String operator,
+                                       String op) {
+
+    boolean flag = false;
+    String iterator = "";
+    StringBuilder sb = new StringBuilder();
+    iterator = condition.replaceAll(operator + "[ 0-9]*","").trim();
+    for (String element: loopBody) {
+      element = element.replace("\r", "");
+      if (element.contains(iterator + op + op)
+              || element.contains(op + op + iterator)
+              || element.matches(iterator +"[ ]*" + op +"[= 0-9]*")
+              || element.matches("[ ]*" + iterator + "[ ]*" + "=" + "[ ]*"
+              + iterator + "[ ]*" + op + "[ ]*" + "[0-9]*" + "[ ]*" + ";")) {
+        sb.append("Do While Loop present, No infinite loops\n");
+        flag = true;
+        break;
+      }
+    }
+    if (!flag) {
+      sb.append("Infinite Loop Possible\n");
+    }
+
+
+    return sb.toString();
+
+
   }
 }

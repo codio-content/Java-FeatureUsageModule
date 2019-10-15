@@ -82,8 +82,8 @@ public class StudentCode extends Office {
     LinkedList<Integer> ll = new LinkedList<>();
 
     do {
-      x = x - 1;
-    }while(x >5 );
+      x = x + 1;
+    }while(x <5 );
 
 //    if(x > 5) {
 //      System.out.println("a");
