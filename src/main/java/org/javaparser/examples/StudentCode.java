@@ -24,8 +24,9 @@ public class StudentCode extends Office {
 
   }
 
-  public String checkWebsite(String arg, int num) {
-    return super.checkWebsite(arg, num);
+  public String checkWebsite(int arg, int num) {
+    //return super.checkWebsite(arg, num);
+    return "";
   }
 
   String dontCheck() {

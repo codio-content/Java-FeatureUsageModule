@@ -10,14 +10,11 @@ import com.github.javaparser.ast.type.ClassOrInterfaceType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MethodOverriding {
-
-  //TODO: 1. Make use of presence of "extended types" and "@Override" annotation to spot overriding
-
-  //TODO: 2. In absence of @Override but presence of "extended types", go to extended class to see if method signature matches
 
   //TODO: 3. Where does super.methodName() fit in this picture ? or is that inheritance ?
 
@@ -79,11 +76,42 @@ public class MethodOverriding {
     final String superClassPath = sb.toString();
 
     CompilationUnit superCu = StaticJavaParser.parse(new File(superClassPath));
-    List<MethodDeclaration> methods = superCu.findAll(MethodDeclaration.class);
-    System.out.println(methods);
-    for (MethodDeclaration method: methods) {
-      System.out.println(method.getDeclarationAsString());
+
+    //Methods from subclass
+    //List<MethodDeclaration> subClassMethods = cu.findAll(MethodDeclaration.class);
+
+    List<String> subClassMethods = new ArrayList<>();
+
+    //Methods from Superclass
+    //List<MethodDeclaration> superClassMethods = superCu.findAll(MethodDeclaration.class);
+
+    List<String> superClassMethods = new ArrayList<>();
+
+//    for (MethodDeclaration method: superClassMethods) {
+//      System.out.println(method.getDeclarationAsString().replaceAll(" [a-zA-z0-9]*,", ",").replaceAll(" [a-zA-z0-9]*\\)", ")"));
+//    }
+
+    for (MethodDeclaration subClassMethod: cu.findAll(MethodDeclaration.class)) {
+      subClassMethods.add(subClassMethod.getDeclarationAsString()
+              .replaceAll(" [a-zA-z0-9]*,", ",")
+              .replaceAll(" [a-zA-z0-9]*\\)", ")"));
     }
-    return "";
+
+    for (MethodDeclaration superClassMethod: superCu.findAll(MethodDeclaration.class)) {
+      superClassMethods.add(superClassMethod.getDeclarationAsString()
+              .replaceAll(" [a-zA-z0-9]*,", ",")
+              .replaceAll(" [a-zA-z0-9]*\\)", ")"));
+    }
+
+    List<String> methodOverriding = new ArrayList<>(subClassMethods);
+
+    if (methodOverriding.retainAll(superClassMethods)) {
+      if (methodOverriding.size() == 0) {
+        return "Method Overriding NOT FOUND";
+      }
+      return "Method Overriding Present";
+    }
+
+    return "Method Overriding NOT FOUND";
   }
 }

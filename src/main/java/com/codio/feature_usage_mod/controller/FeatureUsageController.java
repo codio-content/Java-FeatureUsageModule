@@ -351,7 +351,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "methodoverriding":
-        new MethodOverriding().process(cu);
+        message = new MethodOverriding().process(cu);
         break;
       case "recursion":
         message = new Recursion().process(cu);
