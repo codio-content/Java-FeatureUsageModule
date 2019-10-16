@@ -14,13 +14,16 @@ import java.util.TreeMap;
 
 public class StudentCode extends Office {
 
-  public StudentCode(){}
+  public StudentCode() {
+  }
 
-  StudentCode(String arg){}
+  StudentCode(String arg) {
+  }
 
-  private StudentCode(double arg) {}
+  private StudentCode(double arg) {
+  }
 
-  void check(){
+  void check() {
 
   }
 
@@ -32,20 +35,22 @@ public class StudentCode extends Office {
   String dontCheck() {
     return "";
   }
-  protected int dayumSon(){
+
+  protected int dayumSon() {
     return 666;
   }
+
   private void checkForRecursion(String message, int count) {
   }
 
-  private void checkForRecursion(String message){
+  private void checkForRecursion(String message) {
     int x = 1;
     int y = 200;
-    for(int i = 0; i < 100; i ++) {
-      x = x + 1;
-      y = y - 1;
-    }
-    if (x<y) {
+//    for(int i = 0; i < 100; i ++) {
+//      x = x + 1;
+//      y = y - 1;
+//    }
+    if (x < y) {
       message = message + "i";
       checkForRecursion(message);
     }
@@ -81,10 +86,13 @@ public class StudentCode extends Office {
 
     LinkedList<Integer> ll = new LinkedList<>();
 
-    do {
-      x = x + 1;
-    }while(x <5 );
+//    do {
+//      x = x + 1;
+//    }while(x <5 );
 
+    for (int i = 0; i < 10; i++) {
+      System.out.println("Woot woot");
+    }
 //    if(x > 5) {
 //      System.out.println("a");
 //    }

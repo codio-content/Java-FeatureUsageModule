@@ -5,7 +5,8 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 public class ForEach extends GenericVisitorAdapter<String, Void> {
 
-  public ForEach(){}
+  public ForEach() {
+  }
 
   @Override
   public String visit(ForEachStmt fes, Void arg) {

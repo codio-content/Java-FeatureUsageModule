@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Recursion {
 
-  public Recursion(){}
+  public Recursion() {
+  }
 
   public String process(CompilationUnit cu) {
 
@@ -16,7 +17,7 @@ public class Recursion {
       return "No methods used in Student Code";
     }
 
-    for (MethodDeclaration methodCall: methodCalls) {
+    for (MethodDeclaration methodCall : methodCalls) {
       String methodBody = methodCall.getBody().toString();
       if (methodBody.contains(methodCall.getName().asString())) {
         return "Recursion Used in Code";

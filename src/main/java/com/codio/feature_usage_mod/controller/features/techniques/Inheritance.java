@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Inheritance {
 
-  public Inheritance(){}
+  public Inheritance() {
+  }
 
   public String process(CompilationUnit cu) {
     ClassOrInterfaceDeclaration classDec = cu.findAll(ClassOrInterfaceDeclaration.class).get(0);

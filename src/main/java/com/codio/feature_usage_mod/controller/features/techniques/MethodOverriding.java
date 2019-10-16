@@ -18,7 +18,8 @@ public class MethodOverriding {
 
   //TODO: 3. Where does super.methodName() fit in this picture ? or is that inheritance ?
 
-  public MethodOverriding(){}
+  public MethodOverriding() {
+  }
 
 
   private String overriddenMethod = "";
@@ -35,7 +36,7 @@ public class MethodOverriding {
 
     List<AnnotationExpr> annotations = cu.findAll(AnnotationExpr.class);
 
-    for (String element: classBody) {
+    for (String element : classBody) {
       if (element.contains("@Override")) {
         overriddenMethod = classBody.get(classBody.indexOf(element) + 1)
                 .replace("{\r", "").trim();
@@ -46,8 +47,7 @@ public class MethodOverriding {
     if (annotations.size() == 0 || overriddenMethod.equals("")) {
       try {
         return checkForMethodOverriding(cu, classDec, classBody);
-      }
-      catch (FileNotFoundException ffe) {
+      } catch (FileNotFoundException ffe) {
         return "Super Class File Not Found";
       }
 
@@ -64,7 +64,7 @@ public class MethodOverriding {
     StringBuilder sb = new StringBuilder().append("src/main/java/");
     List<ImportDeclaration> libraryList = cu.findAll(ImportDeclaration.class);
 
-    for (ImportDeclaration importDec: libraryList) {
+    for (ImportDeclaration importDec : libraryList) {
       if (importDec.toString().contains(superClassName)) {
         sb.append(importDec.getNameAsString().replaceAll("\\.", "/"))
                 .append(".java");
@@ -90,13 +90,13 @@ public class MethodOverriding {
 //      System.out.println(method.getDeclarationAsString().replaceAll(" [a-zA-z0-9]*,", ",").replaceAll(" [a-zA-z0-9]*\\)", ")"));
 //    }
 
-    for (MethodDeclaration subClassMethod: cu.findAll(MethodDeclaration.class)) {
+    for (MethodDeclaration subClassMethod : cu.findAll(MethodDeclaration.class)) {
       subClassMethods.add(subClassMethod.getDeclarationAsString()
               .replaceAll(" [a-zA-z0-9]*,", ",")
               .replaceAll(" [a-zA-z0-9]*\\)", ")"));
     }
 
-    for (MethodDeclaration superClassMethod: superCu.findAll(MethodDeclaration.class)) {
+    for (MethodDeclaration superClassMethod : superCu.findAll(MethodDeclaration.class)) {
       superClassMethods.add(superClassMethod.getDeclarationAsString()
               .replaceAll(" [a-zA-z0-9]*,", ",")
               .replaceAll(" [a-zA-z0-9]*\\)", ")"));

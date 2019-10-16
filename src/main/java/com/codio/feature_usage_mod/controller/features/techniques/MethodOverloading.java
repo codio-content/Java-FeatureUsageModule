@@ -9,7 +9,8 @@ import java.util.Stack;
 
 public class MethodOverloading extends VoidVisitorAdapter<Stack<String>> {
 
-  public MethodOverloading(){}
+  public MethodOverloading() {
+  }
 
   @Override
   public void visit(MethodDeclaration md, Stack<String> methodCalls) {
@@ -20,8 +21,7 @@ public class MethodOverloading extends VoidVisitorAdapter<Stack<String>> {
   public String process(Stack<String> methodCalls) {
     if (methodCalls.size() == 0) {
       return "No methods found in Student Code";
-    }
-    else {
+    } else {
       return overloadingDetector(methodCalls);
     }
   }
@@ -33,8 +33,7 @@ public class MethodOverloading extends VoidVisitorAdapter<Stack<String>> {
     }
     if (methodCalls.contains(method)) {
       return "Method Overloading present in Student Code";
-    }
-    else {
+    } else {
       return overloadingDetector(methodCalls);
     }
   }

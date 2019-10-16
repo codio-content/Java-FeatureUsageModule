@@ -5,7 +5,8 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 public class DoWhile extends GenericVisitorAdapter<String, Void> {
 
-  public DoWhile(){}
+  public DoWhile() {
+  }
 
   @Override
   public String visit(DoStmt ds, Void arg) {

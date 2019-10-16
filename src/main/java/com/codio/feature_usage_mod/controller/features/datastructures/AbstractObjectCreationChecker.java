@@ -11,10 +11,10 @@ abstract class AbstractObjectCreationChecker {
   public String process(CompilationUnit cu, String dataStructure) {
     List<ObjectCreationExpr> objectCreationExpr = cu.findAll(ObjectCreationExpr.class);
     if (objectCreationExpr.size() == 0) {
-      return "No " + dataStructure +" (objects) in code";
+      return "No " + dataStructure + " (objects) in code";
     }
 
-    for (ObjectCreationExpr obj: objectCreationExpr) {
+    for (ObjectCreationExpr obj : objectCreationExpr) {
       if (obj.toString().contains("new " + dataStructure)) {
         return dataStructure + " present in code";
       }

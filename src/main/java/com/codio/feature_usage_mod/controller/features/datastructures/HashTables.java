@@ -4,6 +4,7 @@ public class HashTables extends AbstractPolymorphismChecker {
 
   //min, max, avg, chain length, hashing algorithm, keys, values,
 
-  public HashTables(){}
+  public HashTables() {
+  }
 
 }

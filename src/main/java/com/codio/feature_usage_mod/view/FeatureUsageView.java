@@ -26,13 +26,13 @@ public class FeatureUsageView implements IView {
 
   /**
    * Reads in next input.
+   *
    * @return next input
    */
   public String getNextInput() {
     if (scanner.hasNext()) {
       return scanner.next();
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Input cannot be null");
     }
   }

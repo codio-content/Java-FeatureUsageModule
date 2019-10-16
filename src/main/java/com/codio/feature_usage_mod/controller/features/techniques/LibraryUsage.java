@@ -7,7 +7,8 @@ import java.util.List;
 
 public class LibraryUsage {
 
-  public LibraryUsage(){}
+  public LibraryUsage() {
+  }
 
   public String process(CompilationUnit cu, String libraryName) {
     List<ImportDeclaration> libraryList = cu.findAll(ImportDeclaration.class);
@@ -15,7 +16,7 @@ public class LibraryUsage {
       return "No Import Statements in Code";
     }
 
-    for (ImportDeclaration impDec: libraryList) {
+    for (ImportDeclaration impDec : libraryList) {
       if (impDec.toString().contains("libraryName")) {
         return "Required Library used in Student Code";
       }

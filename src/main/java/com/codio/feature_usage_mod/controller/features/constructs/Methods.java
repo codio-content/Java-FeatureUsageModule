@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Methods extends VoidVisitorAdapter<List<String>> {
 
-  public Methods (){}
+  public Methods() {
+  }
 
   @Override
   public void visit(MethodDeclaration md, List<String> collector) {

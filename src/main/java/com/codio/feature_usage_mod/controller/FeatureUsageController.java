@@ -50,7 +50,7 @@ public class FeatureUsageController implements IController {
   private IView view;
   private CompilationUnit cu;
 
-  public FeatureUsageController( IView view, CompilationUnit cu) {
+  public FeatureUsageController(IView view, CompilationUnit cu) {
     this.view = view;
     this.cu = cu;
   }
@@ -123,10 +123,9 @@ public class FeatureUsageController implements IController {
         List<String> constructorList = new ArrayList<>();
         buffer = new StringBuffer();
         new Constructors().visit(cu, constructorList);
-        if(constructorList.size() == 0) {
+        if (constructorList.size() == 0) {
           message = "No constructors in code";
-        }
-        else {
+        } else {
           constructorList.forEach(n -> buffer.append("Constructor name: ").append(n).append("\n"));
           message = buffer.toString();
         }
@@ -165,10 +164,9 @@ public class FeatureUsageController implements IController {
         List<String> methodsList = new ArrayList<>();
         buffer = new StringBuffer();
         new Methods().visit(cu, methodsList);
-        if(methodsList.size() == 0) {
+        if (methodsList.size() == 0) {
           message = "No methods in code";
-        }
-        else {
+        } else {
           methodsList.forEach(n -> buffer.append("Method name: ").append(n).append("\n"));
           message = buffer.toString();
         }
@@ -176,14 +174,15 @@ public class FeatureUsageController implements IController {
 
       case "objects":
         message = new Objects().visit(cu, null);
-        if(message == null){
+        if (message == null) {
           message = "No Object creation expressions in code in code";
         }
+        //TODO:
         break;
 
       case "strings":
         message = new Strings().visit(cu, null);
-        if(message == null){
+        if (message == null) {
           message = "No String literals in code";
         }
         break;
@@ -202,7 +201,7 @@ public class FeatureUsageController implements IController {
         message = checkForNullPointerException(message);
         break;
     }
-   appendToAppendableAndDisplay(new StringBuffer().append(message));
+    appendToAppendableAndDisplay(new StringBuffer().append(message));
 
   }
 
@@ -375,7 +374,6 @@ public class FeatureUsageController implements IController {
   }
 
 
-
   /**
    * Appends output buffer to appendable and displays to user.
    *
@@ -397,7 +395,7 @@ public class FeatureUsageController implements IController {
       if (message.equals("true")) {
         message = "Yes";
       }
-    }catch (NullPointerException ne) {
+    } catch (NullPointerException ne) {
       message = "No";
     }
     return message;
