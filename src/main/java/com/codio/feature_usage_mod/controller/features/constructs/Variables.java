@@ -15,7 +15,7 @@ public class Variables extends GenericVisitorAdapter<String, Void> {
   public Variables() {
   }
 
-  //Lists of all types of variable names
+  //TODO: Lists of all types of variable names
 
   //TODO: User input of specific type of variable in the right context
 
@@ -32,6 +32,7 @@ public class Variables extends GenericVisitorAdapter<String, Void> {
     if (methods.size() == 0) {
       sb.append("No Local Variables in the code");
     }
+
     else {
       for (MethodDeclaration method: methods) {
 

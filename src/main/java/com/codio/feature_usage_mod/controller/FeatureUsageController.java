@@ -38,6 +38,7 @@ import com.codio.feature_usage_mod.controller.features.techniques.LibraryUsage;
 import com.codio.feature_usage_mod.controller.features.techniques.MethodOverloading;
 import com.codio.feature_usage_mod.controller.features.techniques.MethodOverriding;
 import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
+import com.codio.feature_usage_mod.controller.features.techniques.StandardInputOutput;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -402,7 +403,7 @@ public class FeatureUsageController implements IController {
         message = new Recursion().process(cu);
         break;
       case "stdio":
-        //TODO: Friday
+        message = new StandardInputOutput().process(cu);
         break;
       case "streamreaders":
         //TODO: Friday

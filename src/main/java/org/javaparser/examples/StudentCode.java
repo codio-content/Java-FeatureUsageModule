@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class StudentCode extends Office {
@@ -25,6 +26,7 @@ public class StudentCode extends Office {
   char character = 'j';
 
 
+  private Scanner scanner;
   public StudentCode() {
   }
 
@@ -40,6 +42,8 @@ public class StudentCode extends Office {
 
   public String checkWebsite(int arg, int num) {
     //return super.checkWebsite(arg, num);
+    scanner = new Scanner(System.in);
+
     return "";
   }
 
