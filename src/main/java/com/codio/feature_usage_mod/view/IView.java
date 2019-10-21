@@ -9,6 +9,7 @@ public interface IView {
 
   /**
    * Reads in next input.
+   *
    * @return next input
    */
   String getNextInput();

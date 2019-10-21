@@ -5,22 +5,20 @@ import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 
 import java.util.List;
 
-abstract class AbstractPolymorphismChecker extends AbstractObjectCreationChecker{
+abstract class AbstractPolymorphismChecker extends AbstractObjectCreationChecker {
 
   public String process(CompilationUnit cu, String dataStructure, String polymorphism) {
     if (polymorphism.equals("N")) {
       return super.process(cu, dataStructure);
-    }
-    else {
+    } else {
       List<VariableDeclarationExpr> varDecExprs = cu.findAll(VariableDeclarationExpr.class);
       if (varDecExprs.size() == 0) {
-        return "No " + dataStructure +" (variables) in code";
+        return "No " + dataStructure + " (variables) in code";
       }
-      for (VariableDeclarationExpr obj: varDecExprs) {
+      for (VariableDeclarationExpr obj : varDecExprs) {
         if (obj.toString().startsWith(dataStructure)) {
           return dataStructure + " present in code. \n NO POLYMORPHISM ! ";
-        }
-        else if (obj.toString().contains(dataStructure)) {
+        } else if (obj.toString().contains(dataStructure)) {
           return dataStructure + " present in code. \n POLYMORPHISM DETECTED! ";
         }
       }

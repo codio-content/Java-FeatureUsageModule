@@ -5,7 +5,8 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 public class Switch extends GenericVisitorAdapter<String, Void> {
 
-  public Switch(){}
+  public Switch() {
+  }
 
   @Override
   public String visit(SwitchStmt ss, Void arg) {

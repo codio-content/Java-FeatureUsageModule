@@ -9,6 +9,7 @@ public class Constructors extends VoidVisitorAdapter<List<String>> {
 
   public Constructors() {
   }
+
   @Override
   public void visit(ConstructorDeclaration cd, List<String> collector) {
     super.visit(cd, collector);

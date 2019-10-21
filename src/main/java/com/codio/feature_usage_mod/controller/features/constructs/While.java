@@ -5,7 +5,8 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 public class While extends GenericVisitorAdapter<String, Void> {
 
-  public While(){}
+  public While() {
+  }
 
   @Override
   public String visit(WhileStmt ws, Void arg) {

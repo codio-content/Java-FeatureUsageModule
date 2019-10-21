@@ -19,7 +19,7 @@ public class FeatureUsageChecker {
 
   private static final String FILE_PATH = "src/main/java/org/javaparser/examples/StudentCode.java";
 
-  public static void main(String args[]) throws Exception{
+  public static void main(String args[]) throws Exception {
     // initialize Model
     // initialize Controller
     // initialize View

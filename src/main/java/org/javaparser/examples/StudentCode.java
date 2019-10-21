@@ -1,5 +1,8 @@
 package org.javaparser.examples;
 
+
+import com.codio.feature_usage_mod.support.Office;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -7,19 +10,70 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.TreeMap;
 
-public class StudentCode {
+public class StudentCode extends Office {
 
-  public StudentCode(){}
+  int number = 99999;
+  String sentence = "whoa so cool";
+  float fPointNumber = 5.0f;
+  double decimal = 8.0;
+  boolean bool = true;
+  long bigNumber = 1000000000;
+  short smallNumber = 10000;
+  byte idk = 7;
+  char character = 'j';
 
-  StudentCode(String arg){}
 
-  private StudentCode(double arg) {}
+  private Scanner scanner;
+  public StudentCode() {
+  }
+
+  StudentCode(String arg) {
+  }
+
+  private StudentCode(double arg) {
+  }
+
+  void check() {
+
+  }
+
+  public String checkWebsite(int arg, int num) {
+    //return super.checkWebsite(arg, num);
+    scanner = new Scanner(System.in);
+
+    return "";
+  }
+
+  String dontCheck() {
+    return "";
+  }
+
+  protected int dayumSon() {
+    return 666;
+  }
+
+  private void checkForRecursion(String message, int count) {
+  }
+
+  private void checkForRecursion(String message) {
+    int x = 1;
+    int y = 200;
+//    for(int i = 0; i < 100; i ++) {
+//      x = x + 1;
+//      y = y - 1;
+//    }
+    if (x < y) {
+      message = message + "i";
+      checkForRecursion(message);
+    }
+  }
 
   public static void main(String args) {
-    //String cute = "";
-//    int x = 10;
+    String cute = "";
+    int x = 10;
 //    String[] c = new String[5];
 //    System.out.println(x);
 //
@@ -48,9 +102,12 @@ public class StudentCode {
     LinkedList<Integer> ll = new LinkedList<>();
 
 //    do {
-//      x = x - 1;
-//    }while(x > 5);
+//      x = x + 1;
+//    }while(x <5 );
 
+    for (int i = 0; i <= 10; i++) {
+      System.out.println("Woot woot");
+    }
 //    if(x > 5) {
 //      System.out.println("a");
 //    }

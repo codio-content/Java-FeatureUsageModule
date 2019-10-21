@@ -5,7 +5,8 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 public class For extends GenericVisitorAdapter<String, Void> {
 
-  public For(){}
+  public For() {
+  }
 
   @Override
   public String visit(ForStmt fs, Void arg) {

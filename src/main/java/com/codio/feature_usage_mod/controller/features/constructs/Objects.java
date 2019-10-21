@@ -5,15 +5,15 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 public class Objects extends GenericVisitorAdapter<String, Void> {
 
-  public Objects(){}
+  public Objects() {
+  }
 
   @Override
   public String visit(ObjectCreationExpr oce, Void arg) {
     super.visit(oce, arg);
-    if(oce.isObjectCreationExpr()) {
+    if (oce.isObjectCreationExpr()) {
       return "Object creation expression found";
-    }
-    else{
+    } else {
       return "Object creation expression not found";
     }
   }
