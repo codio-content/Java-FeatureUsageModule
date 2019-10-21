@@ -9,7 +9,7 @@ import java.util.List;
 
 public class InfiniteLoops {
 
-
+//TODO: WHile and doWhile get the same output from the last thread in the function - that a do while loop is present. Change needed.
   public InfiniteLoops() {
   }
 
@@ -49,14 +49,13 @@ public class InfiniteLoops {
         String initialization = loop.getInitialization().toString();
         String condition = loop.getCompare().toString().replace("Optional", "");
         String update = loop.getUpdate().toString();
-        //System.out.println(initialization +"\n"+condition+"\n"+update);
+        System.out.println(initialization +"\n"+condition+"\n"+update);
 
         int initialValue = Integer.parseInt(initialization.replaceAll("[a-z a-zA-z]*"
                 + "[ = ]*", ""));
         int conditionValue = Integer.parseInt(condition.replaceAll("[a-zA-z ]*" + "[<>= ]*", ""));
 
-
-        System.out.println(initialValue + "\n" + conditionValue);
+        String conditionOperator = condition.replaceAll("[\\[a-zA-z ]* +[^<>=]*" + "[ 0-9\\]]*","");
         //sb.append(checkOperatorInWhileCondition(loopBody, condition));
       }
     }

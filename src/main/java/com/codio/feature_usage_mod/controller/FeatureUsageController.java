@@ -7,9 +7,11 @@ import java.util.Stack;
 
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
+import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
+import com.codio.feature_usage_mod.controller.features.constructs.FunctionReturnTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
 import com.codio.feature_usage_mod.controller.features.constructs.Methods;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
@@ -38,8 +40,6 @@ import com.codio.feature_usage_mod.controller.features.techniques.MethodOverridi
 import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
-
-import javax.crypto.Mac;
 
 
 public class FeatureUsageController implements IController {
@@ -132,6 +132,31 @@ public class FeatureUsageController implements IController {
         break;
 
       case "datatypes":
+
+        sb = new StringBuffer();
+        sb.append("Do you want to check for a specific datatype and variable ?\n"
+                + "Y/N?");
+        appendToAppendableAndDisplay(sb);
+
+        String choice = view.getNextInput();
+
+        if (choice == null) {
+          return;
+        }
+
+        switch (choice) {
+          case "Y":
+            sb = new StringBuffer();
+            sb.append("Enter the data type and variable name you want to check \n");
+            appendToAppendableAndDisplay(sb);
+            String dataType = view.getNextInput();
+            String variableName = view.getNextInput();
+            message = new DataTypes().processSpecificCase(cu, dataType, variableName);
+            break;
+          case "N":
+            message = new DataTypes().processGeneralCase(cu);
+            break;
+        }
         //primitive, etc. (int, char, double, ...)
         break;
 
@@ -153,7 +178,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "functionreturntypes":
-        //check for return type of a particular method
+        message = new FunctionReturnTypes().process(cu);
         break;
 
       case "ifconditionals":

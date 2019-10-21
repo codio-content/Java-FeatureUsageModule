@@ -14,6 +14,17 @@ import java.util.TreeMap;
 
 public class StudentCode extends Office {
 
+  int number = 99999;
+  String sentence = "whoa so cool";
+  float fPointNumber = 5.0f;
+  double decimal = 8.0;
+  boolean bool = true;
+  long bigNumber = 1000000000;
+  short smallNumber = 10000;
+  byte idk = 7;
+  char character = 'j';
+
+
   public StudentCode() {
   }
 
@@ -57,7 +68,7 @@ public class StudentCode extends Office {
   }
 
   public static void main(String args) {
-    //String cute = "";
+    String cute = "";
     int x = 10;
 //    String[] c = new String[5];
 //    System.out.println(x);
@@ -90,7 +101,7 @@ public class StudentCode extends Office {
 //      x = x + 1;
 //    }while(x <5 );
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i <= 10; i++) {
       System.out.println("Woot woot");
     }
 //    if(x > 5) {
