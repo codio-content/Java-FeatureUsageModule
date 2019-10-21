@@ -44,9 +44,6 @@ import com.github.javaparser.ast.CompilationUnit;
 
 public class FeatureUsageController implements IController {
 
-  /*TODO: After making the Feature set, Make a Commands directory with all these Features as an independent
-          Java file with corresponding code to be executed in the switch case*/
-
   private IView view;
   private CompilationUnit cu;
 
@@ -91,6 +88,7 @@ public class FeatureUsageController implements IController {
 
   private void constructsSwitchCase() {
     String message = "";
+    String choice = "";
     StringBuffer buffer;
     StringBuffer sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
@@ -138,8 +136,7 @@ public class FeatureUsageController implements IController {
                 + "Y/N?");
         appendToAppendableAndDisplay(sb);
 
-        String choice = view.getNextInput();
-
+        choice = view.getNextInput();
         if (choice == null) {
           return;
         }
@@ -157,7 +154,6 @@ public class FeatureUsageController implements IController {
             message = new DataTypes().processGeneralCase(cu);
             break;
         }
-        //primitive, etc. (int, char, double, ...)
         break;
 
       case "dowhile":
@@ -178,7 +174,29 @@ public class FeatureUsageController implements IController {
         break;
 
       case "functionreturntypes":
-        message = new FunctionReturnTypes().process(cu);
+        sb = new StringBuffer();
+        sb.append("Do you want to check for a specific function and return type ?\n"
+                + "Y/N?");
+        appendToAppendableAndDisplay(sb);
+
+        choice = view.getNextInput();
+        if (choice == null) {
+          return;
+        }
+
+        switch (choice) {
+          case "Y":
+            sb = new StringBuffer();
+            sb.append("Enter the return type and function name you want to check \n");
+            appendToAppendableAndDisplay(sb);
+            String returnType = view.getNextInput();
+            String functionName = view.getNextInput();
+            message = new DataTypes().processSpecificCase(cu, returnType, functionName);
+            break;
+          case "N":
+            message = new FunctionReturnTypes().processGeneralCase(cu);
+            break;
+        }
         break;
 
       case "ifconditionals":
@@ -202,7 +220,6 @@ public class FeatureUsageController implements IController {
         if (message == null) {
           message = "No Object creation expressions in code in code";
         }
-        //TODO:
         break;
 
       case "strings":

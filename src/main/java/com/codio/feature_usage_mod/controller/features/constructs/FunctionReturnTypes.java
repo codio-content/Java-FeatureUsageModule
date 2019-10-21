@@ -10,15 +10,13 @@ import java.util.List;
 public class FunctionReturnTypes {
 
 
-  // TODO: User input for specific function and return type
+  // TODO: Uses Method().visit method. Abstraction required for less cohesion
 
   public FunctionReturnTypes(){}
 
-  public String process(CompilationUnit cu) {
-    List<String> methods = new ArrayList<>();
+  public String processGeneralCase(CompilationUnit cu) {
 
-    new Methods().visit(cu, methods);
-//    System.out.println(methods.toString());
+    List<String> methods = process(cu);
     if (methods.size() == 0) {
       return "There are no methods in code";
     }
@@ -29,5 +27,25 @@ public class FunctionReturnTypes {
       }
     }
     return count + " methods have their return type as void excluding the main method";
+  }
+
+  public String processSpecificCase(CompilationUnit cu, String returnType, String functionName) {
+    List<String> methods = process(cu);
+    if (methods.size() == 0) {
+      return "There are no methods in code";
+    }
+
+    for (String method: methods) {
+      if (method.contains(returnType) && method.contains(functionName)) {
+        return "Function with specified return type present";
+      }
+    }
+    return "Function with specified return type NOT FOUND";
+  }
+
+  private List<String> process(CompilationUnit cu) {
+    List<String> methods = new ArrayList<>();
+    new Methods().visit(cu, methods);
+    return methods;
   }
 }
