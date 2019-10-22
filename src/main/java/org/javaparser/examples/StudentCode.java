@@ -3,6 +3,9 @@ package org.javaparser.examples;
 
 import com.codio.feature_usage_mod.support.Office;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -51,7 +54,9 @@ public class StudentCode extends Office {
     return "";
   }
 
-  protected int dayumSon() {
+  protected int dayumSon() throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    br.readLine();
     return 666;
   }
 

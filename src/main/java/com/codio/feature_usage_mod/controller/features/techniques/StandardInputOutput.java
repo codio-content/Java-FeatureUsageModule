@@ -10,60 +10,169 @@ import java.util.Stack;
 
 public class StandardInputOutput {
 
-  //TODO: Check presence of Standard Input Library BufferedReader(InputStreamReader) )
-
-  //TODO: Check presence of System.out.print() ?
+  //TODO: Abstraction !!
 
   public StandardInputOutput(){}
 
   public String process(CompilationUnit cu) {
 
-    StringBuilder sb = new StringBuilder();
-    boolean importScanner = false;
-
     List<ImportDeclaration> importList = cu.findAll(ImportDeclaration.class);
+    List<String> classAsList = convertClassDecToList(cu);
+    Stack<String> classAsStack = convertListToStack(classAsList);
 
-    for (ImportDeclaration importStatement: importList) {
-      if (importStatement.toString().contains("java.util.Scanner")) {
-        sb.append("java.util.Scanner library has been imported in code. \n");
-        importScanner = true;
-        break;
-      }
-    }
-    if (!importScanner) {
-      sb.append("java.util.Scanner library NOT FOUND. \n");
+    String scannerMessage = checkForScanner(importList, classAsStack);
+
+    String bufferedReaderMessage = checkForBufferedReader(importList, classAsStack);
+
+    String stdOutMessage = checkForStandardOutput(classAsStack, new StringBuilder());
+
+    return scannerMessage + bufferedReaderMessage + stdOutMessage;
+  }
+
+  private String checkForStandardOutput(Stack<String> classAsStack, StringBuilder sb) {
+
+    String line = classAsStack.pop();
+    if (classAsStack.empty()) {
+      sb.append("System.out.print function NOT FOUND. \n");
       return sb.toString();
     }
+    if (line.contains("System.out.print")) {
+      sb.append("System.out,print Function found in code. \n");
+      return sb.toString();
+    }
+    else {
+      return checkForStandardOutput(classAsStack, sb);
+    }
 
+  }
 
-    ClassOrInterfaceDeclaration classDec = cu.findAll(ClassOrInterfaceDeclaration.class).get(0);
-    List<String> classAsList = Arrays.asList(classDec.toString().split("\n"));
+  private String checkForScanner(List<ImportDeclaration> importList, Stack<String> classAsStack) {
 
-    Stack<String> classAsStack = convertListToStack(classAsList);
+    StringBuilder sb = new StringBuilder();
+    String scannerImportMessage = findScannerImportDec(importList);
+    if (scannerImportMessage.contains("NOT FOUND")) {
+      sb.append(scannerImportMessage);
+      return scannerImportMessage;
+    }
+    sb.append(scannerImportMessage);
 
     Stack<String> classAfterScannerDec = findScannerDeclaration(classAsStack);
 
     if (classAfterScannerDec.size() != 0) {
+
       sb.append("Scanner object has been declared in code. \n");
+      String scannerObject = getScannerObject(classAfterScannerDec);
+
+      return findScannerFunction(classAfterScannerDec, scannerObject, sb);
     }
-    else {
-      sb.append("Scanner object declaration NOT FOUND. \n");
-      return sb.toString();
-    }
-    String scannerObject = getScannerObject(classAfterScannerDec);
-    return findScannerFunction(classAfterScannerDec, scannerObject);
+
+    sb.append("Scanner object declaration NOT FOUND. Ergo, No Scanner functions. \n");
+    return sb.toString();
+
   }
 
-  private String findScannerFunction(Stack<String> classAfterScannerDec, String scannerObject) {
-    String line = classAfterScannerDec.pop();
-    if (classAfterScannerDec.empty()) {
-      return "Scanner function NOT FOUND";
+
+
+  private String checkForBufferedReader(List<ImportDeclaration> importList, Stack<String> classAsStack) {
+    StringBuilder sb = new StringBuilder();
+    String bufferedReaderImportMessage = findBufferedReaderImportDec(importList);
+    if (bufferedReaderImportMessage.contains("NOT FOUND")) {
+      sb.append(bufferedReaderImportMessage);
+      return bufferedReaderImportMessage;
     }
-    if (line.contains(scannerObject + ".has") || line.contains(scannerObject + ".next")) {
-      return "Scanner Function found in code";
+    sb.append(bufferedReaderImportMessage);
+
+    Stack<String> classAfterBufferedReaderDec = findBufferedReaderDeclaration(classAsStack);
+
+    if (classAfterBufferedReaderDec.size() != 0) {
+
+      sb.append("Buffered Reader object has been declared in code. \n");
+      String bufferedReaderObject = getBufferedReaderObject(classAfterBufferedReaderDec);
+
+      return findBufferedReaderFunction(classAfterBufferedReaderDec, bufferedReaderObject, sb);
+    }
+
+    sb.append("Buffered Reader object declaration NOT FOUND. Ergo, No functions. \n");
+    return sb.toString();
+
+  }
+
+  private String findBufferedReaderFunction(Stack<String> classAfterBufferedReaderDec,
+                                            String bufferedReaderObject, StringBuilder sb) {
+
+    String line = classAfterBufferedReaderDec.pop();
+    if (classAfterBufferedReaderDec.empty()) {
+      sb.append("BufferedReader function NOT FOUND. \n");
+      return sb.toString();
+    }
+    if (line.contains(bufferedReaderObject + ".read")) {
+      sb.append("BufferedReader function found in code. \n");
+      return sb.toString();
     }
     else {
-      return findScannerFunction(classAfterScannerDec, scannerObject);
+      return findBufferedReaderFunction(classAfterBufferedReaderDec, bufferedReaderObject, sb);
+    }
+  }
+
+  private String getBufferedReaderObject(Stack<String> classAfterBufferedReaderDec) {
+    return classAfterBufferedReaderDec.pop()
+            .replaceAll("[ = new BufferedReader(new InputStreamReader(System.in));]*", "");
+  }
+
+  private Stack<String> findBufferedReaderDeclaration(Stack<String> classAsStack) {
+
+    String line = classAsStack.peek();
+    if (line.contains("new BufferedReader(new InputStreamReader(System.in))")) {
+      return classAsStack;
+    }
+    classAsStack.pop();
+    return findBufferedReaderDeclaration(classAsStack);
+  }
+
+  private String findBufferedReaderImportDec(List<ImportDeclaration> importList) {
+
+    StringBuilder sb = new StringBuilder();
+    for (ImportDeclaration importStatement: importList) {
+      String importStmnt = importStatement.toString();
+      if (importStmnt.contains("java.io.BufferedReader")) {
+        sb.append("java.io.BufferedReader library has been imported in code. \n");
+        if (importStmnt.contains("java.io.InputStreamReader")) {
+          sb.append("java.io.InputStreamReader library for stdin has been imported in code. \n");
+        }
+        sb.append("java.io.InputStreamReader NOT FOUND. \n");
+        return sb.toString();
+      }
+    }
+    sb.append("java.io.BufferedReader and java.io.InputStreamReader NOT FOUND. \n");
+    return sb.toString();
+  }
+
+  private String findScannerImportDec(List<ImportDeclaration> importList) {
+
+    StringBuilder sb = new StringBuilder();
+    for (ImportDeclaration importStatement: importList) {
+      if (importStatement.toString().contains("java.util.Scanner")) {
+        sb.append("java.util.Scanner library has been imported in code. \n");
+        return sb.toString();
+      }
+    }
+    sb.append("java.util.Scanner library NOT FOUND. \n");
+    return sb.toString();
+  }
+
+  private String findScannerFunction(Stack<String> classAfterScannerDec,
+                                     String scannerObject, StringBuilder sb) {
+    String line = classAfterScannerDec.pop();
+    if (classAfterScannerDec.empty()) {
+      sb.append("Scanner function NOT FOUND. \n");
+      return sb.toString();
+    }
+    if (line.contains(scannerObject + ".has") || line.contains(scannerObject + ".next")) {
+      sb.append("Scanner Function found in code. \n");
+      return sb.toString();
+    }
+    else {
+      return findScannerFunction(classAfterScannerDec, scannerObject, sb);
     }
   }
 
@@ -74,7 +183,7 @@ public class StandardInputOutput {
   private Stack<String> findScannerDeclaration(Stack<String> classAsStack) {
 
     String line = classAsStack.peek();
-    if (line.contains("new Scanner(System.in);")) {
+    if (line.contains("new Scanner(System.in)")) {
       return classAsStack;
     }
 
@@ -89,5 +198,10 @@ public class StandardInputOutput {
     return stack;
   }
 
+  private List<String> convertClassDecToList(CompilationUnit cu) {
+    ClassOrInterfaceDeclaration classDec = cu.findAll(ClassOrInterfaceDeclaration.class).get(0);
+    return Arrays.asList(classDec.toString().split("\n"));
+
+  }
 
 }
