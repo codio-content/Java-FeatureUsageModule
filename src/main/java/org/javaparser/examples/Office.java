@@ -1,4 +1,4 @@
-package com.codio.feature_usage_mod.support;
+package org.javaparser.examples;
 
 public class Office {
 

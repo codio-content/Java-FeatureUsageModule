@@ -1,10 +1,8 @@
 package com.codio.feature_usage_mod.controller.features.techniques;
 
-import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import java.util.List;
 import java.util.Stack;
 
 public class MethodOverloading extends VoidVisitorAdapter<Stack<String>> {

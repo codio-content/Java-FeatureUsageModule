@@ -1,7 +1,7 @@
 package org.javaparser.examples;
 
 
-import com.codio.feature_usage_mod.support.Office;
+import com.codio.feature_usage_mod.support.Job;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +28,8 @@ public class StudentCode extends Office {
   byte idk = 7;
   char character = 'j';
 
+
+  private Job job;
 
   private Scanner scanner;
   public StudentCode() {
