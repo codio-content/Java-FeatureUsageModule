@@ -1,9 +1,9 @@
 package com.codio.feature_usage_mod.controller.features.techniques;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.VariableDeclarator;
-import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.body.FieldDeclaration;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,6 +22,8 @@ public class Composition {
   //TODO: Only case I can think of is having the user input the object/class to see if we have a "has-a" relationship, i.e. no inheritance
 
   //General case - Look for an object that is not a standard datatype
+
+  //TODO: Regwx for path of files for same package needs modification for special characters
 
   public Composition(){}
 
@@ -60,15 +62,71 @@ public class Composition {
      */
 
     List<String> classBody = convertClassDecToList(cu);
+    List<String> classesInSamePackage = listOfClasses();
 
-    List<VariableDeclarationExpr> listOfVariables = cu.findAll(VariableDeclarationExpr.class);
+    List<ImportDeclaration> importList = cu.findAll(ImportDeclaration.class);
+    List<String> relevantImports = new ArrayList<>();
 
-    //System.out.println(listOfVariables.toString());
+    List<FieldDeclaration> fieldDecs = cu.findAll(FieldDeclaration.class);
+    List<String> relevantFields = new ArrayList<>();
 
-    System.out.println(listOfClasses().toString());
+    for (ImportDeclaration importStatement: importList) {
+      String importStmt = importStatement.toString();
+      if (!(importStmt.startsWith("import java."))) {
+          importStmt = importStmt.replaceAll("[ a-zA-z0-9._]*\\.","")
+                  .replaceAll("[;\r\n]*","");
+          relevantImports.add(importStmt);
+      }
+    }
 
+    for (FieldDeclaration fieldDec: fieldDecs) {
+      String field = fieldDec.toString();
+      if (!(field.contains("int") || field.contains("String") || field.contains("float")
+              || field.contains("double") || field.contains("boolean") || field.contains("long")
+              || field.contains("short") || field.contains("byte") || field.contains("char"))) {
+          relevantFields.add(field);
+      }
+    }
+
+    for (String field: relevantFields) {
+
+      //check if the field is related to relevantImport
+      Boolean flag = checkIfFieldInRelevantImport(field, relevantImports);
+      if (flag) {
+        //Field is relevant to Import
+      }
+      else {
+        //if NOT - check if field is related to classInSamePackage
+        flag = checkIfFieldInSamePackage(field, classesInSamePackage);
+        if (flag) {
+          //Field is relevant to Class in same package
+        }
+      }
+          //if NOT - NO COMPOSITION
+    }
 
     return "";
+  }
+
+  private Boolean checkIfFieldInSamePackage(String field, List<String> classesInSamePackage) {
+
+    for (String className: classesInSamePackage) {
+      if (field.contains(className)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean checkIfFieldInRelevantImport(String field, List<String> relevantImports) {
+
+    for (String importedClass: relevantImports) {
+
+      if (field.contains(importedClass)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private List<String> convertClassDecToList(CompilationUnit cu) {
@@ -76,7 +134,6 @@ public class Composition {
     return Arrays.asList(classDec.toString().split("\n"));
 
   }
-
 
   private List<String> listOfClasses() {
 
@@ -90,11 +147,14 @@ public class Composition {
 
       for (String element: result) {
 
-        listofClasses.add(element.replaceAll("[a-zA-z]*\\\\", ""));
+        listofClasses.add(element.replaceAll("[a-zA-z]*\\\\", "")
+                .replaceAll("\\.java", ""));
 
       }
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (IOException e) {
+      List<String> exception = new ArrayList<>();
+      exception.add(e.getMessage());
+      return exception;
     }
 
     return listofClasses;

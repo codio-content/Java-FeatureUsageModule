@@ -11,6 +11,8 @@ public class DataTypes {
 
   // TODO: limit on the number of variables of a specific datatype
 
+  //TODO: Can use field declarator instead
+
   public DataTypes(){}
 
   private Hashtable<String, List<String>> generateDatatypesTable(CompilationUnit cu) {
