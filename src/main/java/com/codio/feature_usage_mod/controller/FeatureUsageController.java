@@ -43,6 +43,8 @@ import com.codio.feature_usage_mod.controller.features.techniques.StandardInputO
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
+//TODO: Total refactoring needed for COUNT of occurrences of each feature in code
+
 
 public class FeatureUsageController implements IController {
 

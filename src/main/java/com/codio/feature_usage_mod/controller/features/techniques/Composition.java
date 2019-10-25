@@ -4,6 +4,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.expr.MethodCallExpr;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -94,18 +95,38 @@ public class Composition {
       Boolean flag = checkIfFieldInRelevantImport(field, relevantImports);
       if (flag) {
         //Field is relevant to Import
+
+        return checkIfCompositionIsPresent(cu, field);
       }
       else {
         //if NOT - check if field is related to classInSamePackage
         flag = checkIfFieldInSamePackage(field, classesInSamePackage);
         if (flag) {
           //Field is relevant to Class in same package
+          return checkIfCompositionIsPresent(cu, field);
         }
       }
           //if NOT - NO COMPOSITION
     }
 
-    return "";
+    return "Composition NOT FOUND";
+  }
+
+  private String checkIfCompositionIsPresent(CompilationUnit cu, String fieldName) {
+
+    System.out.println(fieldName);
+    fieldName = fieldName.replaceAll("[a-zA-z]* ","").replace(";","");
+    System.out.println(fieldName);
+    List<MethodCallExpr> methodCalls = cu.findAll(MethodCallExpr.class);
+    for (MethodCallExpr methodCallExpr: methodCalls) {
+        String methodCall = methodCallExpr.toString();
+        if (methodCall.contains(fieldName+".")) {
+          //Return Composition FOUND
+          return "Composition present";
+        }
+    }
+    //return Composition NOT FOUND
+    return "Composition NOT FOUND";
   }
 
   private Boolean checkIfFieldInSamePackage(String field, List<String> classesInSamePackage) {
