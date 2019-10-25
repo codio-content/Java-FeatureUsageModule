@@ -32,6 +32,7 @@ import com.codio.feature_usage_mod.controller.features.datastructures.Stacks;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeSets;
 import com.codio.feature_usage_mod.controller.features.datastructures.Vectors;
+import com.codio.feature_usage_mod.controller.features.techniques.Composition;
 import com.codio.feature_usage_mod.controller.features.techniques.InfiniteLoops;
 import com.codio.feature_usage_mod.controller.features.techniques.Inheritance;
 import com.codio.feature_usage_mod.controller.features.techniques.LibraryUsage;
@@ -41,6 +42,8 @@ import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
 import com.codio.feature_usage_mod.controller.features.techniques.StandardInputOutput;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
+
+//TODO: Total refactoring needed for COUNT of occurrences of each feature in code
 
 
 public class FeatureUsageController implements IController {
@@ -223,6 +226,10 @@ public class FeatureUsageController implements IController {
         }
         break;
 
+      case "streamreaders":
+        //TODO: Friday
+        break;
+
       case "strings":
         message = new Strings().visit(cu, null);
         if (message == null) {
@@ -348,6 +355,7 @@ public class FeatureUsageController implements IController {
 
   private void techniquesSwitchCase() {
     String message = "";
+    String choice = "";
     StringBuffer sb;
     sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
@@ -371,6 +379,33 @@ public class FeatureUsageController implements IController {
     switch (option) {
 
       case "composition":
+        sb = new StringBuffer();
+        sb.append("Do you want to check for a specific case of composition ?\n"
+                + "Y/N?");
+        appendToAppendableAndDisplay(sb);
+
+        choice = view.getNextInput();
+        if (choice == null) {
+          return;
+        }
+
+        switch (choice) {
+          case "Y":
+            sb = new StringBuffer();
+            sb.append("Enter the composition relationship: Super class has - a sub-class \n"
+                    + "Super Class: ");
+            appendToAppendableAndDisplay(sb);
+            String superClass = view.getNextInput();
+            appendToAppendableAndDisplay(new StringBuffer("\nhas - a \nSub Class: "));
+            String subClass = view.getNextInput();
+            message = new Composition().processSpecificCase(cu, superClass, subClass);
+            break;
+          case "N":
+            message = new Composition().processGeneralCase(cu);
+            break;
+        }
+
+
         break;
       case "fileio":
         //TODO: Friday
@@ -405,9 +440,7 @@ public class FeatureUsageController implements IController {
       case "stdio":
         message = new StandardInputOutput().process(cu);
         break;
-      case "streamreaders":
-        //TODO: Friday
-        break;
+
       default:
 
 

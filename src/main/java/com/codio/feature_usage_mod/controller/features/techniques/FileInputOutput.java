@@ -2,9 +2,18 @@ package com.codio.feature_usage_mod.controller.features.techniques;
 
 public class FileInputOutput {
 
-  //TODO: Check if the required libraries have been imported or not
 
-  //TODO: Check if the right functions have been used or not
+  public FileInputOutput(){}
+
+  /*
+  Check to see if File is imported or not
+  Check to see if File type variable is defined or not
+  Check it see File open and close functions
+  check to see File read and write functions
+   */
+
+
+  //TODO: Questions for common practices in File IO !
 
   //read and write
 }

@@ -9,7 +9,10 @@ import java.util.List;
 
 public class InfiniteLoops {
 
-//TODO: WHile and doWhile get the same output from the last thread in the function - that a do while loop is present. Change needed.
+//TODO: While and doWhile get the same output from the last thread in the function - that a do while loop is present. Change needed.
+
+  //TODO: For Loop Infinite Loop Case
+
   public InfiniteLoops() {
   }
 
