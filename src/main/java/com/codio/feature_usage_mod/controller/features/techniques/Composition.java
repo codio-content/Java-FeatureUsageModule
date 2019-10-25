@@ -22,9 +22,9 @@ public class Composition {
 
   //TODO: Only case I can think of is having the user input the object/class to see if we have a "has-a" relationship, i.e. no inheritance
 
-  //General case - Look for an object that is not a standard datatype
+  //General case - Look for an object that is not a standard data type
 
-  //TODO: Regwx for path of files for same package needs modification for special characters
+  //TODO: Regex for path of files for same package needs modification for special characters
 
   public Composition(){}
 
@@ -32,11 +32,11 @@ public class Composition {
 
     /*
     Step 1 - We have to find the super class - either in same package or in other package.
-    If it doesnt exist, no composition
+    If it doesn't exist, no composition
     if it exists, create a String with the path ???
 
     In the sub class, find the Object declared as a variable
-    and then find the occurence of that object being created and a method being referenced using that object
+    and then find the occurrence of that object being created and a method being referenced using that object
     if found, yayayayy else NO composition
 
      */
