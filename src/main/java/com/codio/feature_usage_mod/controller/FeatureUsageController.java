@@ -17,6 +17,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.Methods;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
+import com.codio.feature_usage_mod.controller.features.constructs.Variables;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
@@ -50,10 +51,12 @@ public class FeatureUsageController implements IController {
 
   private IView view;
   private CompilationUnit cu;
+  private Class studentSubmission;
 
   public FeatureUsageController(IView view, CompilationUnit cu) {
     this.view = view;
     this.cu = cu;
+
   }
 
   @Override
@@ -226,10 +229,6 @@ public class FeatureUsageController implements IController {
         }
         break;
 
-      case "streamreaders":
-        //TODO: Friday
-        break;
-
       case "strings":
         message = new Strings().visit(cu, null);
         if (message == null) {
@@ -244,6 +243,7 @@ public class FeatureUsageController implements IController {
 
       case "variables":
         //local, global, private, public, instance
+        message = new Variables().process(cu);
         break;
 
       case "while":

@@ -1,6 +1,8 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.stmt.DoStmt;
@@ -28,6 +30,12 @@ public class Variables extends GenericVisitorAdapter<String, Void> {
     List<String> instanceVariables = new ArrayList<>();
     List<String> globalVariables = new ArrayList<>();
     List<String> staticClassVariables = new ArrayList<>();
+
+    ClassOrInterfaceDeclaration classBody = cu.findAll(ClassOrInterfaceDeclaration.class).get(0);
+
+//    List<Node> childNodes = classBody.getChildNodes();
+//    System.out.println(childNodes.toString());
+
 
     if (methods.size() == 0) {
       sb.append("No Local Variables in the code");

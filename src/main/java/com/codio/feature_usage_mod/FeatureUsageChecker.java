@@ -25,6 +25,7 @@ public class FeatureUsageChecker {
     // initialize View
     // Pass Control to the Controller by calling the GO Method
     //final String file_path = args[0];
+
     CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
     Readable in = new InputStreamReader(System.in);
     IModel model = new FeatureModel();

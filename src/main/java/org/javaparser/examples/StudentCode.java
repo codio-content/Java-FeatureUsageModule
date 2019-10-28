@@ -27,7 +27,7 @@ public class StudentCode extends Office {
   short smallNumber = 10000;
   byte idk = 7;
   char character = 'j';
-
+  static String message = "";
 
   private Job job;
   private Office office;
@@ -109,9 +109,9 @@ public class StudentCode extends Office {
 
     LinkedList<Integer> ll = new LinkedList<>();
 
-//    do {
-//      x = x + 1;
-//    }while(x <5 );
+    do {
+      x = x + 1;
+    }while(x <5 );
 
     for (int i = 0; i <= 10; i++) {
       System.out.println("Woot woot");
