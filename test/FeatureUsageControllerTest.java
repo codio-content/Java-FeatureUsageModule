@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.StringReader;
 import java.util.Scanner;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class FeatureUsageControllerTest {
@@ -57,12 +58,14 @@ public class FeatureUsageControllerTest {
     }
   }
 
-
+  private MockView defineView(String input) {
+    Readable in = new StringReader(input);
+    return new MockView(in);
+  }
 
   @Test
   public void testControllerForClassesConstruct(){
-    Readable in = new StringReader("constructs classes ");
-    MockView view = new MockView(in);
+    MockView view = defineView("constructs classes ");
     IController controller = new FeatureUsageController(view, constructs_cu);
     try {
       controller.start();
@@ -72,10 +75,25 @@ public class FeatureUsageControllerTest {
     String expected = "2 classes in Student Code."
             + "\nClass names:\nConstructsTest\nConstructsSubClass\n";
     String actual = view.logs.toString();
-    System.out.println(expected + "\n\n" + actual);
     assertTrue(actual.contains(expected));
   }
 
+  @Test
+  public void testForConstructorsConstruct(){
+    MockView view = defineView("constructs constructors ");
+    IController controller = new FeatureUsageController(view, constructs_cu);
+    try {
+      controller.start();
+    } catch (NullPointerException e) {
+      // This has been intentionally left blank to ignore this case when testing.
+    }
+    String expected = "3 constructors in Student Code."
+            + "\nConstructor names:\nConstructsTest(String arg)\nprivate ConstructsTest()\n"
+            + "ConstructsSubClass(int offset)\n";
+    String actual = view.logs.toString();
+    assertTrue(actual.contains(expected));
+
+  }
 //  @Test
 //  public void testControllerForDataStructures(){
 //    Readable in = new StringReader("constructs classes ");
