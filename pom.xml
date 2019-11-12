@@ -26,6 +26,12 @@
             <artifactId>javaparser-symbol-solver-core</artifactId>
             <version>3.14.5</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
         <!-- JavaParser itself is not a dependency here. It gets included indirectly through java-symbol-solver-core -->
     </dependencies>
 

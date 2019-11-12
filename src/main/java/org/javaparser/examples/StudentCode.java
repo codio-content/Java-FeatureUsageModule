@@ -107,16 +107,22 @@ public class StudentCode extends Office {
 //
 //    Queue<Integer> queue = new LinkedList<>();
 
+
+
     LinkedList<Integer> ll = new LinkedList<>();
 
-    do {
-      x = x + 1;
-    }while(x <5 );
 
-    for (int i = 0; i <= 10; i++) {
+    for (;true;) {
       System.out.println("Woot woot");
     }
-//    if(x > 5) {
+
+//    do {
+//      x = x + 1;
+//    }while(x <5 );
+
+
+//     i <= 10; i++
+// if(x > 5) {
 //      System.out.println("a");
 //    }
 //    else if(x == 5){
