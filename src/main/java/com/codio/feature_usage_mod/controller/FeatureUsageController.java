@@ -121,7 +121,7 @@ public class FeatureUsageController implements IController {
     }
     switch (option) {
       case "classes":
-        message = new Classes().visit(cu, null) + "\n";
+        message = new Classes().process(cu);
         break;
 
       case "constructors":
