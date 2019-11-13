@@ -9,13 +9,39 @@ import java.util.List;
 
 public class DataTypes {
 
-  // TODO: limit on the number of variables of a specific datatype
+  // TODO: limit on the number of variables of a specific data type
 
-  //TODO: Can use field declarator instead
+  // TODO: Can use field declarator instead
 
   public DataTypes(){}
 
-  private Hashtable<String, List<String>> generateDatatypesTable(CompilationUnit cu) {
+  public String processGeneralCase(CompilationUnit cu) {
+
+    Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);
+    List<String> all = dataTypesTable.get("all");
+    int count = all.size();
+    return generateMessage(count, all);
+  }
+
+  public String processSpecificCase(CompilationUnit cu, String dataType, String variableName){
+    Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);
+    System.out.println(dataTypesTable);
+    List<String> specifiedDatatypeList = dataTypesTable.get(dataType);
+    boolean flag = false;
+    for (String variable: specifiedDatatypeList) {
+      if (variable.contains(variableName)) {
+        flag = true;
+        break;
+      }
+    }
+
+    if (flag) {
+      return "DataType and Variable Present !";
+    }
+    return "DataType and Variable NOT FOUND";
+  }
+
+  private Hashtable<String, List<String>> generateDataTypesTable(CompilationUnit cu) {
 
     Hashtable<String, List<String>> dataTypesTable = new Hashtable<>();
     List<VariableDeclarationExpr> allVariables = cu.findAll(VariableDeclarationExpr.class);
@@ -85,27 +111,25 @@ public class DataTypes {
     return dataTypesTable;
   }
 
-  public String processGeneralCase(CompilationUnit cu) {
-
-    Hashtable<String, List<String>> dataTypesTable = generateDatatypesTable(cu);
-    return dataTypesTable.get("all").toString();
+  private String generateMessage(int count, List<String> all) {
+    if (count == 0) {
+      return "No variables with standard data types in Student Code";
+    }
+    else if (count == 1) {
+      return  "1 variable with a standard data type in Student Code.\nVariable name: "
+              + getVariableNames(all);
+    }
+    else {
+      return count + " variables with standard data types in Student Code.\nVariable names:\n"
+              + getVariableNames(all);
+    }
   }
 
-  public String processSpecificCase(CompilationUnit cu, String dataType, String variableName){
-    Hashtable<String, List<String>> dataTypesTable = generateDatatypesTable(cu);
-    System.out.println(dataTypesTable);
-    List<String> specifiedDatatypeList = dataTypesTable.get(dataType);
-    boolean flag = false;
-    for (String variable: specifiedDatatypeList) {
-      if (variable.contains(variableName)) {
-        flag = true;
-        break;
-      }
+  private String getVariableNames(List<String> all) {
+    StringBuilder sb = new StringBuilder();
+    for (String var: all) {
+      sb.append(var).append("\n");
     }
-
-    if (flag) {
-      return "DataType and Variable Present !";
-    }
-    return "DataType and Variable NOT FOUND";
+    return sb.toString();
   }
 }

@@ -121,19 +121,11 @@ public class FeatureUsageController implements IController {
     }
     switch (option) {
       case "classes":
-        message = new Classes().visit(cu, null) + "\n";
+        message = new Classes().process(cu);
         break;
 
       case "constructors":
-        List<String> constructorList = new ArrayList<>();
-        buffer = new StringBuffer();
-        new Constructors().visit(cu, constructorList);
-        if (constructorList.size() == 0) {
-          message = "No constructors in code";
-        } else {
-          constructorList.forEach(n -> buffer.append("Constructor name: ").append(n).append("\n"));
-          message = buffer.toString();
-        }
+        message = new Constructors().process(cu);
         break;
 
       case "datatypes":

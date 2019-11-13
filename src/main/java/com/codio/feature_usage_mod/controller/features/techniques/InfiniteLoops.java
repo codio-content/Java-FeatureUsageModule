@@ -10,9 +10,7 @@ import java.util.List;
 
 public class InfiniteLoops {
 
-//TODO: While and doWhile get the same output from the last thread in the function - that a do while loop is present. Change needed.
-
-  //TODO: For Loop Infinite Loop Case
+//TODO: While and doWhile: check initial value of iterator to classify possibility of infinite loop
 
   public InfiniteLoops() {
   }
@@ -65,9 +63,15 @@ public class InfiniteLoops {
     }
     else {
       ForStmt forLoop = loop.asForStmt();
+      String initialization = forLoop.getInitialization().toString().replace("[]", "");
       condition = forLoop.getCompare().toString().replace("Optional", "");
-      String initialization = forLoop.getInitialization().toString();
-      String iterator = forLoop.getUpdate().toString();
+      String iterator = forLoop.getUpdate().toString().replace("[]", "");
+
+      Boolean message = checkInfiniteLoopEdgeCases(initialization, condition, iterator);
+      if (message) {
+       return "Infinite Loop possible";
+      }
+
       operator = checkOperatorInCondition(condition);
       iteratorOp = setCheckerForIteratorUpdate(operator);
       return checkForInfiniteLoops(initialization, condition, iterator, operator, iteratorOp);
@@ -76,6 +80,23 @@ public class InfiniteLoops {
     operator = checkOperatorInCondition(condition);
     iteratorOp = setCheckerForIteratorUpdate(operator);
     return checkForInfiniteLoops(loopType, loopBody, condition, operator, iteratorOp);
+  }
+
+  private Boolean checkInfiniteLoopEdgeCases(String initialization, String condition, String iterator) {
+
+    // condition is empty or condition is always true
+    if (condition.contains("empty") || condition.contains("true")) {
+      return true;
+    }
+    // case when all three are empty
+    if (initialization.isEmpty() && condition.contains("empty")  && iterator.isEmpty()) {
+      return true;
+    }
+    if (!initialization.isEmpty() && condition.contains("empty")) {
+      return true;
+    }
+
+    return true;
   }
 
   private String checkOperatorInCondition(String condition) {
@@ -133,13 +154,28 @@ public class InfiniteLoops {
     return sb.toString();
   }
 
-  private String checkForInfiniteLoops(String initialization, String condition, String iterator, String operator, String iteratorOp) {
+  private String checkForInfiniteLoops(String initialization, String condition, String iterator,
+                                       String operator, String iteratorOp) {
 
     int initialValue = Integer.parseInt(initialization.replaceAll("[a-z a-zA-z]*"
             + "[ = ]*", ""));
     int conditionValue = Integer.parseInt(condition.replaceAll("[a-zA-z ]*" + "[<>= ]*", ""));
 
     String conditionOperator = condition.replaceAll("[\\[a-zA-z ]* +[^<>=]*" + "[ 0-9\\]]*","");
+
+    System.out.println(initialValue);
+    System.out.println(conditionValue);
+    System.out.println(conditionOperator);
+
+    if (initialValue < conditionValue) {
+
+    }
+    else if (initialValue > conditionValue) {
+
+    }
+    else {
+
+    }
 
     return "";
   }
