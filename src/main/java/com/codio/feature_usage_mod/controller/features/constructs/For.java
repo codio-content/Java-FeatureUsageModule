@@ -1,17 +1,29 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.stmt.ForStmt;
-import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
-public class For extends GenericVisitorAdapter<String, Void> {
+import java.util.List;
+
+public class For {
 
   public For() {
   }
 
-  @Override
-  public String visit(ForStmt fs, Void arg) {
-    super.visit(fs, arg);
-    return String.valueOf(fs.isForStmt());
+  public String process(CompilationUnit cu) {
+    List<ForStmt> forStmts = cu.findAll(ForStmt.class);
+    int count = forStmts.size();
+    return generateMessage(count);
+  }
+
+  private String generateMessage(int count) {
+    if (count == 0) {
+      return "No For Loops in Student Code";
+    } else if (count == 1) {
+      return "1 For Loop in Student Code.\n";
+    } else {
+      return count + " For Loops in Student Code.\n";
+    }
   }
 
 }

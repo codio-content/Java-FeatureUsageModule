@@ -160,7 +160,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "for":
-        message = new For().visit(cu, null);
+        message = new For().process(cu);
         message = checkForNullPointerException(message);
 
         break;

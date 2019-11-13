@@ -26,6 +26,13 @@ public class ConstructsTest {
   public static class ConstructsSubClass {
 
     ConstructsSubClass(int offset) {
+
+      for (int i = 0; i < 10; i ++) {
+        for (int j = 0; j < 100; j ++) {
+          System.out.println("oooooooo");
+        }
+        System.out.println("yaaaaaaaas");
+      }
     }
   }
 

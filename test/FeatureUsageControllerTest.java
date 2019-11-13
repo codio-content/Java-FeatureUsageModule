@@ -107,6 +107,21 @@ public class FeatureUsageControllerTest {
     assertTrue(actual.contains(expected));
 
   }
+
+  @Test
+  public void testForForLoops() {
+    MockView view = defineView("constructs for ");
+    IController controller = new FeatureUsageController(view, constructs_cu);
+    try {
+      controller.start();
+    } catch (NullPointerException e) {
+      // This has been intentionally left blank to ignore this case when testing.
+    }
+    String expected = "2 For Loops in Student Code.\n";
+    String actual = view.logs.toString();
+    assertTrue(actual.contains(expected));
+
+  }
 //  @Test
 //  public void testControllerForDataStructures(){
 //    Readable in = new StringReader("constructs classes ");
