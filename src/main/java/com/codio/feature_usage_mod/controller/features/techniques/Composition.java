@@ -26,7 +26,8 @@ public class Composition {
 
   //TODO: Regex for path of files for same package needs modification for special characters
 
-  public Composition(){}
+  public Composition() {
+  }
 
   public String processSpecificCase(CompilationUnit cu, String superClass, String subClass) {
 
@@ -40,7 +41,6 @@ public class Composition {
     if found, yayayayy else NO composition
 
      */
-
 
 
     //Step 2 -
@@ -71,25 +71,25 @@ public class Composition {
     List<FieldDeclaration> fieldDecs = cu.findAll(FieldDeclaration.class);
     List<String> relevantFields = new ArrayList<>();
 
-    for (ImportDeclaration importStatement: importList) {
+    for (ImportDeclaration importStatement : importList) {
       String importStmt = importStatement.toString();
       if (!(importStmt.startsWith("import java."))) {
-          importStmt = importStmt.replaceAll("[ a-zA-z0-9._]*\\.","")
-                  .replaceAll("[;\r\n]*","");
-          relevantImports.add(importStmt);
+        importStmt = importStmt.replaceAll("[ a-zA-z0-9._]*\\.", "")
+                .replaceAll("[;\r\n]*", "");
+        relevantImports.add(importStmt);
       }
     }
 
-    for (FieldDeclaration fieldDec: fieldDecs) {
+    for (FieldDeclaration fieldDec : fieldDecs) {
       String field = fieldDec.toString();
       if (!(field.contains("int") || field.contains("String") || field.contains("float")
               || field.contains("double") || field.contains("boolean") || field.contains("long")
               || field.contains("short") || field.contains("byte") || field.contains("char"))) {
-          relevantFields.add(field);
+        relevantFields.add(field);
       }
     }
 
-    for (String field: relevantFields) {
+    for (String field : relevantFields) {
 
       //check if the field is related to relevantImport
       Boolean flag = checkIfFieldInRelevantImport(field, relevantImports);
@@ -97,8 +97,7 @@ public class Composition {
         //Field is relevant to Import
 
         return checkIfCompositionIsPresent(cu, field);
-      }
-      else {
+      } else {
         //if NOT - check if field is related to classInSamePackage
         flag = checkIfFieldInSamePackage(field, classesInSamePackage);
         if (flag) {
@@ -106,7 +105,7 @@ public class Composition {
           return checkIfCompositionIsPresent(cu, field);
         }
       }
-          //if NOT - NO COMPOSITION
+      //if NOT - NO COMPOSITION
     }
 
     return "Composition NOT FOUND";
@@ -115,15 +114,15 @@ public class Composition {
   private String checkIfCompositionIsPresent(CompilationUnit cu, String fieldName) {
 
     System.out.println(fieldName);
-    fieldName = fieldName.replaceAll("[a-zA-z]* ","").replace(";","");
+    fieldName = fieldName.replaceAll("[a-zA-z]* ", "").replace(";", "");
     System.out.println(fieldName);
     List<MethodCallExpr> methodCalls = cu.findAll(MethodCallExpr.class);
-    for (MethodCallExpr methodCallExpr: methodCalls) {
-        String methodCall = methodCallExpr.toString();
-        if (methodCall.contains(fieldName+".")) {
-          //Return Composition FOUND
-          return "Composition present";
-        }
+    for (MethodCallExpr methodCallExpr : methodCalls) {
+      String methodCall = methodCallExpr.toString();
+      if (methodCall.contains(fieldName + ".")) {
+        //Return Composition FOUND
+        return "Composition present";
+      }
     }
     //return Composition NOT FOUND
     return "Composition NOT FOUND";
@@ -131,7 +130,7 @@ public class Composition {
 
   private Boolean checkIfFieldInSamePackage(String field, List<String> classesInSamePackage) {
 
-    for (String className: classesInSamePackage) {
+    for (String className : classesInSamePackage) {
       if (field.contains(className)) {
         return true;
       }
@@ -141,7 +140,7 @@ public class Composition {
 
   private boolean checkIfFieldInRelevantImport(String field, List<String> relevantImports) {
 
-    for (String importedClass: relevantImports) {
+    for (String importedClass : relevantImports) {
 
       if (field.contains(importedClass)) {
         return true;
@@ -166,7 +165,7 @@ public class Composition {
               .filter(f -> f.endsWith(".java"))
               .collect(Collectors.toList());
 
-      for (String element: result) {
+      for (String element : result) {
 
         listofClasses.add(element.replaceAll("[a-zA-z]*\\\\", "")
                 .replaceAll("\\.java", ""));

@@ -57,11 +57,9 @@ public class InfiniteLoops {
 
     if (loopType.matches("Do While")) {
       condition = loop.asDoStmt().getCondition().toString();
-    }
-    else if (loopType.matches("While")) {
+    } else if (loopType.matches("While")) {
       condition = loop.asWhileStmt().getCondition().toString();
-    }
-    else {
+    } else {
       ForStmt forLoop = loop.asForStmt();
       String initialization = forLoop.getInitialization().toString().replace("[]", "");
       condition = forLoop.getCompare().toString().replace("Optional", "");
@@ -69,7 +67,7 @@ public class InfiniteLoops {
 
       Boolean message = checkInfiniteLoopEdgeCases(initialization, condition, iterator);
       if (message) {
-       return "Infinite Loop possible";
+        return "Infinite Loop possible";
       }
 
       operator = checkOperatorInCondition(condition);
@@ -89,7 +87,7 @@ public class InfiniteLoops {
       return true;
     }
     // case when all three are empty
-    if (initialization.isEmpty() && condition.contains("empty")  && iterator.isEmpty()) {
+    if (initialization.isEmpty() && condition.contains("empty") && iterator.isEmpty()) {
       return true;
     }
     if (!initialization.isEmpty() && condition.contains("empty")) {
@@ -107,7 +105,7 @@ public class InfiniteLoops {
     } else if (condition.contains("<")) {
       return "<";
     } else if (condition.contains("<=")) {
-      return  "<=";
+      return "<=";
     } else {
       return "==";
     }
@@ -168,11 +166,9 @@ public class InfiniteLoops {
     if ((initialValue < conditionValue) && (operator == "<" || operator == "<=")) {
 
 
-    }
-    else if (initialValue > conditionValue) {
+    } else if (initialValue > conditionValue) {
 
-    }
-    else {
+    } else {
 
     }
 

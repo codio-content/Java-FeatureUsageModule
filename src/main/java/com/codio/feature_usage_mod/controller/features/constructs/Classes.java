@@ -19,18 +19,16 @@ public class Classes {
   private String generateMessage(int count, List<ClassOrInterfaceDeclaration> classes) {
     if (count == 0) {
       return "No classes in Student Code";
-    }
-    else if (count == 1) {
-      return  "1 class in Student Code.\nClass name: " + getClassNames(classes);
-    }
-    else {
+    } else if (count == 1) {
+      return "1 class in Student Code.\nClass name: " + getClassNames(classes);
+    } else {
       return count + " classes in Student Code.\nClass names:\n" + getClassNames(classes);
     }
   }
 
   private String getClassNames(List<ClassOrInterfaceDeclaration> classes) {
     StringBuilder sb = new StringBuilder();
-    for (ClassOrInterfaceDeclaration classDec: classes) {
+    for (ClassOrInterfaceDeclaration classDec : classes) {
       sb.append(classDec.getNameAsString()).append("\n");
     }
     return sb.toString();

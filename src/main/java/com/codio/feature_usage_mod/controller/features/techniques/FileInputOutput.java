@@ -3,7 +3,8 @@ package com.codio.feature_usage_mod.controller.features.techniques;
 public class FileInputOutput {
 
 
-  public FileInputOutput(){}
+  public FileInputOutput() {
+  }
 
   /*
   Check to see if File is imported or not

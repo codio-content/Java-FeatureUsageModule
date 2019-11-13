@@ -19,11 +19,9 @@ public class DoWhile {
   private String generateMessage(int count) {
     if (count == 0) {
       return "No Do While Loops in Student Code";
-    }
-    else if (count == 1) {
-      return  "1 Do While Loop in Student Code.\n";
-    }
-    else {
+    } else if (count == 1) {
+      return "1 Do While Loop in Student Code.\n";
+    } else {
       return count + " Do While Loops in Student Code.\n";
     }
   }

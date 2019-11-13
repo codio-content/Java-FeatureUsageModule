@@ -1,10 +1,5 @@
 package com.codio.feature_usage_mod.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
 import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
@@ -20,6 +15,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.Variables;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
+import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashSets;
@@ -27,7 +23,6 @@ import com.codio.feature_usage_mod.controller.features.datastructures.HashTables
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedHashMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedHashSets;
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedLists;
-import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.PriorityQueues;
 import com.codio.feature_usage_mod.controller.features.datastructures.Stacks;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
@@ -43,6 +38,11 @@ import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
 import com.codio.feature_usage_mod.controller.features.techniques.StandardInputOutput;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 //TODO: Total refactoring needed for COUNT of occurrences of each feature in code
 

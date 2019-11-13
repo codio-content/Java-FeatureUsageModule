@@ -6,19 +6,12 @@ import com.codio.feature_usage_mod.support.Job;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 public class StudentCode extends Office {
 
-//  int number = 99999;
+  //  int number = 99999;
 //  String sentence = "whoa so cool";
 //  float fPointNumber = 5.0f;
 //  double decimal = 8.0;
@@ -33,6 +26,7 @@ public class StudentCode extends Office {
   private Office office;
 
   private Scanner scanner;
+
   public StudentCode() {
   }
 
@@ -43,7 +37,7 @@ public class StudentCode extends Office {
   }
 
   void check() {
-      job.setRole("CEO");
+    job.setRole("CEO");
   }
 
   public String checkWebsite(int arg, int num) {
@@ -85,7 +79,7 @@ public class StudentCode extends Office {
 //    String[] c = new String[5];
 //    System.out.println(x);
 //
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       x = x + 10;
     }
 
@@ -106,7 +100,6 @@ public class StudentCode extends Office {
 //    Map<String, Integer> maps = new TreeMap<>();
 //
 //    Queue<Integer> queue = new LinkedList<>();
-
 
 
     LinkedList<Integer> ll = new LinkedList<>();

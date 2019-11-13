@@ -13,7 +13,8 @@ public class DataTypes {
 
   // TODO: Need to use both, field declarator and variable declarator
 
-  public DataTypes(){}
+  public DataTypes() {
+  }
 
   public String processGeneralCase(CompilationUnit cu) {
 
@@ -23,12 +24,12 @@ public class DataTypes {
     return generateMessage(count, all);
   }
 
-  public String processSpecificCase(CompilationUnit cu, String dataType, String variableName){
+  public String processSpecificCase(CompilationUnit cu, String dataType, String variableName) {
     Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);
     System.out.println(dataTypesTable);
     List<String> specifiedDatatypeList = dataTypesTable.get(dataType);
     boolean flag = false;
-    for (String variable: specifiedDatatypeList) {
+    for (String variable : specifiedDatatypeList) {
       if (variable.contains(variableName)) {
         flag = true;
         break;
@@ -57,41 +58,33 @@ public class DataTypes {
     List<String> booleans = new ArrayList<>();
     List<String> allVars = new ArrayList<>();
 
-    for (VariableDeclarationExpr variable :allVariables) {
+    for (VariableDeclarationExpr variable : allVariables) {
       String var = variable.toString();
       if (var.startsWith("int")) {
         ints.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("double")) {
+      } else if (var.startsWith("double")) {
         doubles.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("String") && !var.startsWith("String[")) {
+      } else if (var.startsWith("String") && !var.startsWith("String[")) {
         strings.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("float")) {
+      } else if (var.startsWith("float")) {
         floats.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("char")) {
+      } else if (var.startsWith("char")) {
         characters.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("byte")) {
+      } else if (var.startsWith("byte")) {
         bytes.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("short")) {
+      } else if (var.startsWith("short")) {
         shorts.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("long")) {
+      } else if (var.startsWith("long")) {
         longs.add(var);
         allVars.add(var);
-      }
-      else if (var.startsWith("boolean")) {
+      } else if (var.startsWith("boolean")) {
         booleans.add(var);
         allVars.add(var);
       }
@@ -114,12 +107,10 @@ public class DataTypes {
   private String generateMessage(int count, List<String> all) {
     if (count == 0) {
       return "No variables with standard data types in Student Code";
-    }
-    else if (count == 1) {
-      return  "1 variable with a standard data type in Student Code.\nVariable name: "
+    } else if (count == 1) {
+      return "1 variable with a standard data type in Student Code.\nVariable name: "
               + getVariableNames(all);
-    }
-    else {
+    } else {
       return count + " variables with standard data types in Student Code.\nVariable names:\n"
               + getVariableNames(all);
     }
@@ -127,7 +118,7 @@ public class DataTypes {
 
   private String getVariableNames(List<String> all) {
     StringBuilder sb = new StringBuilder();
-    for (String var: all) {
+    for (String var : all) {
       sb.append(var).append("\n");
     }
     return sb.toString();

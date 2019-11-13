@@ -1,4 +1,3 @@
-
 import com.codio.feature_usage_mod.controller.FeatureUsageController;
 import com.codio.feature_usage_mod.controller.IController;
 import com.codio.feature_usage_mod.view.IView;
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FeatureUsageControllerTest {
 
-  class MockView implements IView{
+  class MockView implements IView {
 
     private StringBuffer logs = new StringBuffer();
     private Scanner scanner;
@@ -63,7 +62,7 @@ public class FeatureUsageControllerTest {
   }
 
   @Test
-  public void testControllerForClassesConstruct(){
+  public void testControllerForClassesConstruct() {
     MockView view = defineView("constructs classes ");
     IController controller = new FeatureUsageController(view, constructs_cu);
     try {
@@ -78,7 +77,7 @@ public class FeatureUsageControllerTest {
   }
 
   @Test
-  public void testForConstructorsConstruct(){
+  public void testForConstructorsConstruct() {
     MockView view = defineView("constructs constructors ");
     IController controller = new FeatureUsageController(view, constructs_cu);
     try {
@@ -89,6 +88,21 @@ public class FeatureUsageControllerTest {
     String expected = "3 constructors in Student Code."
             + "\nConstructor names:\nConstructsTest(String arg)\nprivate ConstructsTest()\n"
             + "ConstructsSubClass(int offset)\n";
+    String actual = view.logs.toString();
+    assertTrue(actual.contains(expected));
+
+  }
+
+  @Test
+  public void testForDoWhile() {
+    MockView view = defineView("constructs dowhile ");
+    IController controller = new FeatureUsageController(view, constructs_cu);
+    try {
+      controller.start();
+    } catch (NullPointerException e) {
+      // This has been intentionally left blank to ignore this case when testing.
+    }
+    String expected = "1 Do While Loop in Student Code.\n";
     String actual = view.logs.toString();
     assertTrue(actual.contains(expected));
 
