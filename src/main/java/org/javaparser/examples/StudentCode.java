@@ -85,9 +85,9 @@ public class StudentCode extends Office {
 //    String[] c = new String[5];
 //    System.out.println(x);
 //
-//    for(int i = 0; i < 10; i++) {
-//      x = x + 10;
-//    }
+    for(int i = 0; i < 10; i++) {
+      x = x + 10;
+    }
 
 //    List<Integer> list1 = new ArrayList<>();
 //    ArrayList<Integer> list2 = new ArrayList<>();
@@ -112,9 +112,9 @@ public class StudentCode extends Office {
     LinkedList<Integer> ll = new LinkedList<>();
 
 
-    for (;true;) {
-      System.out.println("Woot woot");
-    }
+//    for (;true;) {
+//      System.out.println("Woot woot");
+//    }
 
 //    do {
 //      x = x + 1;

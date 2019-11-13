@@ -96,7 +96,7 @@ public class InfiniteLoops {
       return true;
     }
 
-    return true;
+    return false;
   }
 
   private String checkOperatorInCondition(String condition) {
@@ -155,19 +155,18 @@ public class InfiniteLoops {
   }
 
   private String checkForInfiniteLoops(String initialization, String condition, String iterator,
-                                       String operator, String iteratorOp) {
+                                       String operator, String op) {
 
     int initialValue = Integer.parseInt(initialization.replaceAll("[a-z a-zA-z]*"
             + "[ = ]*", ""));
     int conditionValue = Integer.parseInt(condition.replaceAll("[a-zA-z ]*" + "[<>= ]*", ""));
 
-    String conditionOperator = condition.replaceAll("[\\[a-zA-z ]* +[^<>=]*" + "[ 0-9\\]]*","");
-
     System.out.println(initialValue);
     System.out.println(conditionValue);
-    System.out.println(conditionOperator);
+    System.out.println(operator);
 
-    if (initialValue < conditionValue) {
+    if ((initialValue < conditionValue) && (operator == "<" || operator == "<=")) {
+
 
     }
     else if (initialValue > conditionValue) {

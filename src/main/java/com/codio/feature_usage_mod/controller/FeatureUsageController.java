@@ -156,8 +156,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "dowhile":
-        message = new DoWhile().visit(cu, null);
-        message = checkForNullPointerException(message);
+        message = new DoWhile().process(cu);
         break;
 
       case "for":

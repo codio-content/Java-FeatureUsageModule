@@ -11,7 +11,7 @@ public class DataTypes {
 
   // TODO: limit on the number of variables of a specific data type
 
-  // TODO: Can use field declarator instead
+  // TODO: Need to use both, field declarator and variable declarator
 
   public DataTypes(){}
 
