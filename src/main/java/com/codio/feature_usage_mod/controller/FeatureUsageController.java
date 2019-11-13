@@ -210,22 +210,15 @@ public class FeatureUsageController implements IController {
         break;
 
       case "objects":
-        message = new Objects().visit(cu, null);
-        if (message == null) {
-          message = "No Object creation expressions in code in code";
-        }
+        message = new Objects().process(cu);
         break;
 
       case "strings":
-        message = new Strings().visit(cu, null);
-        if (message == null) {
-          message = "No String literals in code";
-        }
+        message = new Strings().process(cu);
         break;
 
       case "switch":
-        message = new Switch().visit(cu, null);
-        message = checkForNullPointerException(message);
+        message = new Switch().process(cu);
         break;
 
       case "variables":
@@ -234,8 +227,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "while":
-        message = new While().visit(cu, null);
-        message = checkForNullPointerException(message);
+        message = new While().process(cu);
         break;
     }
     appendToAppendableAndDisplay(new StringBuffer().append(message));
