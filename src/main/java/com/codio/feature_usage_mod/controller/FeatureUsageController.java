@@ -161,14 +161,10 @@ public class FeatureUsageController implements IController {
 
       case "for":
         message = new For().process(cu);
-        message = checkForNullPointerException(message);
-
         break;
 
       case "foreach":
-        message = new ForEach().visit(cu, null);
-        message = checkForNullPointerException(message);
-
+        message = new ForEach().process(cu);
         break;
 
       case "functionreturntypes":
