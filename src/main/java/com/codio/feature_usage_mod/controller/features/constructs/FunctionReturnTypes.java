@@ -1,8 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,8 @@ public class FunctionReturnTypes {
 
   // TODO: Uses Method().visit method. Abstraction required for less cohesion
 
-  public FunctionReturnTypes(){}
+  public FunctionReturnTypes() {
+  }
 
   public String processGeneralCase(CompilationUnit cu) {
 
@@ -21,7 +20,7 @@ public class FunctionReturnTypes {
       return "There are no methods in code";
     }
     int count = 0;
-    for (String method: methods) {
+    for (String method : methods) {
       if (method.contains("void") && !method.contains("main")) {
         count++;
       }
@@ -35,7 +34,7 @@ public class FunctionReturnTypes {
       return "There are no methods in code";
     }
 
-    for (String method: methods) {
+    for (String method : methods) {
       if (method.contains(returnType) && method.contains(functionName)) {
         return "Function with specified return type present";
       }

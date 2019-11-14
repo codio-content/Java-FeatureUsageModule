@@ -57,11 +57,9 @@ public class InfiniteLoops {
 
     if (loopType.matches("Do While")) {
       condition = loop.asDoStmt().getCondition().toString();
-    }
-    else if (loopType.matches("While")) {
+    } else if (loopType.matches("While")) {
       condition = loop.asWhileStmt().getCondition().toString();
-    }
-    else {
+    } else {
       ForStmt forLoop = loop.asForStmt();
       String initialization = forLoop.getInitialization().toString().replace("[]", "");
       condition = forLoop.getCompare().toString().replace("Optional", "");
@@ -69,7 +67,7 @@ public class InfiniteLoops {
 
       Boolean message = checkInfiniteLoopEdgeCases(initialization, condition, iterator);
       if (message) {
-       return "Infinite Loop possible";
+        return "Infinite Loop possible";
       }
 
       operator = checkOperatorInCondition(condition);
@@ -89,14 +87,14 @@ public class InfiniteLoops {
       return true;
     }
     // case when all three are empty
-    if (initialization.isEmpty() && condition.contains("empty")  && iterator.isEmpty()) {
+    if (initialization.isEmpty() && condition.contains("empty") && iterator.isEmpty()) {
       return true;
     }
     if (!initialization.isEmpty() && condition.contains("empty")) {
       return true;
     }
 
-    return true;
+    return false;
   }
 
   private String checkOperatorInCondition(String condition) {
@@ -107,7 +105,7 @@ public class InfiniteLoops {
     } else if (condition.contains("<")) {
       return "<";
     } else if (condition.contains("<=")) {
-      return  "<=";
+      return "<=";
     } else {
       return "==";
     }
@@ -155,25 +153,22 @@ public class InfiniteLoops {
   }
 
   private String checkForInfiniteLoops(String initialization, String condition, String iterator,
-                                       String operator, String iteratorOp) {
+                                       String operator, String op) {
 
     int initialValue = Integer.parseInt(initialization.replaceAll("[a-z a-zA-z]*"
             + "[ = ]*", ""));
     int conditionValue = Integer.parseInt(condition.replaceAll("[a-zA-z ]*" + "[<>= ]*", ""));
 
-    String conditionOperator = condition.replaceAll("[\\[a-zA-z ]* +[^<>=]*" + "[ 0-9\\]]*","");
-
     System.out.println(initialValue);
     System.out.println(conditionValue);
-    System.out.println(conditionOperator);
+    System.out.println(operator);
 
-    if (initialValue < conditionValue) {
+    if ((initialValue < conditionValue) && (operator == "<" || operator == "<=")) {
 
-    }
-    else if (initialValue > conditionValue) {
 
-    }
-    else {
+    } else if (initialValue > conditionValue) {
+
+    } else {
 
     }
 

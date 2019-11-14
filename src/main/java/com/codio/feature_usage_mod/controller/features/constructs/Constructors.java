@@ -19,12 +19,10 @@ public class Constructors {
   private String generateMessage(int count, List<ConstructorDeclaration> constructors) {
     if (count == 0) {
       return "No constructors in Student Code";
-    }
-    else if (count == 1) {
-      return  "1 constructor in Student Code.\nConstructor name: "
+    } else if (count == 1) {
+      return "1 constructor in Student Code.\nConstructor name: "
               + getConstructorNames(constructors);
-    }
-    else {
+    } else {
       return count + " constructors in Student Code.\nConstructor names:\n"
               + getConstructorNames(constructors);
     }
@@ -32,7 +30,7 @@ public class Constructors {
 
   private String getConstructorNames(List<ConstructorDeclaration> constructors) {
     StringBuilder sb = new StringBuilder();
-    for (ConstructorDeclaration constructorDec: constructors) {
+    for (ConstructorDeclaration constructorDec : constructors) {
       sb.append(constructorDec.getDeclarationAsString().trim()).append("\n");
     }
     return sb.toString();

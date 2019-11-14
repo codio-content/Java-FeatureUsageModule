@@ -1,10 +1,5 @@
 package com.codio.feature_usage_mod.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 import com.codio.feature_usage_mod.controller.features.constructs.Classes;
 import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
 import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
@@ -20,6 +15,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.Variables;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
+import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.HashSets;
@@ -27,7 +23,6 @@ import com.codio.feature_usage_mod.controller.features.datastructures.HashTables
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedHashMaps;
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedHashSets;
 import com.codio.feature_usage_mod.controller.features.datastructures.LinkedLists;
-import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.PriorityQueues;
 import com.codio.feature_usage_mod.controller.features.datastructures.Stacks;
 import com.codio.feature_usage_mod.controller.features.datastructures.TreeMaps;
@@ -43,6 +38,11 @@ import com.codio.feature_usage_mod.controller.features.techniques.Recursion;
 import com.codio.feature_usage_mod.controller.features.techniques.StandardInputOutput;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 //TODO: Total refactoring needed for COUNT of occurrences of each feature in code
 
@@ -156,20 +156,15 @@ public class FeatureUsageController implements IController {
         break;
 
       case "dowhile":
-        message = new DoWhile().visit(cu, null);
-        message = checkForNullPointerException(message);
+        message = new DoWhile().process(cu);
         break;
 
       case "for":
-        message = new For().visit(cu, null);
-        message = checkForNullPointerException(message);
-
+        message = new For().process(cu);
         break;
 
       case "foreach":
-        message = new ForEach().visit(cu, null);
-        message = checkForNullPointerException(message);
-
+        message = new ForEach().process(cu);
         break;
 
       case "functionreturntypes":
@@ -203,34 +198,19 @@ public class FeatureUsageController implements IController {
         break;
 
       case "methods":
-        List<String> methodsList = new ArrayList<>();
-        buffer = new StringBuffer();
-        new Methods().visit(cu, methodsList);
-        if (methodsList.size() == 0) {
-          message = "No methods in code";
-        } else {
-          methodsList.forEach(n -> buffer.append("Method name: ").append(n).append("\n"));
-          message = buffer.toString();
-        }
+        message = new Methods().process(cu);
         break;
 
       case "objects":
-        message = new Objects().visit(cu, null);
-        if (message == null) {
-          message = "No Object creation expressions in code in code";
-        }
+        message = new Objects().process(cu);
         break;
 
       case "strings":
-        message = new Strings().visit(cu, null);
-        if (message == null) {
-          message = "No String literals in code";
-        }
+        message = new Strings().process(cu);
         break;
 
       case "switch":
-        message = new Switch().visit(cu, null);
-        message = checkForNullPointerException(message);
+        message = new Switch().process(cu);
         break;
 
       case "variables":
@@ -239,8 +219,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "while":
-        message = new While().visit(cu, null);
-        message = checkForNullPointerException(message);
+        message = new While().process(cu);
         break;
     }
     appendToAppendableAndDisplay(new StringBuffer().append(message));

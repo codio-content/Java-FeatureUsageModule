@@ -12,7 +12,8 @@ public class StandardInputOutput {
 
   //TODO: Abstraction !!
 
-  public StandardInputOutput(){}
+  public StandardInputOutput() {
+  }
 
   public String process(CompilationUnit cu) {
 
@@ -39,8 +40,7 @@ public class StandardInputOutput {
     if (line.contains("System.out.print")) {
       sb.append("System.out,print Function found in code. \n");
       return sb.toString();
-    }
-    else {
+    } else {
       return checkForStandardOutput(classAsStack, sb);
     }
 
@@ -70,7 +70,6 @@ public class StandardInputOutput {
     return sb.toString();
 
   }
-
 
 
   private String checkForBufferedReader(List<ImportDeclaration> importList, Stack<String> classAsStack) {
@@ -108,8 +107,7 @@ public class StandardInputOutput {
     if (line.contains(bufferedReaderObject + ".read")) {
       sb.append("BufferedReader function found in code. \n");
       return sb.toString();
-    }
-    else {
+    } else {
       return findBufferedReaderFunction(classAfterBufferedReaderDec, bufferedReaderObject, sb);
     }
   }
@@ -132,7 +130,7 @@ public class StandardInputOutput {
   private String findBufferedReaderImportDec(List<ImportDeclaration> importList) {
 
     StringBuilder sb = new StringBuilder();
-    for (ImportDeclaration importStatement: importList) {
+    for (ImportDeclaration importStatement : importList) {
       String importStmnt = importStatement.toString();
       if (importStmnt.contains("java.io.BufferedReader")) {
         sb.append("java.io.BufferedReader library has been imported in code. \n");
@@ -150,7 +148,7 @@ public class StandardInputOutput {
   private String findScannerImportDec(List<ImportDeclaration> importList) {
 
     StringBuilder sb = new StringBuilder();
-    for (ImportDeclaration importStatement: importList) {
+    for (ImportDeclaration importStatement : importList) {
       if (importStatement.toString().contains("java.util.Scanner")) {
         sb.append("java.util.Scanner library has been imported in code. \n");
         return sb.toString();
@@ -170,8 +168,7 @@ public class StandardInputOutput {
     if (line.contains(scannerObject + ".has") || line.contains(scannerObject + ".next")) {
       sb.append("Scanner Function found in code. \n");
       return sb.toString();
-    }
-    else {
+    } else {
       return findScannerFunction(classAfterScannerDec, scannerObject, sb);
     }
   }

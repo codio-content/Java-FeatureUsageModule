@@ -1,23 +1,38 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
-import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
-public class Objects extends GenericVisitorAdapter<String, Void> {
+import java.util.List;
+
+public class Objects {
 
   public Objects() {
   }
 
-  @Override
-  public String visit(ObjectCreationExpr oce, Void arg) {
-    super.visit(oce, arg);
-    if (oce.isObjectCreationExpr()) {
-      return "Object creation expression found";
+  public String process(CompilationUnit cu) {
+    List<ObjectCreationExpr> objects = cu.findAll(ObjectCreationExpr.class);
+    int count = objects.size();
+    return generateMessage(count, objects);
+  }
+
+  private String generateMessage(int count, List<ObjectCreationExpr> objects) {
+    if (count == 0) {
+      return "No Objects in Student Code";
+    } else if (count == 1) {
+      return "1 Object in Student Code.\nObject type: " + getObjectNames(objects);
     } else {
-      return "Object creation expression not found";
+      return count + " Objects in Student Code.\nObject types:\n" + getObjectNames(objects);
     }
   }
 
+  private String getObjectNames(List<ObjectCreationExpr> objects) {
+    StringBuilder sb = new StringBuilder();
+    for (ObjectCreationExpr object: objects) {
+      sb.append(object.getTypeAsString()).append("\n");
+    }
+    return sb.toString();
+  }
   //Pass by value, pass by reference
 
 }

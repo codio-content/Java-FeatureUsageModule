@@ -1,12 +1,9 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
-import com.github.javaparser.ast.stmt.DoStmt;
-import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 import java.util.ArrayList;
@@ -39,10 +36,8 @@ public class Variables extends GenericVisitorAdapter<String, Void> {
 
     if (methods.size() == 0) {
       sb.append("No Local Variables in the code");
-    }
-
-    else {
-      for (MethodDeclaration method: methods) {
+    } else {
+      for (MethodDeclaration method : methods) {
 
         List<VariableDeclarationExpr> locVarExpr = method.findAll(VariableDeclarationExpr.class);
 
