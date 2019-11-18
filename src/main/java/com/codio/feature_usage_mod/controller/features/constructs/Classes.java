@@ -18,7 +18,7 @@ public class Classes {
    * Method that finds all instances of Classes/Interfaces in Student Code and maintains their count.
    *
    * @param cu AST object generated from the Student Code file.
-   * @return returns a message to the controller about instances of classes/interfaces as String.
+   * @return returns a message to the controller about instances of classes/interfaces, as String.
    */
 
   public String process(CompilationUnit cu) {
