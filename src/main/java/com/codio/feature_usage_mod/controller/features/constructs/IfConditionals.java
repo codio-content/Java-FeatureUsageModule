@@ -1,6 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
-import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.stmt.IfStmt;
 import com.github.javaparser.ast.stmt.Statement;
 
@@ -11,14 +11,14 @@ public class IfConditionals {
   public IfConditionals() {
   }
 
-  public String process(Node node) {
+  public String process(CompilationUnit cu) {
     String message = "";
-
-    List<IfStmt> allNodes = node.findAll(IfStmt.class);
-    if (allNodes.size() == 0) {
+    int counti
+    List<IfStmt> ifStmts = cu.findAll(IfStmt.class);
+    if (ifStmts.size() == 0) {
       message = "There is no if statement in the code";
     } else {
-      IfStmt ifStmt = allNodes.get(0);
+      IfStmt ifStmt = ifStmts.get(0);
       if (ifStmt.getElseStmt().isPresent()) {
         Statement elseStmt = ifStmt.getElseStmt().get();
         if (elseStmt instanceof IfStmt) {

@@ -6,7 +6,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
-import com.codio.feature_usage_mod.controller.features.constructs.FunctionReturnTypes;
+import com.codio.feature_usage_mod.controller.features.constructs.MethodReturnTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
 import com.codio.feature_usage_mod.controller.features.constructs.Methods;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
@@ -40,8 +40,6 @@ import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 //TODO: Total refactoring needed for COUNT of occurrences of each feature in code
@@ -95,8 +93,7 @@ public class FeatureUsageController implements IController {
 
   private void constructsSwitchCase() {
     String message = "";
-    String choice = "";
-    StringBuffer buffer;
+    String choice;
     StringBuffer sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
             + "1. Classes\n"
@@ -105,7 +102,7 @@ public class FeatureUsageController implements IController {
             + "4. DoWhile\n"
             + "5. For\n"
             + "6. ForEach\n"
-            + "7. FunctionReturnTypes\n"
+            + "7. MethodReturnTypes\n"
             + "8. IfConditionals\n"
             + "9. Methods\n"
             + "10. Objects\n"
@@ -129,7 +126,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "datatypes":
-
+        //TODO: Count refactoring
         sb = new StringBuffer();
         sb.append("Do you want to check for a specific datatype and variable ?\n"
                 + "Y/N?");
@@ -167,7 +164,7 @@ public class FeatureUsageController implements IController {
         message = new ForEach().process(cu);
         break;
 
-      case "functionreturntypes":
+      case "methodreturntypes":
         sb = new StringBuffer();
         sb.append("Do you want to check for a specific function and return type ?\n"
                 + "Y/N?");
@@ -185,10 +182,10 @@ public class FeatureUsageController implements IController {
             appendToAppendableAndDisplay(sb);
             String returnType = view.getNextInput();
             String functionName = view.getNextInput();
-            message = new DataTypes().processSpecificCase(cu, returnType, functionName);
+            message = new MethodReturnTypes().processSpecificCase(cu, returnType, functionName);
             break;
           case "N":
-            message = new FunctionReturnTypes().processGeneralCase(cu);
+            message = new MethodReturnTypes().processGeneralCase(cu);
             break;
         }
         break;
@@ -214,7 +211,6 @@ public class FeatureUsageController implements IController {
         break;
 
       case "variables":
-        //local, global, private, public, instance
         message = new Variables().process(cu);
         break;
 
@@ -434,17 +430,5 @@ public class FeatureUsageController implements IController {
       e.printStackTrace();
     }
     view.show(out);
-  }
-
-  private String checkForNullPointerException(String message) {
-
-    try {
-      if (message.equals("true")) {
-        message = "Yes";
-      }
-    } catch (NullPointerException ne) {
-      message = "No";
-    }
-    return message;
   }
 }
