@@ -137,6 +137,17 @@ public class FeatureUsageControllerTest {
     assertTrue(actual.contains(expected));
 
   }
+
+  @Test
+  public void testForIf(){
+    MockView view = defineView("constructs ifconditionals ");
+    IController controller = new FeatureUsageController(view, constructs_cu);
+    try {
+      controller.start();
+    } catch (NullPointerException e) {
+      //Intentionally empty
+    }
+  }
 //  @Test
 //  public void testControllerForDataStructures(){
 //    Readable in = new StringReader("constructs classes ");

@@ -13,8 +13,10 @@ public class IfConditionals {
 
   public String process(CompilationUnit cu) {
     String message = "";
-    int counti
+
     List<IfStmt> ifStmts = cu.findAll(IfStmt.class);
+    int totalIfStmnts = ifStmts.size();
+
     if (ifStmts.size() == 0) {
       message = "There is no if statement in the code";
     } else {

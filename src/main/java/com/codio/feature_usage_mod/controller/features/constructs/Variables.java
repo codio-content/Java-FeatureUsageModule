@@ -33,7 +33,7 @@ public class Variables extends GenericVisitorAdapter<String, Void> {
 //    List<Node> childNodes = classBody.getChildNodes();
 //    System.out.println(childNodes.toString());
 
-
+:
     if (methods.size() == 0) {
       sb.append("No Local Variables in the code");
     } else {
