@@ -5,16 +5,34 @@ import com.github.javaparser.ast.stmt.WhileStmt;
 
 import java.util.List;
 
+/**
+ * Java class to find While Loops in Student Code.
+ */
+
 public class While {
 
   public While() {
   }
+
+  /**
+   * Method that finds all instances of While Loops in Student Code and maintains their count.
+   *
+   * @param cu AST object generated from the Student Code file.
+   * @return message to the controller, as String.
+   */
 
   public String process(CompilationUnit cu) {
     List<WhileStmt> whileStmts = cu.findAll(WhileStmt.class);
     int count = whileStmts.size();
     return generateMessage(count);
   }
+
+  /**
+   * Private method that generates the message to be returned to the controller.
+   *
+   * @param count number of instances of While Loops found in Student Code.
+   * @return message to be passed on to the controller, as String.
+   */
 
   private String generateMessage(int count) {
     if (count == 0) {
