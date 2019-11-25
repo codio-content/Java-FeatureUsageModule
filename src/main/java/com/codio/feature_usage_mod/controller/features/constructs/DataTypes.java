@@ -15,7 +15,7 @@ public class DataTypes {
 
   public DataTypes() {
   }
-:
+
   public String processGeneralCase(CompilationUnit cu) {
 
     Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);

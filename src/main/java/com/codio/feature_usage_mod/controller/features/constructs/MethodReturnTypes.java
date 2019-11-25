@@ -5,10 +5,24 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 
 import java.util.List;
 
+/**
+ * Java class to find: a) The presence of a method with a specified name and return type.
+ *                     b) The presence of the number of methods that have "void" return type and
+ *                        the number of methods that have other return types.
+ */
+
 public class MethodReturnTypes {
 
   public MethodReturnTypes() {
   }
+
+  /**
+   * Method that counts the number of methods that have "void" return type and the number of methods
+   * that have other return types.
+   *
+   * @param cu AST object generated from the Student Code file.
+   * @return returns a message to the controller, as String.
+   */
 
   public String processGeneralCase(CompilationUnit cu) {
 
@@ -36,6 +50,15 @@ public class MethodReturnTypes {
     return generateMessageForGeneralCase(voidMethods, otherMethods, mainMethod);
   }
 
+  /**
+   * Method that checks for the presence of a method with a specified name and return type.
+   *
+   * @param cu AST object generated from the Student Code file.
+   * @param returnType Specified return type of the method.
+   * @param functionName Specified name of the method
+   * @return returns a message to the controller, as String.
+   */
+
   public String processSpecificCase(CompilationUnit cu, String returnType, String functionName) {
     List<MethodDeclaration> methods = cu.findAll(MethodDeclaration.class);
     if (methods.size() == 0) {
@@ -50,6 +73,15 @@ public class MethodReturnTypes {
     }
     return "Function with specified return type NOT FOUND";
   }
+
+  /**
+   * Private method that generates the message to be returned to the controller (general case).
+   *
+   * @param voidMethods number of methods with "void" return type.
+   * @param otherMethods number of methods with other return types.
+   * @param mainMethod flag to mark presence/absence of main method in Student Code.
+   * @return message to be passed on to the controller, as String.
+   */
 
   private String generateMessageForGeneralCase(int voidMethods, int otherMethods, boolean mainMethod) {
     StringBuilder sb = new StringBuilder();
