@@ -46,7 +46,7 @@ public class Classes {
   }
 
   /**
-   * Private method to get the names of the Classes/Interfaces found as String.
+   * Private method to get the names of the Classes/Interfaces found, as String.
    *
    * @param classes List of Class/Interface declarations.
    * @return returns the names of the Classes/Interfaces found, as String.
