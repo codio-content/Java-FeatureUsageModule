@@ -9,6 +9,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
 import com.codio.feature_usage_mod.controller.features.constructs.MethodReturnTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
 import com.codio.feature_usage_mod.controller.features.constructs.Methods;
+import com.codio.feature_usage_mod.controller.features.constructs.NestedLoops;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
@@ -41,9 +42,6 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import java.io.IOException;
 import java.util.Stack;
-
-//TODO: Total refactoring needed for COUNT of occurrences of each feature in code
-
 
 public class FeatureUsageController implements IController {
 
@@ -102,14 +100,17 @@ public class FeatureUsageController implements IController {
             + "4. DoWhile\n"
             + "5. For\n"
             + "6. ForEach\n"
-            + "7. MethodReturnTypes\n"
-            + "8. IfConditionals\n"
+            + "7. IfConditionals\n"
+            + "8. MethodReturnTypes\n"
             + "9. Methods\n"
-            + "10. Objects\n"
-            + "11. Strings\n"
-            + "12. Switch\n"
-            + "13. Variables\n"
-            + "14. While\n");
+            + "10. NestedLoops\n"
+            + "11. Objects\n"
+            + "12. Strings\n"
+            + "13. Switch\n"
+            + "14. Throws\n"
+            + "15. TryCatch\n"
+            + "16. Variables\n"
+            + "17. While\n");
     appendToAppendableAndDisplay(sb);
 
     String option = view.getNextInput();
@@ -126,7 +127,6 @@ public class FeatureUsageController implements IController {
         break;
 
       case "datatypes":
-        //TODO: Count refactoring
         sb = new StringBuffer();
         sb.append("Do you want to check for a specific datatype and variable ?\n"
                 + "Y/N?");
@@ -196,6 +196,10 @@ public class FeatureUsageController implements IController {
 
       case "methods":
         message = new Methods().process(cu);
+        break;
+
+      case "nestedloops":
+        message = new NestedLoops().process(cu);
         break;
 
       case "objects":
@@ -276,7 +280,6 @@ public class FeatureUsageController implements IController {
         message = new Arrays().process(cu);
         break;
       case "graphs":
-        //TODO: Think about it as Java doesn't have a Graph Class
         break;
       case "hashmaps":
         message = new HashMaps().process(cu, "HashMap", choice);
@@ -306,7 +309,6 @@ public class FeatureUsageController implements IController {
         message = new TreeMaps().process(cu, "TreeMap");
         break;
       case "trees":
-        //TODO: Think about it as Java Library doesn't have a Tree Class
         break;
       case "treeset":
         message = new TreeSets().process(cu, "TreeSet", choice);
@@ -375,7 +377,6 @@ public class FeatureUsageController implements IController {
 
         break;
       case "fileio":
-        //TODO: Friday
         break;
       case "infiniteloops":
         message = new InfiniteLoops().process(cu);

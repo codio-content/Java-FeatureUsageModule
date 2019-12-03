@@ -3,6 +3,7 @@ import com.codio.feature_usage_mod.controller.IController;
 import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.printer.YamlPrinter;
 
 import org.junit.Test;
 
@@ -41,8 +42,10 @@ public class FeatureUsageControllerTest {
   private static final String CONSTRUCTS_PATH = "test/org/examples/ConstructsTest.java";
 //  private static final String DATASTRUCTURES_PATH = "test/org/examples/DataStructuresTest.java";
 //  private static final String TECHNIQUES_PATH = "test/org/examples/TechniquesTest.java";
+  private static final String FILE_PATH = "src/main/java/org/javaparser/examples/D.java";
 
   private CompilationUnit constructs_cu;
+  private CompilationUnit cu;
 //  private CompilationUnit ds_cu;
 //  private CompilationUnit techniques_cu;
 
@@ -51,6 +54,7 @@ public class FeatureUsageControllerTest {
       constructs_cu = StaticJavaParser.parse(new File(CONSTRUCTS_PATH));
 //      ds_cu = StaticJavaParser.parse(new File(DATASTRUCTURES_PATH));
 //      techniques_cu = StaticJavaParser.parse(new File(TECHNIQUES_PATH));
+      cu = StaticJavaParser.parse(new File(FILE_PATH));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
@@ -148,6 +152,24 @@ public class FeatureUsageControllerTest {
       //Intentionally empty
     }
   }
+
+  @Test
+  public void inspectASTbyPrintingUsingYaml() {
+    YamlPrinter printer = new YamlPrinter(true);
+    System.out.println(printer.output(constructs_cu));
+  }
+
+  @Test
+  public void nestedLoops() {
+    MockView view = defineView("constructs nestedloops ");
+    IController controller = new FeatureUsageController(view, cu);
+    try {
+      controller.start();
+    } catch (NullPointerException e) {
+      //Intentionally empty
+    }
+  }
+
 //  @Test
 //  public void testControllerForDataStructures(){
 //    Readable in = new StringReader("constructs classes ");
