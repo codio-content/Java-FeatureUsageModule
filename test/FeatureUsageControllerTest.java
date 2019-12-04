@@ -170,6 +170,21 @@ public class FeatureUsageControllerTest {
     }
   }
 
+  @Test
+  public void testForThrows(){
+    MockView view = defineView("constructs throws ");
+    IController controller = new FeatureUsageController(view, cu);
+    try {
+      controller.start();
+    } catch (NullPointerException e) {
+      //Intentionally empty
+    }
+    String expected = "1 'Throws' statement found in Student Code.\nMethod Name: main\n" +
+            "Exception after 'Throws' - FileNotFoundException\n";
+    String actual = view.logs.toString();
+    assertTrue(actual.contains(expected));
+  }
+
 //  @Test
 //  public void testControllerForDataStructures(){
 //    Readable in = new StringReader("constructs classes ");

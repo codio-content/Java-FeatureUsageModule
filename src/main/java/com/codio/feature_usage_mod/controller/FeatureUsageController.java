@@ -13,6 +13,7 @@ import com.codio.feature_usage_mod.controller.features.constructs.NestedLoops;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
+import com.codio.feature_usage_mod.controller.features.constructs.Throws;
 import com.codio.feature_usage_mod.controller.features.constructs.Variables;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
@@ -212,6 +213,10 @@ public class FeatureUsageController implements IController {
 
       case "switch":
         message = new Switch().process(cu);
+        break;
+
+      case "throws":
+        message = new Throws().process(cu);
         break;
 
       case "variables":
