@@ -6,12 +6,14 @@ import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
-import com.codio.feature_usage_mod.controller.features.constructs.FunctionReturnTypes;
+import com.codio.feature_usage_mod.controller.features.constructs.MethodReturnTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
 import com.codio.feature_usage_mod.controller.features.constructs.Methods;
+import com.codio.feature_usage_mod.controller.features.constructs.NestedLoops;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
+import com.codio.feature_usage_mod.controller.features.constructs.Throws;
 import com.codio.feature_usage_mod.controller.features.constructs.Variables;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
@@ -40,12 +42,7 @@ import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
-
-//TODO: Total refactoring needed for COUNT of occurrences of each feature in code
-
 
 public class FeatureUsageController implements IController {
 
@@ -95,8 +92,7 @@ public class FeatureUsageController implements IController {
 
   private void constructsSwitchCase() {
     String message = "";
-    String choice = "";
-    StringBuffer buffer;
+    String choice;
     StringBuffer sb = new StringBuffer();
     sb.append("Please enter one of the following options in lowercase:\n"
             + "1. Classes\n"
@@ -105,14 +101,17 @@ public class FeatureUsageController implements IController {
             + "4. DoWhile\n"
             + "5. For\n"
             + "6. ForEach\n"
-            + "7. FunctionReturnTypes\n"
-            + "8. IfConditionals\n"
+            + "7. IfConditionals\n"
+            + "8. MethodReturnTypes\n"
             + "9. Methods\n"
-            + "10. Objects\n"
-            + "11. Strings\n"
-            + "12. Switch\n"
-            + "13. Variables\n"
-            + "14. While\n");
+            + "10. NestedLoops\n"
+            + "11. Objects\n"
+            + "12. Strings\n"
+            + "13. Switch\n"
+            + "14. Throws\n"
+            + "15. TryCatch\n"
+            + "16. Variables\n"
+            + "17. While\n");
     appendToAppendableAndDisplay(sb);
 
     String option = view.getNextInput();
@@ -129,7 +128,6 @@ public class FeatureUsageController implements IController {
         break;
 
       case "datatypes":
-
         sb = new StringBuffer();
         sb.append("Do you want to check for a specific datatype and variable ?\n"
                 + "Y/N?");
@@ -167,7 +165,7 @@ public class FeatureUsageController implements IController {
         message = new ForEach().process(cu);
         break;
 
-      case "functionreturntypes":
+      case "methodreturntypes":
         sb = new StringBuffer();
         sb.append("Do you want to check for a specific function and return type ?\n"
                 + "Y/N?");
@@ -185,10 +183,10 @@ public class FeatureUsageController implements IController {
             appendToAppendableAndDisplay(sb);
             String returnType = view.getNextInput();
             String functionName = view.getNextInput();
-            message = new DataTypes().processSpecificCase(cu, returnType, functionName);
+            message = new MethodReturnTypes().processSpecificCase(cu, returnType, functionName);
             break;
           case "N":
-            message = new FunctionReturnTypes().processGeneralCase(cu);
+            message = new MethodReturnTypes().processGeneralCase(cu);
             break;
         }
         break;
@@ -199,6 +197,10 @@ public class FeatureUsageController implements IController {
 
       case "methods":
         message = new Methods().process(cu);
+        break;
+
+      case "nestedloops":
+        message = new NestedLoops().process(cu);
         break;
 
       case "objects":
@@ -213,8 +215,11 @@ public class FeatureUsageController implements IController {
         message = new Switch().process(cu);
         break;
 
+      case "throws":
+        message = new Throws().process(cu);
+        break;
+
       case "variables":
-        //local, global, private, public, instance
         message = new Variables().process(cu);
         break;
 
@@ -280,7 +285,6 @@ public class FeatureUsageController implements IController {
         message = new Arrays().process(cu);
         break;
       case "graphs":
-        //TODO: Think about it as Java doesn't have a Graph Class
         break;
       case "hashmaps":
         message = new HashMaps().process(cu, "HashMap", choice);
@@ -310,7 +314,6 @@ public class FeatureUsageController implements IController {
         message = new TreeMaps().process(cu, "TreeMap");
         break;
       case "trees":
-        //TODO: Think about it as Java Library doesn't have a Tree Class
         break;
       case "treeset":
         message = new TreeSets().process(cu, "TreeSet", choice);
@@ -379,7 +382,6 @@ public class FeatureUsageController implements IController {
 
         break;
       case "fileio":
-        //TODO: Friday
         break;
       case "infiniteloops":
         message = new InfiniteLoops().process(cu);
@@ -434,17 +436,5 @@ public class FeatureUsageController implements IController {
       e.printStackTrace();
     }
     view.show(out);
-  }
-
-  private String checkForNullPointerException(String message) {
-
-    try {
-      if (message.equals("true")) {
-        message = "Yes";
-      }
-    } catch (NullPointerException ne) {
-      message = "No";
-    }
-    return message;
   }
 }

@@ -5,6 +5,10 @@ import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 
 import java.util.List;
 
+/**
+ * Abstract class that processes the presence of Data Structures
+ */
+
 abstract class AbstractPolymorphismChecker extends AbstractObjectCreationChecker {
 
   public String process(CompilationUnit cu, String dataStructure, String polymorphism) {

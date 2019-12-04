@@ -5,16 +5,35 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 
 import java.util.List;
 
+/**
+ * Java Class to find methods in Student Code.
+ */
+
 public class Methods {
 
   public Methods() {
   }
+
+  /**
+   * Method that finds all instances of 'Methods' in Student Code and maintains their count.
+   *
+   * @param cu AST object generated from Student Code file.
+   * @return message to the controller, as String.
+   */
 
   public String process(CompilationUnit cu) {
     List<MethodDeclaration> methods = cu.findAll(MethodDeclaration.class);
     int count = methods.size();
     return generateMessage(count, methods);
   }
+
+  /**
+   * Private message that generates the message to be returned to the controller.
+   *
+   * @param count number of instances of Methods found in Student Code.
+   * @param methods List of Method declarations
+   * @return message to be passed on to the controller, as String.
+   */
 
   private String generateMessage(int count, List<MethodDeclaration> methods) {
     if (count == 0) {
@@ -26,6 +45,13 @@ public class Methods {
     }
 
   }
+
+  /**
+   * Private method to get the names of the 'methods' found, as String.
+   *
+   * @param methods List of Method declarations.
+   * @return names of the Methods found, as String.
+   */
 
   private String getMethodNames(List<MethodDeclaration> methods) {
 
