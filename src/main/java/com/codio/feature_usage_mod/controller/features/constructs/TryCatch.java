@@ -14,37 +14,72 @@ import java.util.Optional;
 
 public class TryCatch {
 
-  public TryCatch() {}
+  public TryCatch() {
+  }
 
   public String process(CompilationUnit cu) {
 
     List<TryStmt> tryBlocks = cu.findAll(TryStmt.class);
     int count = tryBlocks.size();
-    return generateMessage(tryBlocks, count);
+    return checkForTryBlocks(tryBlocks, count);
   }
 
-  private String generateMessage(List<TryStmt> tryBlocks, int count) {
+  private String checkForTryBlocks(List<TryStmt> tryBlocks, int count) {
+
+    if (count == 0) {
+      return "No Try Blocks found in Student Code!\n\n";
+    } else {
+
+      StringBuilder sb = new StringBuilder();
+
+      if (count == 1) {
+        sb.append(count).append(" Try Block found in Student Code!\n\n");
+      } else {
+        sb.append(count).append(" Try Blocks found in Student Code!\n\n");
+      }
+
+      sb.append(processFoundTryBlocks(tryBlocks));
+      System.out.println(sb.toString());
+      return sb.toString();
+
+    }
+  }
+
+  private String processFoundTryBlocks(List<TryStmt> tryBlocks) {
 
     StringBuilder sb = new StringBuilder();
-    int outOfScopeTryBlocks = 0;
     int inScopeTryBlocks = 0;
-    sb.append(count).append(" Try Blocks Found in Student Code!\n\n");
+    int outOfScopeTryBlocks = 0;
+
     for (TryStmt tryBlock : tryBlocks) {
       CallableDeclaration methodOrConstructor = locateTryBlock(tryBlock);
       if (methodOrConstructor == null) {
         outOfScopeTryBlocks++;
+
       } else {
         inScopeTryBlocks++;
         sb.append("Try Block ").append(inScopeTryBlocks).append(":\n");
         sb.append(getMethodOrConstructorName(methodOrConstructor));
-        System.out.println(sb.toString());
         sb.append(checkForCatchBlocks(tryBlock));
-
-        System.out.println(sb.toString());
       }
     }
-    sb.append(outOfScopeTryBlocks).append(" Try Blocks are out of scope!\n");
+    sb.append(outOfScopeTryBlocks)
+            .append(" Try Blocks are defined outside of a method/constructor!\n");
+
     return sb.toString();
+  }
+
+  private CallableDeclaration locateTryBlock(TryStmt tryBlock) {
+    Optional<Node> parent = tryBlock.getParentNode();
+    return parent.map(this::getParentMethodOrConstructor).orElse(null);
+  }
+
+  private CallableDeclaration getParentMethodOrConstructor(Node node) {
+    if (node instanceof CallableDeclaration) {
+      return ((CallableDeclaration) node);
+    } else {
+      return node.getParentNode().map(this::getParentMethodOrConstructor).orElse(null);
+    }
   }
 
   private String getMethodOrConstructorName(CallableDeclaration methodOrConstructor) {
@@ -91,6 +126,26 @@ public class TryCatch {
     return sb.toString();
   }
 
+  private String checkForCaughtExceptions(CatchClause catchBlock) {
+    StringBuilder sb = new StringBuilder();
+
+    String[] exceptions = catchBlock.getParameter().toString().split("\\| *");
+    int exceptionsCount = exceptions.length;
+    if (exceptionsCount == 0) {
+      return "No Exceptions Caught!";
+    } else {
+
+      sb.append("Exceptions Caught:\n");
+      int lastElement = exceptionsCount - 1;
+      exceptions[lastElement] = exceptions[lastElement].replaceAll(" [a-z0-9]*", "");
+      for (String exception : exceptions) {
+        sb.append(exception).append("\n");
+      }
+      return sb.toString();
+    }
+
+  }
+
   private String checkForThrowStatements(CatchClause catchBlock) {
     List<ThrowStmt> throwStmts = catchBlock.findAll(ThrowStmt.class);
     int count = throwStmts.size();
@@ -104,18 +159,6 @@ public class TryCatch {
     }
   }
 
-  private String checkForCaughtExceptions(CatchClause catchBlock) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Exceptions Caught:\n");
-    String[] exceptions = catchBlock.getParameter().toString().split("\\| *");
-    int lastElement = exceptions.length - 1;
-    exceptions[lastElement] = exceptions[lastElement].replaceAll(" [a-z0-9]*", "");
-    for (String exception: exceptions) {
-      sb.append(exception).append("\n");
-    }
-    return sb.toString();
-  }
-
   private String getThrowStatementData(List<ThrowStmt> throwStmts, int count) {
     StringBuilder sb = new StringBuilder();
     if (count == 1) {
@@ -127,18 +170,5 @@ public class TryCatch {
       sb.append(throwStmt.getExpression().toString()).append("\n");
     }
     return sb.toString();
-  }
-
-  private CallableDeclaration locateTryBlock(TryStmt tryBlock) {
-    Optional<Node> parent = tryBlock.getParentNode();
-    return parent.map(this::getParentMethodOrConstructor).orElse(null);
-  }
-
-  private CallableDeclaration getParentMethodOrConstructor(Node node) {
-    if (node instanceof CallableDeclaration) {
-      return ((CallableDeclaration) node);
-    } else {
-      return node.getParentNode().map(this::getParentMethodOrConstructor).orElse(null);
-    }
   }
 }

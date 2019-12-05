@@ -194,6 +194,20 @@ public class FeatureUsageControllerTest {
     } catch (NullPointerException e) {
       //Intentionally empty
     }
+    String expected = "1 Try Block found in Student Code!\n" +
+            "\n" +
+            "Try Block 1:\n" +
+            "Try block found in a Method.\n" +
+            "Method Name: public static void main(String[] args)\n" +
+            "1 Catch Block found for the corresponding Try Block.\n" +
+            "Catch Block 1:\n" +
+            "Exceptions Caught:\n" +
+            "ArithmeticException \n" +
+            "NumberFormatException\n" +
+            "No Throw Statements Found!\n" +
+            "0 Try Blocks are defined outside of a method/constructor!";
+    String actual = view.logs.toString();
+    assertTrue(actual.contains(expected));
   }
 //  @Test
 //  public void testControllerForDataStructures(){
