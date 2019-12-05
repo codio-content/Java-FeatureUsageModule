@@ -6,9 +6,9 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import java.util.List;
 
 /**
- * Java class to find: a) The presence of a method with a specified name and return type.
- *                     b) The presence of the number of methods that have "void" return type and
- *                        the number of methods that have other return types.
+ * Java class to find: a) The presence of a method with a specified name and return type. b) The
+ * presence of the number of methods that have "void" return type and the number of methods that
+ * have other return types.
  */
 
 public class MethodReturnTypes {
@@ -42,8 +42,7 @@ public class MethodReturnTypes {
           mainMethod = true;
         }
         voidMethods++;
-      }
-      else {
+      } else {
         otherMethods++;
       }
     }
@@ -53,8 +52,8 @@ public class MethodReturnTypes {
   /**
    * Method that checks for the presence of a method with a specified name and return type.
    *
-   * @param cu AST object generated from the Student Code file.
-   * @param returnType Specified return type of the method.
+   * @param cu           AST object generated from the Student Code file.
+   * @param returnType   Specified return type of the method.
    * @param functionName Specified name of the method
    * @return returns a message to the controller, as String.
    */
@@ -77,9 +76,9 @@ public class MethodReturnTypes {
   /**
    * Private method that generates the message to be returned to the controller (general case).
    *
-   * @param voidMethods number of methods with "void" return type.
+   * @param voidMethods  number of methods with "void" return type.
    * @param otherMethods number of methods with other return types.
-   * @param mainMethod flag to mark presence/absence of main method in Student Code.
+   * @param mainMethod   flag to mark presence/absence of main method in Student Code.
    * @return message to be passed on to the controller, as String.
    */
 
@@ -90,8 +89,7 @@ public class MethodReturnTypes {
               .append(voidMethods).append(" method(s) with return type 'void' (except main).\n")
               .append(otherMethods).append(" method(s) with other return types.\n");
       return sb.toString();
-    }
-    else {
+    } else {
       sb.append("No main method in Student Code.\n")
               .append(voidMethods).append(" method(s) with return type 'void'.\n")
               .append(otherMethods).append(" method(s) with other return types.\n");

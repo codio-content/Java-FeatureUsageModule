@@ -45,7 +45,7 @@ public class Throws {
     if (numberOfThrows == 0) {
       return "No 'Throws' statements found in Student Code.\n";
     } else if (numberOfThrows == 1) {
-      return "1 'Throws' statement found in Student Code.\n" +  printExceptionData(listOfMessages);
+      return "1 'Throws' statement found in Student Code.\n" + printExceptionData(listOfMessages);
     } else {
       return numberOfThrows + "'Throws' statements found in Student Code.\n"
               + printExceptionData(listOfMessages);
@@ -54,29 +54,29 @@ public class Throws {
 
   private String printExceptionData(List<String> listOfMessages) {
     StringBuilder sb = new StringBuilder();
-    for (String message: listOfMessages) {
-      sb.append(message).append("\n");
+    int count = 0;
+    for (String message : listOfMessages) {
+      count++;
+      sb.append(count).append(") ").append(message).append("\n");
     }
     return sb.toString();
   }
 
   private String generateExceptionData(CallableDeclaration methodOrConstructor, int numberOfExceptions,
-                                 NodeList thrownExceptions) {
+                                       NodeList thrownExceptions) {
 
     String name = methodOrConstructor.getNameAsString();
     StringBuilder sb = new StringBuilder();
 
     if (methodOrConstructor.isConstructorDeclaration()) {
       sb.append("Constructor Name: ").append(name).append("\n");
-    }
-    else {
+    } else {
       sb.append("Method Name: ").append(name).append("\n");
     }
 
     if (numberOfExceptions == 1) {
       sb.append("Exception after 'Throws' - ").append(getExceptionNames(thrownExceptions));
-    }
-    else {
+    } else {
       sb.append("Exceptions after 'Throws' - ").append(getExceptionNames(thrownExceptions));
     }
 
@@ -85,7 +85,7 @@ public class Throws {
 
   private String getExceptionNames(NodeList list) {
     StringBuilder sb = new StringBuilder();
-    for (Object exception: list) {
+    for (Object exception : list) {
       sb.append(exception.toString()).append("\n");
     }
     return sb.toString();

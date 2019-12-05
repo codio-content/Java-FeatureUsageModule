@@ -30,9 +30,9 @@ public class IfConditionals {
       message = "There is no if statement in the code";
     } else {
 
-      for (IfStmt ifStmt: ifStmts) {
+      for (IfStmt ifStmt : ifStmts) {
         List<Node> nodes = ifStmt.getChildNodes();
-        for (Node node: nodes) {
+        for (Node node : nodes) {
           if (node instanceof BlockStmt) {
             List<Node> childNodes = node.getChildNodes();
 
@@ -52,9 +52,6 @@ public class IfConditionals {
 
 
       }
-
-
-
 
 
     }

@@ -119,8 +119,7 @@ public class NestedLoops {
       List<String> newListOfLoops = tableOfEverything.get(depth);
       newListOfLoops.add(nestedLoop);
       tableOfEverything.replace(depth, newListOfLoops);
-    }
-    else {
+    } else {
       List<String> listOfLoops = new ArrayList<>();
       listOfLoops.add(nestedLoop);
       tableOfEverything.put(depth, listOfLoops);

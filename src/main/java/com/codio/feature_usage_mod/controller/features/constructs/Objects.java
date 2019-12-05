@@ -30,7 +30,7 @@ public class Objects {
   /**
    * Private method that generates the message to be returned to the controller.
    *
-   * @param count number of instances of 'Objects' found in Student Code.
+   * @param count   number of instances of 'Objects' found in Student Code.
    * @param objects List of Object Creation Expressions
    * @return message to be passed on to the controller, as String.
    */
@@ -54,7 +54,7 @@ public class Objects {
 
   private String getObjectNames(List<ObjectCreationExpr> objects) {
     StringBuilder sb = new StringBuilder();
-    for (ObjectCreationExpr object: objects) {
+    for (ObjectCreationExpr object : objects) {
       sb.append(object.getTypeAsString()).append("\n");
     }
     return sb.toString();

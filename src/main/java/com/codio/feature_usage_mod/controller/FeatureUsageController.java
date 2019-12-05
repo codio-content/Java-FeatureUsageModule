@@ -6,14 +6,15 @@ import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
 import com.codio.feature_usage_mod.controller.features.constructs.For;
 import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
-import com.codio.feature_usage_mod.controller.features.constructs.MethodReturnTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
+import com.codio.feature_usage_mod.controller.features.constructs.MethodReturnTypes;
 import com.codio.feature_usage_mod.controller.features.constructs.Methods;
 import com.codio.feature_usage_mod.controller.features.constructs.NestedLoops;
 import com.codio.feature_usage_mod.controller.features.constructs.Objects;
 import com.codio.feature_usage_mod.controller.features.constructs.Strings;
 import com.codio.feature_usage_mod.controller.features.constructs.Switch;
 import com.codio.feature_usage_mod.controller.features.constructs.Throws;
+import com.codio.feature_usage_mod.controller.features.constructs.TryCatch;
 import com.codio.feature_usage_mod.controller.features.constructs.Variables;
 import com.codio.feature_usage_mod.controller.features.constructs.While;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
@@ -219,6 +220,10 @@ public class FeatureUsageController implements IController {
         message = new Throws().process(cu);
         break;
 
+      case "trycatch":
+        message = new TryCatch().process(cu);
+        break;
+
       case "variables":
         message = new Variables().process(cu);
         break;
@@ -240,19 +245,17 @@ public class FeatureUsageController implements IController {
             + "1. ArrayDeques\n"
             + "2. ArrayLists\n"
             + "3. Arrays\n"
-            + "4. Graphs\n"
-            + "5. HashMaps\n"
-            + "6. HashSets\n"
-            + "7. HashTables\n"
-            + "8. LinkedHashMaps\n"
-            + "9. LinkedHashSets\n"
-            + "10. LinkedLists\n"
-            + "11. PriorityQueues\n"
-            + "12. Stacks\n"
-            + "13. TreeMaps\n"
-            + "14. Trees\n"
-            + "15. TreeSets\n"
-            + "16. Vectors\n");
+            + "4. HashMaps\n"
+            + "5. HashSets\n"
+            + "6. HashTables\n"
+            + "7. LinkedHashMaps\n"
+            + "8. LinkedHashSets\n"
+            + "9. LinkedLists\n"
+            + "10. PriorityQueues\n"
+            + "11. Stacks\n"
+            + "12. TreeMaps\n"
+            + "13. TreeSets\n"
+            + "14. Vectors\n");
     appendToAppendableAndDisplay(sb);
 
     String option = view.getNextInput();
@@ -284,8 +287,6 @@ public class FeatureUsageController implements IController {
       case "arrays":
         message = new Arrays().process(cu);
         break;
-      case "graphs":
-        break;
       case "hashmaps":
         message = new HashMaps().process(cu, "HashMap", choice);
         break;
@@ -312,8 +313,6 @@ public class FeatureUsageController implements IController {
         break;
       case "treemaps":
         message = new TreeMaps().process(cu, "TreeMap");
-        break;
-      case "trees":
         break;
       case "treeset":
         message = new TreeSets().process(cu, "TreeSet", choice);

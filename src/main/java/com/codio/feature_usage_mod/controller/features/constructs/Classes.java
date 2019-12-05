@@ -30,7 +30,7 @@ public class Classes {
   /**
    * Private method that generates the message to be returned to the controller.
    *
-   * @param count number of instances of Classes/Interfaces found in Student Code.
+   * @param count   number of instances of Classes/Interfaces found in Student Code.
    * @param classes List of Class/Interface declarations.
    * @return returns the message to be passed on to the controller, as String.
    */

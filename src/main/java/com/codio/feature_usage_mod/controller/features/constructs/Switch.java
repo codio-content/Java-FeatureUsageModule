@@ -15,7 +15,8 @@ public class Switch {
   }
 
   /**
-   * Method that finds all instances of Switch statements in Student Code and maintains their count.
+   * Method that finds all instances of Switch statements in Student Code and maintains their
+   * count.
    *
    * @param cu AST object generated from Student Code file.
    * @return message to the controller, as String.
