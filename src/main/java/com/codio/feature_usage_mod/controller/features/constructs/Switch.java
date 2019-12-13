@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find Switch statements in Student Code.
  */
 
-public class Switch {
+public class Switch implements IConstructs {
 
   public Switch() {
   }

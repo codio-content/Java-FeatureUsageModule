@@ -12,7 +12,7 @@ import com.github.javaparser.ast.stmt.TryStmt;
 import java.util.List;
 import java.util.Optional;
 
-public class TryCatch {
+public class TryCatch implements IConstructs {
 
   public TryCatch() {
   }

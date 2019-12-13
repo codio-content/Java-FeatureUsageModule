@@ -9,7 +9,7 @@ import java.util.List;
  * Java Class to find methods in Student Code.
  */
 
-public class Methods {
+public class Methods implements IConstructs{
 
   public Methods() {
   }

@@ -17,11 +17,16 @@ import java.util.List;
 
 //TODO: How to keep track of depth and String message for multiple nests in one loop
 
-public class NestedLoops {
+//TODO: new approach - Dont pass StringBuilder in recursion. Maintain depth and loop info in temp variables
+
+
+public class NestedLoops implements IConstructs {
 
   private int depth;
-  private int count;
+  private int visitedCounter = 0;
+  private Hashtable<Integer, String> tempData = new Hashtable<>();
   private Hashtable<Integer, List<String>> tableOfEverything = new Hashtable<>();
+  private Hashtable<Integer, Statement> visited = new Hashtable<>();
 
   public NestedLoops() {
   }
@@ -42,38 +47,45 @@ public class NestedLoops {
     }
 
     StringBuilder nestedLoop;
-
     for (Statement loop : allLoops) {
 
-      depth = 1;
-      LoopType loopType = LoopType.valueOf(loop.getClass().getSimpleName());
+      if (visited.contains(loop)) {
+        break;
+      } else {
+        visitedCounter++;
+        visited.put(visitedCounter, loop);
+        depth = 1;
+        LoopType loopType = LoopType.valueOf(loop.getClass().getSimpleName());
 
-      switch (loopType) {
-        case ForStmt:
-          nestedLoop = new StringBuilder();
-          ForStmt forLoop = (ForStmt) loop;
-          nestedLoop.append("For Loop -> \n\t");
-          findNestedLoops(forLoop.getBody(), nestedLoop);
-          break;
-        case WhileStmt:
-          nestedLoop = new StringBuilder();
-          WhileStmt whileLoop = (WhileStmt) loop;
-          nestedLoop.append("While Loop -> \n\t");
-          findNestedLoops(whileLoop.getBody(), nestedLoop);
-          break;
-        case DoStmt:
-          nestedLoop = new StringBuilder();
-          DoStmt doWhileLoop = (DoStmt) loop;
-          nestedLoop.append("Do While Loop -> \n\t");
-          findNestedLoops(doWhileLoop.getBody(), nestedLoop);
-          break;
+        switch (loopType) {
+          case ForStmt:
+            nestedLoop = new StringBuilder();
+            ForStmt forLoop = (ForStmt) loop;
+            nestedLoop.append("For Loop -> \n\t");
+            findNestedLoops(forLoop.getBody(), nestedLoop);
+            break;
+          case WhileStmt:
+            nestedLoop = new StringBuilder();
+            WhileStmt whileLoop = (WhileStmt) loop;
+            nestedLoop.append("While Loop -> \n\t");
+            findNestedLoops(whileLoop.getBody(), nestedLoop);
+            break;
+          case DoStmt:
+            nestedLoop = new StringBuilder();
+            DoStmt doWhileLoop = (DoStmt) loop;
+            nestedLoop.append("Do While Loop -> \n\t");
+            findNestedLoops(doWhileLoop.getBody(), nestedLoop);
+            break;
+        }
       }
+
     }
     return "";
   }
 
   private void findNestedLoops(Statement loopBody, StringBuilder nestedLoop) {
 
+    tempData.put(depth, nestedLoop.toString());
     List<Node> children = loopBody.getChildNodes();
     boolean flag = false;
     for (Node child : children) {
@@ -110,7 +122,6 @@ public class NestedLoops {
     }
     if (!flag) {
       invokeVariableInitializer(depth, nestedLoop.toString());
-      depth = 1;
     }
   }
 
@@ -124,10 +135,13 @@ public class NestedLoops {
       listOfLoops.add(nestedLoop);
       tableOfEverything.put(depth, listOfLoops);
     }
+
+    tempData.remove(depth, nestedLoop);
+    this.depth--;
   }
 }
 
 enum LoopType {
-  ForStmt, DoStmt, WhileStmt;
+  ForStmt, DoStmt, WhileStmt
 }
 

@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find While Loops in Student Code.
  */
 
-public class While {
+public class While implements IConstructs {
 
   public While() {
   }

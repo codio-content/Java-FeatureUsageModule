@@ -1,19 +1,26 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class DataTypes {
+public class DataTypes implements IConstructs{
 
   // TODO: limit on the number of variables of a specific data type
 
   // TODO: Need to use both, field declarator and variable declarator
 
   public DataTypes() {
+  }
+
+  public String process(){
+
+
+    return "";
   }
 
   public String processGeneralCase(CompilationUnit cu) {
@@ -46,6 +53,7 @@ public class DataTypes {
 
     Hashtable<String, List<String>> dataTypesTable = new Hashtable<>();
     List<VariableDeclarationExpr> allVariables = cu.findAll(VariableDeclarationExpr.class);
+    List<FieldDeclaration> allFields = cu.findAll(FieldDeclaration.class);
 
     List<String> ints = new ArrayList<>();
     List<String> doubles = new ArrayList<>();

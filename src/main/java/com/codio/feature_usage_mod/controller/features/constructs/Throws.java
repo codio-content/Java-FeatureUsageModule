@@ -11,7 +11,7 @@ import java.util.List;
  * Java Class to find Throws statements in Student Code.
  */
 
-public class Throws {
+public class Throws implements IConstructs {
 
   public Throws() {
   }

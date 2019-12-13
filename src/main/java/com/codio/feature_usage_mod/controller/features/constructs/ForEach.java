@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find For-Each loops in Student Code.
  */
 
-public class ForEach {
+public class ForEach implements IConstructs{
 
   public ForEach() {
   }

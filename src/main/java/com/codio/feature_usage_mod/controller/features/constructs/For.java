@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find For loops in Student Code.
  */
 
-public class For {
+public class For implements IConstructs{
 
   public For() {
   }

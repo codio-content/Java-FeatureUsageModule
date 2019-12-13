@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find Classes/Interfaces in Student Code.
  */
 
-public class Classes {
+public class Classes implements IConstructs{
 
   public Classes() {
   }

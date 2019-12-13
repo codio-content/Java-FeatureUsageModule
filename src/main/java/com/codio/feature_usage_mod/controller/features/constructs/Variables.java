@@ -4,12 +4,11 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
-import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Variables extends GenericVisitorAdapter<String, Void> {
+public class Variables implements IConstructs {
 
   public Variables() {
   }

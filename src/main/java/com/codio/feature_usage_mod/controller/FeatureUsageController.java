@@ -43,13 +43,18 @@ import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
+import java.util.stream.Stream;
 
 public class FeatureUsageController implements IController {
 
   private IView view;
   private CompilationUnit cu;
-  private Class studentSubmission;
 
   public FeatureUsageController(IView view, CompilationUnit cu) {
     this.view = view;
@@ -61,28 +66,24 @@ public class FeatureUsageController implements IController {
   public void start() {
 
     StringBuffer sb = new StringBuffer();
-    sb.append("Welcome to Symonn's Feature Usage Module.\n"
-            + "What do you want to check in your students' code ?\n"
-            + "1. constructs\n"
-            + "2. data structures\n"
-            + "3. techniques\n"
-            + "4. full report\n"
-            + "5. exit\n");
+    sb.append(getCategories());
     appendToAppendableAndDisplay(sb);
 
     String category = view.getNextInput();
 
     switch (category) {
-      case "constructs":
+      case "1":
         constructsSwitchCase();
         break;
-      case "ds":
+      case "2":
         dataStructuresSwitchCase();
         break;
-      case "techniques":
+      case "3":
         techniquesSwitchCase();
         break;
-      case "exit":
+      case "4":
+        //full report
+      case "5":
         return;
       default:
         sb.append("Incorrect option. Please choose again.").append("\n");
@@ -91,28 +92,29 @@ public class FeatureUsageController implements IController {
     start();
   }
 
+  private String getCategories() {
+
+    List<Path> featureCategories =
+            getFilesFromDirectory("src/main/java/com/codio/feature_usage_mod/controller/features",
+                    "directory");
+
+    StringBuilder message = new StringBuilder();
+    message.append("Welcome to Symonn's Feature Usage Module.\n"
+            + "What do you want to check in your students' code ?\n");
+    int index = 1;
+    for (Path featureCategory : featureCategories) {
+      message.append(index).append(". ").append(featureCategory.toString()).append("\n");
+      index++;
+    }
+    message.append(index).append(". exit");
+    return message.toString();
+  }
+
   private void constructsSwitchCase() {
     String message = "";
     String choice;
     StringBuffer sb = new StringBuffer();
-    sb.append("Please enter one of the following options in lowercase:\n"
-            + "1. Classes\n"
-            + "2. Constructors\n"
-            + "3. DataTypes\n"
-            + "4. DoWhile\n"
-            + "5. For\n"
-            + "6. ForEach\n"
-            + "7. IfConditionals\n"
-            + "8. MethodReturnTypes\n"
-            + "9. Methods\n"
-            + "10. NestedLoops\n"
-            + "11. Objects\n"
-            + "12. Strings\n"
-            + "13. Switch\n"
-            + "14. Throws\n"
-            + "15. TryCatch\n"
-            + "16. Variables\n"
-            + "17. While\n");
+    sb.append(getConstructs());
     appendToAppendableAndDisplay(sb);
 
     String option = view.getNextInput();
@@ -234,6 +236,45 @@ public class FeatureUsageController implements IController {
     }
     appendToAppendableAndDisplay(new StringBuffer().append(message));
 
+  }
+
+  private String getConstructs() {
+
+    List<Path> constructs =
+            getFilesFromDirectory("src/main/java/com/codio/feature_usage_mod/controller/features/constructs",
+                    "file");
+
+    StringBuilder message = new StringBuilder();
+    message.append("Please choose one of the following options:\n");
+    int index = 1;
+    for (Path construct: constructs) {
+      message.append(index).append(". ").append(construct.toString()).append("\n");
+      index++;
+    }
+
+    return message.toString();
+  }
+
+
+  private List<Path> getFilesFromDirectory(String path, String type) {
+
+    List<Path> files = new ArrayList<>();
+    try (Stream<Path> paths = Files.list(Paths.get(path))) {
+      if (type.equals("directory")) {
+        paths
+                .filter(Files::isDirectory)
+                .map(Path::getFileName)
+                .forEach(files::add);
+      } else {
+        paths
+                .filter(Files::isRegularFile)
+                .map(Path::getFileName)
+                .forEach(files::add);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return files;
   }
 
   private void dataStructuresSwitchCase() {

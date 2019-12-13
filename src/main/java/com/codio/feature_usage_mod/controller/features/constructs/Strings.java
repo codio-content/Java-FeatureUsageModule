@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find String objects in Student Code.
  */
 
-public class Strings {
+public class Strings implements IConstructs {
 
   public Strings() {
   }

@@ -29,19 +29,24 @@ public class D {
 
     int C = in.nextInt();
     in.nextLine();
+
     for (int c = 1; c <= C; c++) {
       int ways = 0;
       int H = in.nextInt();
       int W = in.nextInt();
       int R = in.nextInt();
       in.nextLine();
-      HashSet<String> rocks = new HashSet<String>();
+      HashSet<String> rocks = new HashSet<>();
+
       for (int i = 0; i < R; i++) {
         rocks.add(in.nextLine());
       }
+
       value = new int[H][W];
       value[0][0] = 1;
+
       for (int i = 0; i < H; i++) {
+
         for (int j = 0; j < W; j++) {
           if (value[i][j] != 0 && !rocks.contains((i + 1) + " " + (j + 1))) {
             if (i + 2 < H && j + 1 < W)
@@ -51,6 +56,11 @@ public class D {
           }
           //System.out.print(value[i][j]+" ");
         }
+
+//        for (int z = 0; z < 10; z ++){
+//          System.out.println("NoNoNo");
+//        }
+
         //	System.out.println();
       }
       ways = value[H - 1][W - 1];

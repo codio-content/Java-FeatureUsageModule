@@ -11,9 +11,14 @@ import java.util.List;
  * have other return types.
  */
 
-public class MethodReturnTypes {
+public class MethodReturnTypes implements IConstructs{
 
   public MethodReturnTypes() {
+  }
+
+  public String process(){
+
+    return "";
   }
 
   /**

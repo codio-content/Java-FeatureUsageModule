@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find instances of 'Objects' in Student Code.
  */
 
-public class Objects {
+public class Objects implements IConstructs {
 
   public Objects() {
   }

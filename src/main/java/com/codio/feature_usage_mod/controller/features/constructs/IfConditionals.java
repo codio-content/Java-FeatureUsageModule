@@ -10,7 +10,7 @@ import java.util.List;
 
 //TODO: Revamp the whole logic for getting counts for all possible statements and cases
 
-public class IfConditionals {
+public class IfConditionals implements IConstructs{
 
   public IfConditionals() {
   }

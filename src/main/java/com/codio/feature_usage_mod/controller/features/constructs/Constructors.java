@@ -9,7 +9,7 @@ import java.util.List;
  * Java class to find Constructors in Student Code.
  */
 
-public class Constructors {
+public class Constructors implements IConstructs{
 
   public Constructors() {
   }
