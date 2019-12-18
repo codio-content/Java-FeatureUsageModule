@@ -1,22 +1,12 @@
 package com.codio.feature_usage_mod.controller;
 
-import com.codio.feature_usage_mod.controller.features.constructs.Classes;
-import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
+import com.codio.feature_usage_mod.controller.features.IConstructs;
+
 import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
-import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
-import com.codio.feature_usage_mod.controller.features.constructs.For;
-import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
-import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
+
+import com.codio.feature_usage_mod.controller.features.GetConstructsFactory;
 import com.codio.feature_usage_mod.controller.features.constructs.MethodReturnTypes;
-import com.codio.feature_usage_mod.controller.features.constructs.Methods;
-import com.codio.feature_usage_mod.controller.features.constructs.NestedLoops;
-import com.codio.feature_usage_mod.controller.features.constructs.Objects;
-import com.codio.feature_usage_mod.controller.features.constructs.Strings;
-import com.codio.feature_usage_mod.controller.features.constructs.Switch;
-import com.codio.feature_usage_mod.controller.features.constructs.Throws;
-import com.codio.feature_usage_mod.controller.features.constructs.TryCatch;
-import com.codio.feature_usage_mod.controller.features.constructs.Variables;
-import com.codio.feature_usage_mod.controller.features.constructs.While;
+
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
@@ -94,7 +84,7 @@ public class FeatureUsageController implements IController {
 
   private String getCategories() {
 
-    List<Path> featureCategories =
+    List<String> featureCategories =
             getFilesFromDirectory("src/main/java/com/codio/feature_usage_mod/controller/features",
                     "directory");
 
@@ -102,8 +92,8 @@ public class FeatureUsageController implements IController {
     message.append("Welcome to Symonn's Feature Usage Module.\n"
             + "What do you want to check in your students' code ?\n");
     int index = 1;
-    for (Path featureCategory : featureCategories) {
-      message.append(index).append(". ").append(featureCategory.toString()).append("\n");
+    for (String featureCategory : featureCategories) {
+      message.append(index).append(". ").append(featureCategory).append("\n");
       index++;
     }
     message.append(index).append(". exit");
@@ -111,7 +101,7 @@ public class FeatureUsageController implements IController {
   }
 
   private void constructsSwitchCase() {
-    String message = "";
+    String message;
     String choice;
     StringBuffer sb = new StringBuffer();
     sb.append(getConstructs());
@@ -121,14 +111,13 @@ public class FeatureUsageController implements IController {
     if (option == null) {
       return;
     }
-    switch (option) {
-      case "classes":
-        message = new Classes().process(cu);
-        break;
 
-      case "constructors":
-        message = new Constructors().process(cu);
-        break;
+    GetConstructsFactory constructsFactory = new GetConstructsFactory(option);
+    IConstructs construct = constructsFactory.getConstructObject();
+    message = construct.process(cu);
+    appendToAppendableAndDisplay(new StringBuffer(message));
+
+    switch (option) {
 
       case "datatypes":
         sb = new StringBuffer();
@@ -156,18 +145,6 @@ public class FeatureUsageController implements IController {
         }
         break;
 
-      case "dowhile":
-        message = new DoWhile().process(cu);
-        break;
-
-      case "for":
-        message = new For().process(cu);
-        break;
-
-      case "foreach":
-        message = new ForEach().process(cu);
-        break;
-
       case "methodreturntypes":
         sb = new StringBuffer();
         sb.append("Do you want to check for a specific function and return type ?\n"
@@ -193,46 +170,6 @@ public class FeatureUsageController implements IController {
             break;
         }
         break;
-
-      case "ifconditionals":
-        message = new IfConditionals().process(cu);
-        break;
-
-      case "methods":
-        message = new Methods().process(cu);
-        break;
-
-      case "nestedloops":
-        message = new NestedLoops().process(cu);
-        break;
-
-      case "objects":
-        message = new Objects().process(cu);
-        break;
-
-      case "strings":
-        message = new Strings().process(cu);
-        break;
-
-      case "switch":
-        message = new Switch().process(cu);
-        break;
-
-      case "throws":
-        message = new Throws().process(cu);
-        break;
-
-      case "trycatch":
-        message = new TryCatch().process(cu);
-        break;
-
-      case "variables":
-        message = new Variables().process(cu);
-        break;
-
-      case "while":
-        message = new While().process(cu);
-        break;
     }
     appendToAppendableAndDisplay(new StringBuffer().append(message));
 
@@ -240,15 +177,15 @@ public class FeatureUsageController implements IController {
 
   private String getConstructs() {
 
-    List<Path> constructs =
+    List<String> constructs =
             getFilesFromDirectory("src/main/java/com/codio/feature_usage_mod/controller/features/constructs",
                     "file");
 
     StringBuilder message = new StringBuilder();
     message.append("Please choose one of the following options:\n");
     int index = 1;
-    for (Path construct: constructs) {
-      message.append(index).append(". ").append(construct.toString()).append("\n");
+    for (String construct: constructs) {
+      message.append(index).append(". ").append(construct).append("\n");
       index++;
     }
 
@@ -256,20 +193,25 @@ public class FeatureUsageController implements IController {
   }
 
 
-  private List<Path> getFilesFromDirectory(String path, String type) {
+  private List<String> getFilesFromDirectory(String path, String type) {
 
-    List<Path> files = new ArrayList<>();
+    List<String> files = new ArrayList<>();
     try (Stream<Path> paths = Files.list(Paths.get(path))) {
       if (type.equals("directory")) {
         paths
                 .filter(Files::isDirectory)
                 .map(Path::getFileName)
+                .map(Path::toString)
                 .forEach(files::add);
       } else {
         paths
                 .filter(Files::isRegularFile)
                 .map(Path::getFileName)
-                .forEach(files::add);
+                .map(Path::toString)
+                .forEach(n-> {
+                  n = n.replace(".java", "");
+                  files.add(n);
+                });
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -438,10 +380,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "methodoverloading":
-        Stack<String> methodCalls = new Stack<>();
-        MethodOverloading mo = new MethodOverloading();
-        mo.visit(cu, methodCalls);
-        message = mo.process(methodCalls);
+        message = new MethodOverloading().process(cu);
         break;
 
       case "methodoverriding":

@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Java class to find Constructors in Student Code.
  */
 
-public class Constructors implements IConstructs{
+public class Constructors implements IConstructs {
 
   public Constructors() {
   }

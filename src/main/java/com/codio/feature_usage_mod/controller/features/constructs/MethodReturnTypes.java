@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
@@ -11,12 +12,13 @@ import java.util.List;
  * have other return types.
  */
 
-public class MethodReturnTypes implements IConstructs{
+public class MethodReturnTypes implements IConstructs {
 
   public MethodReturnTypes() {
   }
 
-  public String process(){
+  @Override
+  public String process(CompilationUnit cu){
 
     return "";
   }

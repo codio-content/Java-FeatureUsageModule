@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
@@ -8,19 +9,13 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class DataTypes implements IConstructs{
+public class DataTypes implements IConstructs {
 
   // TODO: limit on the number of variables of a specific data type
 
   // TODO: Need to use both, field declarator and variable declarator
 
   public DataTypes() {
-  }
-
-  public String process(){
-
-
-    return "";
   }
 
   public String processGeneralCase(CompilationUnit cu) {
@@ -130,5 +125,10 @@ public class DataTypes implements IConstructs{
       sb.append(var).append("\n");
     }
     return sb.toString();
+  }
+
+  @Override
+  public String process(CompilationUnit cu) {
+    return null;
   }
 }

@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.BlockStmt;
@@ -10,7 +11,7 @@ import java.util.List;
 
 //TODO: Revamp the whole logic for getting counts for all possible statements and cases
 
-public class IfConditionals implements IConstructs{
+public class IfConditionals implements IConstructs {
 
   public IfConditionals() {
   }
