@@ -140,7 +140,7 @@ public class FeatureUsageController implements IController {
             message = new DataTypes().processSpecificCase(cu, dataType, variableName);
             break;
           case "N":
-            message = new DataTypes().processGeneralCase(cu);
+            message = new DataTypes().process(cu);
             break;
         }
         break;
