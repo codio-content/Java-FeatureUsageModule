@@ -2,7 +2,6 @@ package com.codio.feature_usage_mod.controller.features.constructs;
 
 import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 
@@ -14,25 +13,20 @@ public class Variables implements IConstructs {
   public Variables() {
   }
 
-  //TODO: Lists of all types of variable names
+  // TODO: User input of specific type of variable in the right context
 
-  //TODO: User input of specific type of variable in the right context
+  // Scope, Local/Global, Details
+  // Field Declarator for Class variables
+  // Variable Declaration Expression for All Local Variables
 
   public String process(CompilationUnit cu) {
 
     StringBuilder sb = new StringBuilder();
     List<MethodDeclaration> methods = cu.findAll(MethodDeclaration.class);
 
-    List<String> localVariables = new ArrayList<>();
-    List<String> instanceVariables = new ArrayList<>();
-    List<String> globalVariables = new ArrayList<>();
-    List<String> staticClassVariables = new ArrayList<>();
-
-    ClassOrInterfaceDeclaration classBody = cu.findAll(ClassOrInterfaceDeclaration.class).get(0);
-
-//    List<Node> childNodes = classBody.getChildNodes();
-//    System.out.println(childNodes.toString());
-
+    int count_localVariables = 0;
+    int count_globalVariables = 0;
+    int count_staticClassVariables = 0;
 
     if (methods.size() == 0) {
       sb.append("No Local Variables in the code");

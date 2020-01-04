@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DataTypes implements IConstructs {
 
-  // TODO: limit on the number of variables of a specific data type
+  // to do: limit on the number of variables of a specific data type
 
   public DataTypes() {
   }
