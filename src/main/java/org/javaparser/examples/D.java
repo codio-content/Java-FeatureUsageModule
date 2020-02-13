@@ -68,4 +68,10 @@ public class D {
     }
     out.flush();
   }
+
+  private void print(){
+    int j = 10;
+    String i = "k";
+    Scanner joke = new Scanner(System.in);
+  }
 }

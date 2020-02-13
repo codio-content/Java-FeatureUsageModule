@@ -10,6 +10,14 @@ import com.github.javaparser.ast.stmt.Statement;
 import java.util.List;
 
 //TODO: Revamp the whole logic for getting counts for all possible statements and cases
+/*
+    int total_If ;
+    int total_Else_If ;
+    int total_If_Else ;
+    int total_Nested_If_Else ;
+    int max_Nest_Depth ;
+ */
+
 
 public class IfConditionals implements IConstructs {
 

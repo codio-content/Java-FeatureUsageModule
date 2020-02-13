@@ -12,8 +12,6 @@ import java.util.List;
 
 public class DataTypes implements IConstructs {
 
-  // to do: limit on the number of variables of a specific data type
-
   public DataTypes() {
   }
 
@@ -36,6 +34,8 @@ public class DataTypes implements IConstructs {
 
     return allDataTypes;
   }
+
+  //TODO: This specific datatype case needs to be debugged
 
   public String processSpecificCase(CompilationUnit cu, String dataType, String variableName) {
 //    Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);
