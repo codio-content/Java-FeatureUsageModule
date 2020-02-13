@@ -6,7 +6,7 @@ import com.github.javaparser.ast.type.ClassOrInterfaceType;
 
 import java.util.List;
 
-//TODO: Something is still missing. Edge case alert. Only the presence of Extends doesnt imply inheritance
+//TODO:  Edge case alert. Only the presence of Extends doesn't imply inheritance
 
 
 public class Inheritance {

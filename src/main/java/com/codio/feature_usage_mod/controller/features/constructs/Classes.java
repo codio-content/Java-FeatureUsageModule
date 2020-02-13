@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Java class to find Classes/Interfaces in Student Code.
  */
 
-public class Classes {
+public class Classes implements IConstructs {
 
   public Classes() {
   }
@@ -30,7 +31,7 @@ public class Classes {
   /**
    * Private method that generates the message to be returned to the controller.
    *
-   * @param count number of instances of Classes/Interfaces found in Student Code.
+   * @param count   number of instances of Classes/Interfaces found in Student Code.
    * @param classes List of Class/Interface declarations.
    * @return returns the message to be passed on to the controller, as String.
    */

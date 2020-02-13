@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Java class to find instances of 'Objects' in Student Code.
  */
 
-public class Objects {
+public class Objects implements IConstructs {
 
   public Objects() {
   }
@@ -30,7 +31,7 @@ public class Objects {
   /**
    * Private method that generates the message to be returned to the controller.
    *
-   * @param count number of instances of 'Objects' found in Student Code.
+   * @param count   number of instances of 'Objects' found in Student Code.
    * @param objects List of Object Creation Expressions
    * @return message to be passed on to the controller, as String.
    */
@@ -54,7 +55,7 @@ public class Objects {
 
   private String getObjectNames(List<ObjectCreationExpr> objects) {
     StringBuilder sb = new StringBuilder();
-    for (ObjectCreationExpr object: objects) {
+    for (ObjectCreationExpr object : objects) {
       sb.append(object.getTypeAsString()).append("\n");
     }
     return sb.toString();

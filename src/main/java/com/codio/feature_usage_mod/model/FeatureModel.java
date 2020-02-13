@@ -6,10 +6,4 @@ package com.codio.feature_usage_mod.model;
  */
 
 public class FeatureModel implements IModel {
-
-  //TODO: Make a feature set with all important constructs. (Hash Table preferably - key:value pair)
-
-  //TODO: Make a set of all keywords in Java that cannot be variable names
-
-
 }

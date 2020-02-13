@@ -1,21 +1,12 @@
 package com.codio.feature_usage_mod.controller;
 
-import com.codio.feature_usage_mod.controller.features.constructs.Classes;
-import com.codio.feature_usage_mod.controller.features.constructs.Constructors;
+import com.codio.feature_usage_mod.controller.features.IConstructs;
+
 import com.codio.feature_usage_mod.controller.features.constructs.DataTypes;
-import com.codio.feature_usage_mod.controller.features.constructs.DoWhile;
-import com.codio.feature_usage_mod.controller.features.constructs.For;
-import com.codio.feature_usage_mod.controller.features.constructs.ForEach;
+
+import com.codio.feature_usage_mod.controller.features.GetConstructsFactory;
 import com.codio.feature_usage_mod.controller.features.constructs.MethodReturnTypes;
-import com.codio.feature_usage_mod.controller.features.constructs.IfConditionals;
-import com.codio.feature_usage_mod.controller.features.constructs.Methods;
-import com.codio.feature_usage_mod.controller.features.constructs.NestedLoops;
-import com.codio.feature_usage_mod.controller.features.constructs.Objects;
-import com.codio.feature_usage_mod.controller.features.constructs.Strings;
-import com.codio.feature_usage_mod.controller.features.constructs.Switch;
-import com.codio.feature_usage_mod.controller.features.constructs.Throws;
-import com.codio.feature_usage_mod.controller.features.constructs.Variables;
-import com.codio.feature_usage_mod.controller.features.constructs.While;
+
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayDeques;
 import com.codio.feature_usage_mod.controller.features.datastructures.ArrayLists;
 import com.codio.feature_usage_mod.controller.features.datastructures.Arrays;
@@ -42,13 +33,18 @@ import com.codio.feature_usage_mod.view.IView;
 import com.github.javaparser.ast.CompilationUnit;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
+import java.util.stream.Stream;
 
 public class FeatureUsageController implements IController {
 
   private IView view;
   private CompilationUnit cu;
-  private Class studentSubmission;
 
   public FeatureUsageController(IView view, CompilationUnit cu) {
     this.view = view;
@@ -60,28 +56,24 @@ public class FeatureUsageController implements IController {
   public void start() {
 
     StringBuffer sb = new StringBuffer();
-    sb.append("Welcome to Symonn's Feature Usage Module.\n"
-            + "What do you want to check in your students' code ?\n"
-            + "1. constructs\n"
-            + "2. data structures\n"
-            + "3. techniques\n"
-            + "4. full report\n"
-            + "5. exit\n");
+    sb.append(getCategories());
     appendToAppendableAndDisplay(sb);
 
     String category = view.getNextInput();
 
     switch (category) {
-      case "constructs":
+      case "1":
         constructsSwitchCase();
         break;
-      case "ds":
+      case "2":
         dataStructuresSwitchCase();
         break;
-      case "techniques":
+      case "3":
         techniquesSwitchCase();
         break;
-      case "exit":
+      case "4":
+        //full report
+      case "5":
         return;
       default:
         sb.append("Incorrect option. Please choose again.").append("\n");
@@ -90,42 +82,42 @@ public class FeatureUsageController implements IController {
     start();
   }
 
+  private String getCategories() {
+
+    List<String> featureCategories =
+            getFilesFromDirectory("src/main/java/com/codio/feature_usage_mod/controller/features",
+                    "directory");
+
+    StringBuilder message = new StringBuilder();
+    message.append("Welcome to Symonn's Feature Usage Module.\n"
+            + "What do you want to check in your students' code ?\n");
+    int index = 1;
+    for (String featureCategory : featureCategories) {
+      message.append(index).append(". ").append(featureCategory).append("\n");
+      index++;
+    }
+    message.append(index).append(". exit");
+    return message.toString();
+  }
+
   private void constructsSwitchCase() {
-    String message = "";
+    String message;
     String choice;
     StringBuffer sb = new StringBuffer();
-    sb.append("Please enter one of the following options in lowercase:\n"
-            + "1. Classes\n"
-            + "2. Constructors\n"
-            + "3. DataTypes\n"
-            + "4. DoWhile\n"
-            + "5. For\n"
-            + "6. ForEach\n"
-            + "7. IfConditionals\n"
-            + "8. MethodReturnTypes\n"
-            + "9. Methods\n"
-            + "10. NestedLoops\n"
-            + "11. Objects\n"
-            + "12. Strings\n"
-            + "13. Switch\n"
-            + "14. Throws\n"
-            + "15. TryCatch\n"
-            + "16. Variables\n"
-            + "17. While\n");
+    sb.append(getConstructs());
     appendToAppendableAndDisplay(sb);
 
     String option = view.getNextInput();
     if (option == null) {
       return;
     }
-    switch (option) {
-      case "classes":
-        message = new Classes().process(cu);
-        break;
 
-      case "constructors":
-        message = new Constructors().process(cu);
-        break;
+    GetConstructsFactory constructsFactory = new GetConstructsFactory(option);
+    IConstructs construct = constructsFactory.getConstructObject();
+    message = construct.process(cu);
+    appendToAppendableAndDisplay(new StringBuffer(message));
+
+    switch (option) {
 
       case "datatypes":
         sb = new StringBuffer();
@@ -148,21 +140,9 @@ public class FeatureUsageController implements IController {
             message = new DataTypes().processSpecificCase(cu, dataType, variableName);
             break;
           case "N":
-            message = new DataTypes().processGeneralCase(cu);
+            message = new DataTypes().process(cu);
             break;
         }
-        break;
-
-      case "dowhile":
-        message = new DoWhile().process(cu);
-        break;
-
-      case "for":
-        message = new For().process(cu);
-        break;
-
-      case "foreach":
-        message = new ForEach().process(cu);
         break;
 
       case "methodreturntypes":
@@ -190,45 +170,53 @@ public class FeatureUsageController implements IController {
             break;
         }
         break;
-
-      case "ifconditionals":
-        message = new IfConditionals().process(cu);
-        break;
-
-      case "methods":
-        message = new Methods().process(cu);
-        break;
-
-      case "nestedloops":
-        message = new NestedLoops().process(cu);
-        break;
-
-      case "objects":
-        message = new Objects().process(cu);
-        break;
-
-      case "strings":
-        message = new Strings().process(cu);
-        break;
-
-      case "switch":
-        message = new Switch().process(cu);
-        break;
-
-      case "throws":
-        message = new Throws().process(cu);
-        break;
-
-      case "variables":
-        message = new Variables().process(cu);
-        break;
-
-      case "while":
-        message = new While().process(cu);
-        break;
     }
     appendToAppendableAndDisplay(new StringBuffer().append(message));
 
+  }
+
+  private String getConstructs() {
+
+    List<String> constructs =
+            getFilesFromDirectory("src/main/java/com/codio/feature_usage_mod/controller/features/constructs",
+                    "file");
+
+    StringBuilder message = new StringBuilder();
+    message.append("Please choose one of the following options:\n");
+    int index = 1;
+    for (String construct: constructs) {
+      message.append(index).append(". ").append(construct).append("\n");
+      index++;
+    }
+
+    return message.toString();
+  }
+
+
+  private List<String> getFilesFromDirectory(String path, String type) {
+
+    List<String> files = new ArrayList<>();
+    try (Stream<Path> paths = Files.list(Paths.get(path))) {
+      if (type.equals("directory")) {
+        paths
+                .filter(Files::isDirectory)
+                .map(Path::getFileName)
+                .map(Path::toString)
+                .forEach(files::add);
+      } else {
+        paths
+                .filter(Files::isRegularFile)
+                .map(Path::getFileName)
+                .map(Path::toString)
+                .forEach(n-> {
+                  n = n.replace(".java", "");
+                  files.add(n);
+                });
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return files;
   }
 
   private void dataStructuresSwitchCase() {
@@ -240,19 +228,17 @@ public class FeatureUsageController implements IController {
             + "1. ArrayDeques\n"
             + "2. ArrayLists\n"
             + "3. Arrays\n"
-            + "4. Graphs\n"
-            + "5. HashMaps\n"
-            + "6. HashSets\n"
-            + "7. HashTables\n"
-            + "8. LinkedHashMaps\n"
-            + "9. LinkedHashSets\n"
-            + "10. LinkedLists\n"
-            + "11. PriorityQueues\n"
-            + "12. Stacks\n"
-            + "13. TreeMaps\n"
-            + "14. Trees\n"
-            + "15. TreeSets\n"
-            + "16. Vectors\n");
+            + "4. HashMaps\n"
+            + "5. HashSets\n"
+            + "6. HashTables\n"
+            + "7. LinkedHashMaps\n"
+            + "8. LinkedHashSets\n"
+            + "9. LinkedLists\n"
+            + "10. PriorityQueues\n"
+            + "11. Stacks\n"
+            + "12. TreeMaps\n"
+            + "13. TreeSets\n"
+            + "14. Vectors\n");
     appendToAppendableAndDisplay(sb);
 
     String option = view.getNextInput();
@@ -284,8 +270,6 @@ public class FeatureUsageController implements IController {
       case "arrays":
         message = new Arrays().process(cu);
         break;
-      case "graphs":
-        break;
       case "hashmaps":
         message = new HashMaps().process(cu, "HashMap", choice);
         break;
@@ -312,8 +296,6 @@ public class FeatureUsageController implements IController {
         break;
       case "treemaps":
         message = new TreeMaps().process(cu, "TreeMap");
-        break;
-      case "trees":
         break;
       case "treeset":
         message = new TreeSets().process(cu, "TreeSet", choice);
@@ -398,10 +380,7 @@ public class FeatureUsageController implements IController {
         break;
 
       case "methodoverloading":
-        Stack<String> methodCalls = new Stack<>();
-        MethodOverloading mo = new MethodOverloading();
-        mo.visit(cu, methodCalls);
-        message = mo.process(methodCalls);
+        message = new MethodOverloading().process(cu);
         break;
 
       case "methodoverriding":

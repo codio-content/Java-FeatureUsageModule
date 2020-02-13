@@ -1,107 +1,89 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.type.PrimitiveType;
+import com.github.javaparser.ast.type.Type;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class DataTypes {
-
-  // TODO: limit on the number of variables of a specific data type
-
-  // TODO: Need to use both, field declarator and variable declarator
+public class DataTypes implements IConstructs {
 
   public DataTypes() {
   }
 
-  public String processGeneralCase(CompilationUnit cu) {
+  public String process(CompilationUnit cu) {
 
-    Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);
-    List<String> all = dataTypesTable.get("all");
-    int count = all.size();
-    return generateMessage(count, all);
+    List<VariableDeclarator> dataTypes = getAllPrimitiveDataTypes(cu);
+    Hashtable<PrimitiveType.Primitive, List<String>> dataTypesTable = generateDataTypesTable(dataTypes);
+    List<String> allDataTypes = getAllDataTypes(dataTypesTable);
+    int count = allDataTypes.size();
+
+    return generateMessage(count, allDataTypes);
   }
 
-  public String processSpecificCase(CompilationUnit cu, String dataType, String variableName) {
-    Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);
-    System.out.println(dataTypesTable);
-    List<String> specifiedDatatypeList = dataTypesTable.get(dataType);
-    boolean flag = false;
-    for (String variable : specifiedDatatypeList) {
-      if (variable.contains(variableName)) {
-        flag = true;
-        break;
-      }
+  private List<String> getAllDataTypes(Hashtable<PrimitiveType.Primitive,
+          List<String>> dataTypesTable) {
+    List<String> allDataTypes = new ArrayList<>();
+    for (PrimitiveType.Primitive key: dataTypesTable.keySet()) {
+      allDataTypes.addAll(dataTypesTable.get(key));
     }
 
-    if (flag) {
-      return "DataType and Variable Present !";
-    }
+    return allDataTypes;
+  }
+
+  //TODO: This specific datatype case needs to be debugged
+
+  public String processSpecificCase(CompilationUnit cu, String dataType, String variableName) {
+//    Hashtable<String, List<String>> dataTypesTable = generateDataTypesTable(cu);
+//    //System.out.println(dataTypesTable);
+//    List<String> specifiedDatatypeList = dataTypesTable.get(dataType);
+//    boolean flag = false;
+//    for (String variable : specifiedDatatypeList) {
+//      if (variable.contains(variableName)) {
+//        flag = true;
+//        break;
+//      }
+//    }
+//
+//    if (flag) {
+//      return "DataType and Variable Present !";
+//    }
     return "DataType and Variable NOT FOUND";
   }
 
-  private Hashtable<String, List<String>> generateDataTypesTable(CompilationUnit cu) {
+  private Hashtable<PrimitiveType.Primitive, List<String>> generateDataTypesTable(List<VariableDeclarator> dataTypes) {
 
-    Hashtable<String, List<String>> dataTypesTable = new Hashtable<>();
-    List<VariableDeclarationExpr> allVariables = cu.findAll(VariableDeclarationExpr.class);
-
-    List<String> ints = new ArrayList<>();
-    List<String> doubles = new ArrayList<>();
-    List<String> strings = new ArrayList<>();
-    List<String> floats = new ArrayList<>();
-    List<String> characters = new ArrayList<>();
-    List<String> bytes = new ArrayList<>();
-    List<String> shorts = new ArrayList<>();
-    List<String> longs = new ArrayList<>();
-    List<String> booleans = new ArrayList<>();
-    List<String> allVars = new ArrayList<>();
-
-    for (VariableDeclarationExpr variable : allVariables) {
-      String var = variable.toString();
-      if (var.startsWith("int")) {
-        ints.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("double")) {
-        doubles.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("String") && !var.startsWith("String[")) {
-        strings.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("float")) {
-        floats.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("char")) {
-        characters.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("byte")) {
-        bytes.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("short")) {
-        shorts.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("long")) {
-        longs.add(var);
-        allVars.add(var);
-      } else if (var.startsWith("boolean")) {
-        booleans.add(var);
-        allVars.add(var);
+    Hashtable<PrimitiveType.Primitive, List<String>> dataTypesTable = new Hashtable<>();
+    for (VariableDeclarator dataType: dataTypes) {
+      Type type = dataType.getType();
+      if (type.isPrimitiveType()) {
+        addToHashTable(dataTypesTable, type, dataType);
       }
     }
 
-    dataTypesTable.put("int", ints);
-    dataTypesTable.put("double", doubles);
-    dataTypesTable.put("String", strings);
-    dataTypesTable.put("float", floats);
-    dataTypesTable.put("char", characters);
-    dataTypesTable.put("byte", bytes);
-    dataTypesTable.put("short", shorts);
-    dataTypesTable.put("long", longs);
-    dataTypesTable.put("boolean", booleans);
-    dataTypesTable.put("all", allVars);
-
     return dataTypesTable;
+  }
+
+  private void addToHashTable(Hashtable<PrimitiveType.Primitive, List<String>> dataTypesTable,
+                              Type type, VariableDeclarator dataType) {
+
+    PrimitiveType.Primitive key = PrimitiveType.Primitive.valueOf(type.asString().toUpperCase());
+    String value = dataType.getTypeAsString() + " " + dataType.toString();
+    if (dataTypesTable.containsKey(key)) {
+      List<String> updatedList = dataTypesTable.get(key);
+      updatedList.add(value);
+      dataTypesTable.replace(key, updatedList);
+    }
+    else {
+      List<String> newList = new ArrayList<>();
+      newList.add(value);
+      dataTypesTable.put(key, newList);
+    }
+
   }
 
   private String generateMessage(int count, List<String> all) {
@@ -123,4 +105,20 @@ public class DataTypes {
     }
     return sb.toString();
   }
+
+  private List<VariableDeclarator> getAllPrimitiveDataTypes(CompilationUnit cu) {
+
+    List<VariableDeclarator> dataTypes = new ArrayList<>();
+    List<VariableDeclarator> allVariables = cu.findAll(VariableDeclarator.class);
+
+    for (VariableDeclarator var: allVariables) {
+      Type type = var.getType();
+      if (type.isPrimitiveType())  {
+        dataTypes.add(var);
+      }
+    }
+
+    return dataTypes;
+  }
 }
+

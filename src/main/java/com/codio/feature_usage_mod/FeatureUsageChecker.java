@@ -17,8 +17,8 @@ import java.io.InputStreamReader;
  */
 public class FeatureUsageChecker {
 
-  private static final String FILE_PATH = "src/main/java/org/javaparser/examples/StudentCode.java";
-//  private static final String FILE_PATH = "src/main/java/org/javaparser/examples/D.java";
+//  private static final String FILE_PATH = "src/main/java/org/javaparser/examples/StudentCode.java";
+  private static final String FILE_PATH = "src/main/java/org/javaparser/examples/D.java";
 
 
   public static void main(String args[]) throws Exception {

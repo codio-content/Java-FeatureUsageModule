@@ -10,8 +10,6 @@ import java.util.Stack;
 
 public class StandardInputOutput {
 
-  //TODO: Abstraction !!
-
   public StandardInputOutput() {
   }
 

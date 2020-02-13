@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.stmt.BlockStmt;
@@ -9,8 +10,16 @@ import com.github.javaparser.ast.stmt.Statement;
 import java.util.List;
 
 //TODO: Revamp the whole logic for getting counts for all possible statements and cases
+/*
+    int total_If ;
+    int total_Else_If ;
+    int total_If_Else ;
+    int total_Nested_If_Else ;
+    int max_Nest_Depth ;
+ */
 
-public class IfConditionals {
+
+public class IfConditionals implements IConstructs {
 
   public IfConditionals() {
   }
@@ -30,9 +39,9 @@ public class IfConditionals {
       message = "There is no if statement in the code";
     } else {
 
-      for (IfStmt ifStmt: ifStmts) {
+      for (IfStmt ifStmt : ifStmts) {
         List<Node> nodes = ifStmt.getChildNodes();
-        for (Node node: nodes) {
+        for (Node node : nodes) {
           if (node instanceof BlockStmt) {
             List<Node> childNodes = node.getChildNodes();
 
@@ -52,9 +61,6 @@ public class IfConditionals {
 
 
       }
-
-
-
 
 
     }

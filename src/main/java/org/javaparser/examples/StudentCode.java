@@ -17,8 +17,9 @@ public class StudentCode extends Office {
 //  double decimal = 8.0;
 //  boolean bool = true;
 //  long bigNumber = 1000000000;
+
   short smallNumber = 10000;
-  byte idk = 7;
+  byte idk;
   char character = 'j';
   static String message = "";
 

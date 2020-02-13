@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Java class to find Constructors in Student Code.
  */
 
-public class Constructors {
+public class Constructors implements IConstructs {
 
   public Constructors() {
   }
@@ -30,7 +31,7 @@ public class Constructors {
   /**
    * Private method that generates the message to be returned to the controller.
    *
-   * @param count number of instances of Constructors found in Student Code.
+   * @param count        number of instances of Constructors found in Student Code.
    * @param constructors List of Constructor declarations.
    * @return returns the message to be passed on to the controller, as String.
    */

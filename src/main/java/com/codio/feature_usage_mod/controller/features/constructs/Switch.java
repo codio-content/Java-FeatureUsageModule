@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.stmt.SwitchStmt;
 
@@ -9,13 +10,14 @@ import java.util.List;
  * Java class to find Switch statements in Student Code.
  */
 
-public class Switch {
+public class Switch implements IConstructs {
 
   public Switch() {
   }
 
   /**
-   * Method that finds all instances of Switch statements in Student Code and maintains their count.
+   * Method that finds all instances of Switch statements in Student Code and maintains their
+   * count.
    *
    * @param cu AST object generated from Student Code file.
    * @return message to the controller, as String.

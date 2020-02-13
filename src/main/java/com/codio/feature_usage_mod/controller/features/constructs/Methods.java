@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Java Class to find methods in Student Code.
  */
 
-public class Methods {
+public class Methods implements IConstructs {
 
   public Methods() {
   }
@@ -30,7 +31,7 @@ public class Methods {
   /**
    * Private message that generates the message to be returned to the controller.
    *
-   * @param count number of instances of Methods found in Student Code.
+   * @param count   number of instances of Methods found in Student Code.
    * @param methods List of Method declarations
    * @return message to be passed on to the controller, as String.
    */
@@ -56,7 +57,7 @@ public class Methods {
   private String getMethodNames(List<MethodDeclaration> methods) {
 
     StringBuilder sb = new StringBuilder();
-    for (MethodDeclaration method: methods) {
+    for (MethodDeclaration method : methods) {
       sb.append(method.getDeclarationAsString().trim()).append("\n");
     }
     return sb.toString();

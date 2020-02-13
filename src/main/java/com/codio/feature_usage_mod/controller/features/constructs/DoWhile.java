@@ -1,5 +1,6 @@
 package com.codio.feature_usage_mod.controller.features.constructs;
 
+import com.codio.feature_usage_mod.controller.features.IConstructs;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.stmt.DoStmt;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Java class to find Do While Loops in Student Code.
  */
 
-public class DoWhile {
+public class DoWhile implements IConstructs {
 
   public DoWhile() {
   }
